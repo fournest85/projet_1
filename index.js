@@ -4,24 +4,9 @@ const axios = require('axios');
 
 const API_URL = 'http://localhost:3000/users';
 
-const createUser = async (user) => {
-    try {
-        const response = await axios.post(API_URL, user);
-        console.log(response.data);
-    } catch (error) {
-        console.error(error);
 
-    }
-};
 
-const getUsers = async () => {
-    try {
-        const response = await axios.get(API_URL);
-        console.log(response.data);
-    } catch (error) {
-        console.error(error);
-    }
-};
+
 
 
 
@@ -51,11 +36,11 @@ const deleteUser = async (userId) => {
 //     console.log("Serveur en ligne!!")
 // })
 
-const newUser =  { name: 'John Doe', email: 'john@example.com'} ;
-createUser(newUser);
+// const newUser =  { name: 'John Doe', email: 'john@example.com'} ;
+// createUser(newUser);
 
-updateUser('3', {id : '3', name: 'Jane Smith Doe2', email: 'john2@example.com'});
+// updateUser('3', {id : '3', name: 'Jane Smith Doe2', email: 'john2@example.com'});
 
-deleteUser('2');
+// deleteUser('2');
 
-getUsers();
+// getUsers();
