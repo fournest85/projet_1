@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestion des utilisateurs</title>
+    <link rel="stylesheet" href="style.css">
+       <script src="http://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Formulaire CRUD</h1>
+
+        <form id="userForm">
+            <input type="text" id="userId" placeholder="ID (pour modifier ou supprimer)">
+            <input type="text" id="name" placeholder="Nom" required>
+            <input type="email" id="email" placeholder="Email" required>
+            <div class="buttons">
+                <button type="submit">Créer / Modifier</button>
+                <button type="button" onclick="deleteUser()">Supprimer</button>
+            </div>
+        </form>
+
+        <h2>Liste des utilisateurs</h2>
+        <ul id="userList"></ul>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:3000/api/users';
+
+        document.getElementById('userForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const id = document.getElementById('userId').value;
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+
+            const user = { name, email };
+
+            try {
+                if (id) {
+                    await axios.put(`${API_URL}/${id}`, user);
+                    alert('Utilisateur modifié');
+                } else {
+                    await axios.post(API_URL, user);
+                    alert('Utilisateur créé');
+                }
+                loadUsers();
+            } catch (err) {
+                alert('Erreur : ' + (err.response?.data?.error || err.message));
+            }
+        });
+
+        async function deleteUser() {
+            const id = document.getElementById('userId').value;
+            if (!id) return alert('Veuillez entrer un ID à supprimer');
+
+            try {
+                await axios.delete(`${API_URL}/${id}`);
+                alert('Utilisateur supprimé');
+                loadUsers();
+            } catch (err) {
+                alert('Erreur : ' + (err.response?.data?.error || err.message));
+            }
+        }
+
+        async function loadUsers() {
+            try {
+                const res = await axios.get(API_URL);
+                const users = res.data;
+                const list = document.getElementById('userList');
+                list.innerHTML = '';
+                users.forEach(user => {
+                    const li = document.createElement('li');
+                    li.textContent = `${user.name} (${user.email}) - ID: ${user._id}`;
+                    list.appendChild(li);
+                });
+            } catch (err) {
+                console.error('Erreur chargement utilisateurs', err);
+            }
+        }
+
+        loadUsers();
+    </script>
+</body>
+</html>

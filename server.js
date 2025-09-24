@@ -1,22 +1,26 @@
 const express = require("express");
-const { connecter } = require("../projet_1/bd/connect");
+const path = require('path');
+const { connecter } = require("./bd/connect");
 const routesUser = require('./route/user');
 const app = express();
-const port = 3000;
+const axios = require('axios');
+const API_URL = 'http://localhost:3000/api/users';
+const port = process.env.PORT || 3000
+
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+app.use(express.static('public'));
+
 app.use('/api', routesUser);
-// let users = [];
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 
 
-
-// app.get('/users', (req, res) => {
-//     res.json(users);
-// });
-
-connecter('mongodb://localhost:27017/', (err) => {
+connecter('mongodb+srv://sebastienfournest_db_user:R%40oulsky85@sebastien.xv9iiw3.mongodb.net/sebastienfournest_db_user?retryWrites=true&w=majority&appName=sebastien', (err) => {
     if (err) {
         console.error('Failed to connect to the database');
         process.exit(-1);
@@ -24,37 +28,15 @@ connecter('mongodb://localhost:27017/', (err) => {
         console.log('Connected to the database');
         app.listen(port, () => {
             console.log(`Server is running on http://localhost:${port}`);
+            axios.get(API_URL)
+                .then(response => {
+                    console.log(response.data);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
         });
     }
 });
 
-// app.get('/users/:id', (req, res) => {
-//     const user = users.find(u => u.id === parseInt(req.params.id));
-//     if (!user)  return res.status(404).send ('User not found');
-//     res.json(user);
-// });
-
-// app.post('/users', (req, res) => {
-//     const {name, email} = req.body;
-//     const user = {
-//         id: users.length +1,
-//         name,
-//         email
-//     };
-//     users.push(user)
-//     res.status(201).json('User added succesfully');
-// });
-
-// app.put('/users/:id', (req, res) => {
-//     const userId = req.params.id;
-//     const updatedUser = req.body;
-//     users = users.map(user => user.id === userId ? updatedUser : user);
-//     res.send('User updated successfully');
-// });
-
-// app.delete('/users/:id', (req, res) => {
-//     const userId = req.params.id;
-//     users = users.filter(user => user.id !== userId);
-//     res.send('User delete successfully');
-// });
 

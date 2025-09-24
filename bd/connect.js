@@ -1,32 +1,36 @@
 const { MongoClient } = require('mongodb');
 
-var user = null;
+let user = null;
+let db = null;
 
-function connecter(API_URL, callback) {
-    if (user == null) {
-        user = new MongoClient(API_URL);
+function connecter(uri, callback) {
+    if (!user) {
+        user = new MongoClient(uri);
+        user.connect()
+            .then(() => {
 
-        user.connect((err) => {
-            if (err) {
-                user = null;
-                callback(err);
-            } else {
+                db = user.db("sebastienfournest_db_user");
                 callback();
-            }
-        })
+            })
+            .catch(err => {
+                user = null;
+                db = null;
+                callback(err);
+            });
     } else {
         callback();
     }
 }
 
 function bd() {
-    return new Db(user, "db/projet_1/users");
+    return db;
 }
 
 function fermerConnexion() {
     if (user) {
         user.close();
-        user = null;    
+        user = null;
+        db = null;
     }
 }
 
