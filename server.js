@@ -1,26 +1,59 @@
+require('dotenv').config();
+
 const express = require("express");
 const path = require('path');
-const { connecter, bd } = require("./bd/connect");
+const { connecter } = require("./bd/connect");
 const routesUser = require('./route/user');
+const { fetchAndStorePRs } = require('./fetchPRs');
+const { MongoClient } = require('mongodb');
+
 const app = express();
 const axios = require('axios');
 const API_URL = 'http://localhost:3000/api/users';
 const port = process.env.PORT || 3000
+const uri = process.env.MONGODB_URI;
 
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
 app.use(express.static('public'));
-
 app.use('/api', routesUser);
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
+app.get('/api/github/prs', async (req, res) => {
+    try {
+        const message = await fetchAndStorePRs();
+        res.status(200).json({ success: true, message });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
 
-connecter('mongodb+srv://sebastienfournest_db_user:R%40oulsky85@sebastien.xv9iiw3.mongodb.net/sebastienfournest_db_user?retryWrites=true&w=majority&appName=sebastien', (err) => {
+
+app.get('/api/github/prs/list', async (req, res) => {
+    const client = new MongoClient(uri);
+    try {
+        await client.connect();
+        const dbName = new URL(uri).pathname.substring(1);
+        const db = client.db(dbName);
+        const collection = db.collection('pr_merge');
+
+        const prs = await collection.find().toArray();
+        res.status(200).json(prs);
+    } catch (error) {
+        res.status(500).json({ error: 'Erreur lors de la lecture des PRs.' });
+    } finally {
+        await client.close();
+    }
+});
+
+
+
+
+connecter(uri, (err) => {
     if (err) {
         console.error('Failed to connect to the database');
         process.exit(-1);
@@ -47,5 +80,6 @@ connecter('mongodb+srv://sebastienfournest_db_user:R%40oulsky85@sebastien.xv9iiw
         });
     }
 });
+
 
 
