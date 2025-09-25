@@ -1,6 +1,6 @@
 const express = require("express");
 const path = require('path');
-const { connecter } = require("./bd/connect");
+const { connecter, bd } = require("./bd/connect");
 const routesUser = require('./route/user');
 const app = express();
 const axios = require('axios');
@@ -26,6 +26,15 @@ connecter('mongodb+srv://sebastienfournest_db_user:R%40oulsky85@sebastien.xv9iiw
         process.exit(-1);
     } else {
         console.log('Connected to the database');
+        // Mise à jour des utilisateurs : ajout du champ 'phone' si absent
+        // bd().collection('users').updateMany(
+        //     { phone: { $exists: false } }, // uniquement ceux qui n'ont pas le champ
+        //     { $set: { phone: null } }      // ajoute le champ avec valeur null
+        // ).then(result => {
+        //     console.log(`${result.modifiedCount} utilisateurs mis à jour avec le champ 'phone'.`);
+        // }).catch(error => {
+        //     console.error('Erreur lors de la mise à jour des utilisateurs :', error);
+        // });
         app.listen(port, () => {
             console.log(`Server is running on http://localhost:${port}`);
             axios.get(API_URL)

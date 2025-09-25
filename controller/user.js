@@ -7,8 +7,8 @@ const createUser = async (req, res) => {
     try {
 
 
-        if (!req.body.name || !req.body.email) {
-            return res.status(400).json({ error: 'Name and email are required' });
+        if (!req.body.name || !req.body.email || !req.body.phone) {
+            return res.status(400).json({ error: 'Name, email and phone are required' });
         }
 
         const existingUser = await dbUser.bd().collection('users').findOne({ email: req.body.email });
@@ -16,7 +16,7 @@ const createUser = async (req, res) => {
             return res.status(409).json({ error: 'User already exists' });
         }
 
-        let user = new User(req.body.name, req.body.email);
+        let user = new User(req.body.name, req.body.email, req.body.phone);
         let result = await dbUser.bd().collection('users').insertOne(user);
 
         res.status(201).json({
@@ -64,9 +64,9 @@ const getUser = async (req, res) => {
 const updateUser = async (req, res) => {
     try {
         const id = new ObjectId(req.params.id);
-        const { name, email } = req.body;
+        const { name, email, phone } = req.body;
 
-        if (!name || !email) {
+        if (!name || !email || !phone) {
             return res.status(400).json({ error: 'Name and email are required' });
         }
 
@@ -75,7 +75,7 @@ const updateUser = async (req, res) => {
             return res.status(409).json({ error: 'Email already used by another user' });
         }
 
-        const result = await dbUser.bd().collection('users').updateOne({ _id: id }, { $set: { name: name, email: email } });
+        const result = await dbUser.bd().collection('users').updateOne({ _id: id }, { $set: { name: name, email: email, phone: phone } });
         if (result.modifiedCount == 1) {
             res.status(200).json(
                 {
