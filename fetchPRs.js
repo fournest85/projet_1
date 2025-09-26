@@ -44,7 +44,6 @@ async function fetchAndStorePRs() {
 
         }));
 
-
         if (docs.length > 0) {
             await collection.insertMany(docs);
             console.log(`✅ ${docs.length} PRs enregistrées.`);
