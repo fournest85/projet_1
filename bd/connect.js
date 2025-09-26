@@ -1,4 +1,4 @@
-require('dotenv').config();
+// require('dotenv').config();
 const { MongoClient } = require('mongodb');
 
 let client = null;
@@ -9,10 +9,10 @@ function connecter(uri, callback) {
         client = new MongoClient(uri);
         client.connect()
             .then(() => {
-                const dbName = process.env.DB_NAME || new URL(uri).pathname.substring(1);
-                if (!process.env.DB_NAME) {
-                    console.warn('⚠️ DB_NAME non défini dans .env, utilisation du nom extrait de l\'URI :', dbName);
-                }
+                const dbName = "sebastienfournest_db_user";
+                // if (!process.env.DB_NAME) {
+                //     console.warn('⚠️ DB_NAME non défini dans .env, utilisation du nom extrait de l\'URI :', dbName);
+                // }
                 db = client.db(dbName);
                 callback();
             })

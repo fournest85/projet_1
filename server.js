@@ -1,4 +1,4 @@
-require('dotenv').config();
+// require('dotenv').config();
 
 const express = require("express");
 const path = require('path');
@@ -6,13 +6,14 @@ const { connecter } = require("./bd/connect");
 const routesUser = require('./route/user');
 const { fetchAndStorePRs } = require('./fetchPRs');
 const { MongoClient } = require('mongodb');
+const open = require('open').default;
 
 const app = express();
 const axios = require('axios');
 const API_URL = 'http://localhost:3000/api/users';
-const port = process.env.PORT || 3000
-const uri = process.env.MONGODB_URI;
-
+const port = 3000
+const uri = "mongodb+srv://sebastienfournest_db_user:R%40oulsky85@sebastien.xv9iiw3.mongodb.net/sebastienfournest_db_user?retryWrites=true&w=majority&appName=sebastien";
+const DB_NAME = "sebastienfournest_db_user";
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -37,8 +38,8 @@ app.get('/api/github/prs/list', async (req, res) => {
     const client = new MongoClient(uri);
     try {
         await client.connect();
-        const dbName = new URL(uri).pathname.substring(1);
-        const db = client.db(dbName);
+        // const dbName = new URL(uri).pathname.substring(1);
+        const db = client.db(DB_NAME);
         const collection = db.collection('pr_merge');
 
         const prs = await collection.find().toArray();
@@ -77,6 +78,7 @@ connecter(uri, (err) => {
                 .catch(error => {
                     console.error(error);
                 });
+            open(`http://localhost:${port}`);
         });
     }
 });
