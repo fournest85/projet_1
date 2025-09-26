@@ -2,7 +2,7 @@
 const axios = require('axios');
 const { MongoClient } = require('mongodb');
 
-const GITHUB_TOKEN = "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";
+const GITHUB_TOKEN = "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";
 const MONGODB_URI = "mongodb+srv://sebastienfournest_db_user:R%40oulsky85@sebastien.xv9iiw3.mongodb.net/sebastienfournest_db_user?retryWrites=true&w=majority&appName=sebastien";
 const GITHUB_OWNER = "fournest85";
 const GITHUB_REPO = "projet_1";
@@ -29,27 +29,23 @@ async function fetchAndStorePRs() {
         const response = await axios.get(githubApiUrl, { headers });
         const prs = response.data;
 
-        const operations = prs.map(pr => ({
-            updateOne: {
-                filter: { id: pr.id },
-                update: {
-                    $set: {
-                        id: pr.id,
-                        title: pr.title,
-                        user: pr.user,
-                        state: pr.state,
-                        created_at: pr.created_at,
-                        updated_at: pr.updated_at,
-                        url: pr.html_url
-                    }
-                },
-                upsert: true
-            }
+        await collection.deleteMany({});
+
+        const docs = prs.map(pr => ({
+            id: pr.id,
+            title: pr.title,
+            user: pr.user,
+            state: pr.state,
+            created_at: pr.created_at,
+            updated_at: pr.updated_at,
+            html_url: pr.html_url
+
         }));
 
-        if (operations.length > 0) {
-            const result = await collection.bulkWrite(operations);
-            console.log(`✅ ${result.upsertedCount + result.modifiedCount} PRs enregistrées.`);
+        
+        if (docs.length > 0) {
+            await collection.insertMany(docs);
+            console.log(`✅ ${docs.length} PRs enregistrées.`);
         } else {
             console.log('ℹ️ Aucune PR trouvée.');
         }

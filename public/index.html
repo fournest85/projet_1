@@ -101,11 +101,16 @@
 
                 prs.forEach(pr => {
                     const li = document.createElement('li');
-                    const link = document.createElement('a');
-                    link.href = pr.html_url; // lien vers la PR sur GitHub
-                    link.textContent = `${pr.title} - ${pr.user.login} (${pr.state})`;
-                    link.target = "_blank"; // ouvre dans un nouvel onglet
-                    li.appendChild(link);
+                    if (pr.html_url) {
+                        const link = document.createElement('a');
+                        link.href = pr.html_url;
+                        link.textContent = `${pr.title} - ${pr.user.login} (${pr.state})`;
+                        link.target = "_blank";
+                        li.appendChild(link);
+                    } else {
+                        li.textContent = `${pr.title} - ${pr.user.login} (${pr.state}) [lien manquant]`;
+                    }
+
                     prList.appendChild(li);
 
                 });
