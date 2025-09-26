@@ -1,8 +1,8 @@
-require('dotenv').config();
+// require('dotenv').config();
 const axios = require('axios');
 const { MongoClient } = require('mongodb');
 
-const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
+const GITHUB_TOKEN = "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";
 const MONGODB_URI = "mongodb+srv://sebastienfournest_db_user:R%40oulsky85@sebastien.xv9iiw3.mongodb.net/sebastienfournest_db_user?retryWrites=true&w=majority&appName=sebastien";
 const GITHUB_OWNER = "fournest85";
 const GITHUB_REPO = "projet_1";
