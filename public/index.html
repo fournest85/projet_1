@@ -86,31 +86,37 @@
             }
         }
 
-        
+
         async function loadPRs() {
             try {
                 const res = await axios.get('http://localhost:3000/api/github/prs');
                 const message = res.data.message;
                 const prList = document.getElementById('prList');
                 prList.innerHTML = '';
-                
+
                 // Optionnel : tu peux aussi afficher les PR stockées dans MongoDB
                 const response = await axios.get('http://localhost:3000/api/github/prs/list'); // à créer si tu veux
                 const prs = response.data;
-                
-                prs.forEach(pr => {
-            const li = document.createElement('li');
-            li.textContent = `${pr.title} - ${pr.user.login} (${pr.state})`;
-            prList.appendChild(li);
-        });
-        
-    } catch (err) {
-        console.error('Erreur chargement des PR :', err);
-    }
-}
 
-loadUsers();
-loadPRs();
+
+                prs.forEach(pr => {
+                    const li = document.createElement('li');
+                    const link = document.createElement('a');
+                    link.href = pr.html_url; // lien vers la PR sur GitHub
+                    link.textContent = `${pr.title} - ${pr.user.login} (${pr.state})`;
+                    link.target = "_blank"; // ouvre dans un nouvel onglet
+                    li.appendChild(link);
+                    prList.appendChild(li);
+
+                });
+
+            } catch (err) {
+                console.error('Erreur chargement des PR :', err);
+            }
+        }
+
+        loadUsers();
+        loadPRs();
     </script>
 </body>
 
