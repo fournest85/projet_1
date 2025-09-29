@@ -1,4 +1,4 @@
-// require('dotenv').config();
+require('dotenv').config();
 
 const express = require("express");
 const path = require('path');
@@ -10,10 +10,12 @@ const open = require('open').default;
 
 const app = express();
 const axios = require('axios');
-const API_URL = 'http://localhost:3000/api/users';
-const port = 3000
-const uri = "mongodb+srv://sebastienfournest_db_user:R%40oulsky85@sebastien.xv9iiw3.mongodb.net/sebastienfournest_db_user?retryWrites=true&w=majority&appName=sebastien";
-const DB_NAME = "sebastienfournest_db_user";
+
+const API_URL = process.env.API_URL;
+const port = process.env.PORT || 3000;
+const uri = process.env.MONGODB_URI;
+const DB_NAME = process.env.DB_NAME;
+
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());

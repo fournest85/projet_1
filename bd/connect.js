@@ -1,4 +1,4 @@
-// require('dotenv').config();
+require('dotenv').config();
 const { MongoClient } = require('mongodb');
 
 let client = null;
@@ -9,7 +9,7 @@ function connecter(uri, callback) {
         client = new MongoClient(uri);
         client.connect()
             .then(() => {
-                const dbName = "sebastienfournest_db_user";
+                const dbName = process.env.DB_NAME || "sebastienfournest_db_user";
                 // if (!process.env.DB_NAME) {
                 //     console.warn('⚠️ DB_NAME non défini dans .env, utilisation du nom extrait de l\'URI :', dbName);
                 // }

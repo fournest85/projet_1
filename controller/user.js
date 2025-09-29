@@ -66,16 +66,23 @@ const updateUser = async (req, res) => {
         const id = new ObjectId(req.params.id);
         const { name, email, phone } = req.body;
 
-        if (!name || !email || !phone) {
-            return res.status(400).json({ error: 'Name and email are required' });
-        }
 
-        const existingUser = await dbUser.bd().collection('users').findOne({ email: email, _id: { $ne: id } });
-        if (existingUser) {
-            return res.status(409).json({ error: 'Email already used by another user' });
-        }
+        const updateFields = {};
+        if (name) updateFields.name = name;
+        if (email) updateFields.email = email;
+        if (phone) updateFields.phone = phone;
 
-        const result = await dbUser.bd().collection('users').updateOne({ _id: id }, { $set: { name: name, email: email, phone: phone } });
+        if (Object.keys(updateFields).length === 0) {
+            return res.status(400).json({ error: 'Aucun champ à mettre à jour' });
+        }
+        if (email) {
+
+            const existingUser = await dbUser.bd().collection('users').findOne({ email: email, _id: { $ne: id } });
+            if (existingUser) {
+                return res.status(409).json({ error: 'Email already used by another user' });
+            }
+        }
+        const result = await dbUser.bd().collection('users').updateOne({ _id: id }, { $set: updateFields });
         if (result.modifiedCount == 1) {
             res.status(200).json(
                 {
