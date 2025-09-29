@@ -44,10 +44,6 @@ async function fetchAndStorePRs() {
 
         }));
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 3b79501 (creation des liens sur les titres pour voir tableaux users et PR)
         if (docs.length > 0) {
             await collection.insertMany(docs);
             console.log(`✅ ${docs.length} PRs enregistrées.`);
