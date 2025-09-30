@@ -33,13 +33,21 @@ const createUser = async (req, res) => {
 
 const getAllUsers = async (req, res) => {
     try {
-        let cursor = dbUser.bd().collection('users').find();
-        let result = await cursor.toArray();
-        if (result.length > 0) {
-            res.status(200).json(result);
-        } else {
-            res.status(204).json({ message: 'No Content' });
-        }
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 10;
+        const skip = (page - 1) * limit;
+
+        const collection = dbUser.bd().collection('users');
+
+        const users = await collection.find().skip(skip).limit(limit).toArray();
+        const total = await collection.countDocuments();
+
+        res.status(200).json({
+            users,
+            total,
+            page,
+            totalPages: Math.ceil(total / limit)
+        });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Internal Server Error' });

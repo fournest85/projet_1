@@ -7,6 +7,7 @@ const routesUser = require('./route/user');
 const { fetchAndStorePRs } = require('./fetchPRs');
 const { MongoClient } = require('mongodb');
 const open = require('open').default;
+require('./jobs/githubCron');
 
 const app = express();
 const axios = require('axios');
@@ -38,20 +39,84 @@ app.get('/api/github/prs', async (req, res) => {
 
 app.get('/api/github/prs/list', async (req, res) => {
     const client = new MongoClient(uri);
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const yesterday = new Date(today);
+    yesterday.setDate(today.getDate() - 1);
+
     try {
         await client.connect();
-        // const dbName = new URL(uri).pathname.substring(1);
         const db = client.db(DB_NAME);
         const collection = db.collection('pr_merge');
 
-        const prs = await collection.find().toArray();
-        res.status(200).json(prs);
+        let query = {};
+        const dateParam = req.query.date;
+
+        if (dateParam) {
+            const selectedDate = new Date(dateParam);
+            selectedDate.setHours(0, 0, 0, 0);
+            const nextDay = new Date(selectedDate);
+            nextDay.setDate(selectedDate.getDate() + 1);
+
+            query.date = {
+                $gte: selectedDate,
+                $lt: nextDay
+            };
+        } else {
+            query.date = {
+                $gte: yesterday,
+                $lt: today
+            };
+        }
+
+
+        const prs = await collection.find(query).skip(skip).limit(limit).toArray();
+        const total = await collection.countDocuments(query);
+
+        res.status(200).json({
+            prs,
+            total,
+            page,
+            totalPages: Math.ceil(total / limit)
+        });
     } catch (error) {
         res.status(500).json({ error: 'Erreur lors de la lecture des PRs.' });
     } finally {
         await client.close();
     }
 });
+
+app.get('/prs-details', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'public', 'pr-details.html'));
+});
+
+app.get('/api/github/prs/:number', async (req, res) => {
+    const client = new MongoClient(uri);
+    const prNumber = parseInt(req.params.number);
+
+    try {
+        await client.connect();
+        const db = client.db(DB_NAME);
+        const collection = db.collection('pr_merge');
+
+        const pr = await collection.findOne({ number: prNumber });
+
+        if (!pr) {
+            return res.status(404).json({ error: 'PR non trouvée.' });
+        }
+
+        res.status(200).json(pr);
+    } catch (error) {
+        res.status(500).json({ error: 'Erreur lors de la récupération de la PR.' });
+    } finally {
+        await client.close();
+    }
+});
+
 
 
 
