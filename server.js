@@ -74,7 +74,20 @@ app.get('/api/github/prs/list', async (req, res) => {
         }
 
 
-        const prs = await collection.find(query).skip(skip).limit(limit).toArray();
+
+        let sort = {};
+        const sortField = req.query.sort;
+        const sortOrder = req.query.order === 'asc' ? 1 : -1;
+
+        if (sortField === 'titleAndDate') {
+            sort = { title: 1, date: -1 }; // tri combiné
+        } else if (sortField) {
+            sort = { [sortField]: sortOrder };
+        } else {
+            sort = { date: -1 }; // tri par défaut
+        }
+
+        const prs = await collection.find(query).sort(sort).skip(skip).limit(limit).toArray();
         const total = await collection.countDocuments(query);
 
         res.status(200).json({
