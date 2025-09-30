@@ -1,9 +1,13 @@
+require('dotenv').config();
+
 const express = require('express');
 const router = express.Router();
 const { fetchAndStorePRs } = require('../fetchPRs'); 
 const { MongoClient } = require('mongodb');
-const MONGODB_URI = "mongodb+srv://sebastienfournest_db_user:R%40oulsky85@sebastien.xv9iiw3.mongodb.net/sebastienfournest_db_user?retryWrites=true&w=majority&appName=sebastien";
-const DB_NAME = "sebastienfournest_db_user";
+
+const MONGODB_URI = process.env.MONGODB_URI;
+const DB_NAME = process.env.DB_NAME;
+
 
 router.get('/prs', async (req, res) => {
     try {

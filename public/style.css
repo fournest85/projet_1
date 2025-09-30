@@ -5,7 +5,7 @@ body {
 }
 
 .container {
-    max-width: 500px;
+    max-width: 1000px; /* élargi pour accueillir les deux colonnes */
     margin: auto;
     background: white;
     padding: 20px;
@@ -21,6 +21,7 @@ form {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    margin-bottom: 20px;
 }
 
 input {
@@ -39,14 +40,31 @@ button {
     cursor: pointer;
 }
 
+.lists-container {
+    display: flex;
+    gap: 40px;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap; /* pour que ça reste responsive */
+}
+
+.list-block {
+    flex: 1;
+    min-width: 300px;
+}
+
 ul {
     list-style: none;
     padding: 0;
 }
 
-li {
+ul li {
     background: #eee;
     margin: 5px 0;
     padding: 10px;
     border-radius: 4px;
+}
+
+ul li:nth-child(odd) {
+    background-color: #f9f9f9;
 }

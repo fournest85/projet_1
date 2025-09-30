@@ -14,20 +14,28 @@
 
         <form id="userForm">
             <input type="text" id="userId" placeholder="ID (pour modifier ou supprimer)">
-            <input type="text" id="name" placeholder="Nom" required>
-            <input type="email" id="email" placeholder="Email" required>
-            <input type="text" id="phone" placeholder="Téléphone" required>
+            <input type="text" id="name" placeholder="Nom" >
+            <input type="email" id="email" placeholder="Email" >
+            <input type="text" id="phone" placeholder="Téléphone" >
             <div class="buttons">
                 <button type="submit">Créer / Modifier</button>
                 <button type="button" onclick="deleteUser()">Supprimer</button>
             </div>
         </form>
 
-        <h2>Liste des utilisateurs</h2>
-        <ul id="userList"></ul>
+        <div class="lists-container">
+            <div class="list-block">
 
-        <h2>Liste des Pull Requests GitHub</h2>
-        <ul id="prList"></ul>
+                <h2><a href="http://localhost:3000/api/users" target="_blank">Liste des utilisateurs</a></h2>
+                <button onclick="syncGitHubUsers()">Synchroniser les utilisateurs GitHub</button>
+                <ul id="userList"></ul>
+            </div>
+            <div class="list-block">
+                <h2><a href="http://localhost:3000/api/github/prs/list" target="_blank">Liste des Pull Requests
+                        GitHub</a></h2>
+                <ul id="prList"></ul>
+            </div>
+        </div>
 
     </div>
 
@@ -101,11 +109,16 @@
 
                 prs.forEach(pr => {
                     const li = document.createElement('li');
-                    const link = document.createElement('a');
-                    link.href = pr.html_url; // lien vers la PR sur GitHub
-                    link.textContent = `${pr.title} - ${pr.user.login} (${pr.state})`;
-                    link.target = "_blank"; // ouvre dans un nouvel onglet
-                    li.appendChild(link);
+                    if (pr.html_url) {
+                        const link = document.createElement('a');
+                        link.href = pr.html_url;
+                        link.textContent = `${pr.title} - ${pr.user.login} (${pr.state})`;
+                        link.target = "_blank";
+                        li.appendChild(link);
+                    } else {
+                        li.textContent = `${pr.title} - ${pr.user.login} (${pr.state}) [lien manquant]`;
+                    }
+
                     prList.appendChild(li);
 
                 });
@@ -114,6 +127,18 @@
                 console.error('Erreur chargement des PR :', err);
             }
         }
+
+
+        async function syncGitHubUsers() {
+            try {
+                const res = await axios.get('http://localhost:3000/api/prs/sync-users');
+                alert(res.data.message);
+                loadUsers(); // recharge la liste des utilisateurs
+            } catch (err) {
+                alert('Erreur : ' + (err.response?.data?.error || err.message));
+            }
+        }
+
 
         loadUsers();
         loadPRs();
