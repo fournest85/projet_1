@@ -1,15 +1,23 @@
+const { fetchAndStorePRsRaw } = require('../controller/pr');
+const { exportPRsToJson } = require('../scripts/export-prs');
 const cron = require('node-cron');
-const { fetchAndStorePRs } = require('../fetchPRs');
 
-// Planifie l'exécution tous les jours à 1h du matin
-cron.schedule('0 1 * * *', async () => {
-    console.log('⏰ Cron lancé pour récupérer les PRs modifiées...');
-    await fetchAndStorePRs();
-});
+/**
+ * Initialise le cron pour récupérer les PRs modifiées chaque jour à 1h du matin.
+ */
+function initGithubCron() {
+    cron.schedule('0 1 * * *', async () => {
+        console.log('⏰ Cron lancé pour récupérer les PRs modifiées...');
+        try {
+            const message = await fetchAndStorePRsRaw();
+            console.log('✅', message);
 
-// Lancement immédiat au démarrage (optionnel)
-(async () => {
-    console.log('🚀 Lancement initial de la récupération des PRs...');
-    await fetchAndStorePRs();
-})
-    ();
+            await exportPRsToJson();
+            console.log('📁 Export JSON terminé.');
+        } catch (error) {
+            console.error('❌ Erreur dans le cron :', error.message);
+        }
+    });
+}
+
+module.exports = { initGithubCron };

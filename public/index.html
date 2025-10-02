@@ -145,6 +145,7 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('prDateFilter').value = getYesterdayDateString();
+            loadUsers();
             loadPRs();
         });
 
@@ -192,14 +193,14 @@
             const sortedTitles = Object.keys(groupedPRs).sort();
 
             sortedTitles.forEach(title => {
-                const group = groupedPRs[title].sort((a, b) => new Date(b.date) - new Date(a.date)); // tri par date décroissante
+                const group = groupedPRs[title].sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at)); // tri par date décroissante
 
                 const li = document.createElement('li');
                 li.innerHTML = `<strong>${title}</strong> (${group.length} PR${group.length > 1 ? 's' : ''})`;
 
                 const subList = document.createElement('ul');
                 group.forEach(pr => {
-                    const dateText = pr.date ? new Date(pr.date).toLocaleDateString('fr-FR', {
+                    const dateText = pr.updated_at ? new Date(pr.updated_at).toLocaleDateString('fr-FR', {
                         weekday: 'long',
                         year: 'numeric',
                         month: 'long',
@@ -237,7 +238,7 @@
 
         async function syncGitHubUsers() {
             try {
-                const res = await axios.get('http://localhost:3000/api/prs/sync-users');
+                const res = await axios.post('http://localhost:3000/api/prs/sync-users');
                 alert(res.data.message);
                 loadUsers(); // recharge la liste des utilisateurs
             } catch (err) {
@@ -246,8 +247,6 @@
         }
 
 
-        loadUsers();
-        loadPRs();
     </script>
 </body>
 

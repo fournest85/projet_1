@@ -3,33 +3,38 @@ const { ObjectId } = require('mongodb');
 const dbUser = require('../bd/connect');
 
 
+
 const createUser = async (req, res) => {
     try {
+        const { name, email, phone, githubData } = req.body;
 
-
-        if (!req.body.name || !req.body.email || !req.body.phone) {
+        if (!name || !email || !phone) {
             return res.status(400).json({ error: 'Name, email and phone are required' });
         }
 
-        const existingUser = await dbUser.bd().collection('users').findOne({ email: req.body.email });
+        const existingUser = await dbUser.bd().collection('users').findOne({ email });
         if (existingUser) {
             return res.status(409).json({ error: 'User already exists' });
         }
 
-        let user = new User(req.body.name, req.body.email, req.body.phone);
-        let result = await dbUser.bd().collection('users').insertOne(user);
+        // Création de l'utilisateur avec les métadonnées GitHub si présentes
+        const user = new User({ name, email, phone, githubData });
+
+        const result = await dbUser.bd().collection('users').insertOne(user);
 
         res.status(201).json({
             message: 'User created successfully',
             insertedId: result.insertedId,
             _id: result.insertedId
         });
-        console.log("User created");
+
+        console.log("User created:", result.insertedId);
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 };
+
 
 const getAllUsers = async (req, res) => {
     try {
@@ -39,7 +44,11 @@ const getAllUsers = async (req, res) => {
 
         const collection = dbUser.bd().collection('users');
 
-        const users = await collection.find().skip(skip).limit(limit).toArray();
+        // 🔍 Projection pour n'afficher que les champs utiles
+        const users = await collection.find({}, {
+            projection: { id: 1, login: 1, html_url: 1, _id: 0 }
+        }).skip(skip).limit(limit).toArray();
+
         const total = await collection.countDocuments();
 
         res.status(200).json({
@@ -56,8 +65,12 @@ const getAllUsers = async (req, res) => {
 
 const getUser = async (req, res) => {
     try {
-        let id = new ObjectId(req.params.id);
-        const user = await dbUser.bd().collection('users').findOne({ _id: id });
+        const id = new ObjectId(req.params.id);
+        const user = await dbUser.bd().collection('users').findOne(
+            { _id: id },
+            { projection: { id: 1, login: 1, html_url: 1, _id: 0 } }
+        );
+
         if (user) {
             res.status(200).json(user);
         } else {
