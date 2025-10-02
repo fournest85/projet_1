@@ -110,7 +110,7 @@
                 const li = document.createElement('li');
 
                 const identity = user.githubUrl && user.name
-                    ? `<a href= "${user.githubUrl}" target="_blank">${user.name}</a>`
+                    ? `<strong><a href= "${user.githubUrl}" target="_blank">${user.name}</a></strong>`
                     : `<strong>${user.name}</strong>`;
 
                 li.innerHTML = `${identity} [${user.email}] (${user.phone}) - ID: ${user._id}`;
@@ -145,6 +145,7 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('prDateFilter').value = getYesterdayDateString();
+            loadUsers();
             loadPRs();
         });
 
@@ -152,7 +153,7 @@
         async function loadPRs() {
             const yesterday = getYesterdayDateString();
             try {
-                const res = await axios.get(`http://localhost:3000/api/github/prs/list?date=${yesterday}&page=${currentPRPage}&limit=${PRS_PER_PAGE}`);
+                const res = await axios.get(`http://localhost:3000/api/github/prs/list?date=${yesterday}&sort=titleAndDate&page=${currentPRPage}&limit=${PRS_PER_PAGE}`);
                 allPRs = res.data.prs;
                 displayPRs(currentPRPage);
                 renderPRPagination(res.data.totalPages);
@@ -179,22 +180,43 @@
             const list = document.getElementById('prList');
             list.innerHTML = '';
 
+            // Regrouper les PRs par titre
+            const groupedPRs = {};
             allPRs.forEach(pr => {
+                if (!groupedPRs[pr.title]) {
+                    groupedPRs[pr.title] = [];
+                }
+                groupedPRs[pr.title].push(pr);
+            });
+
+            // Trier les titres alphabétiquement
+            const sortedTitles = Object.keys(groupedPRs).sort();
+
+            sortedTitles.forEach(title => {
+                const group = groupedPRs[title].sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at)); // tri par date décroissante
+
                 const li = document.createElement('li');
-                const dateText = pr.date ? new Date(pr.date).toLocaleDateString('fr-FR', {
-                    weekday: 'long',
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
-                }) : 'Date inconnue';
+                li.innerHTML = `<strong>${title}</strong> (${group.length} PR${group.length > 1 ? 's' : ''})`;
 
-                const login = pr.user?.login || 'Utilisateur inconnu';
+                const subList = document.createElement('ul');
+                group.forEach(pr => {
+                    const dateText = pr.updated_at ? new Date(pr.updated_at).toLocaleDateString('fr-FR', {
+                        weekday: 'long',
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    }) : 'Date inconnue';
 
-                li.innerHTML = `<strong>${pr.title}</strong> - ${pr.user.login} (${pr.state})<br><em>Enregistrée le : ${dateText}</em>`;
-                li.style.cursor = 'pointer';
-                li.onclick = () => {
-                    window.location.href = `/prs-details?number=${pr.number}`;
-                };
+                    const subLi = document.createElement('li');
+                    subLi.innerHTML = `#${pr.number} - ${pr.user?.login || 'Utilisateur inconnu'} (${pr.state})<br><em>Enregistrée le : ${dateText}</em>`;
+                    subLi.style.cursor = 'pointer';
+                    subLi.onclick = () => {
+                        window.location.href = `/prs-details?number=${pr.number}`;
+                    };
+                    subList.appendChild(subLi);
+                });
+
+                li.appendChild(subList);
                 list.appendChild(li);
             });
         }
@@ -216,7 +238,7 @@
 
         async function syncGitHubUsers() {
             try {
-                const res = await axios.get('http://localhost:3000/api/prs/sync-users');
+                const res = await axios.post('http://localhost:3000/api/prs/sync-users');
                 alert(res.data.message);
                 loadUsers(); // recharge la liste des utilisateurs
             } catch (err) {
@@ -225,8 +247,6 @@
         }
 
 
-        loadUsers();
-        loadPRs();
     </script>
 </body>
 

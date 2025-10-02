@@ -16,7 +16,7 @@ router.route('/users/:id').put(updateUser);
 router.route('/users/:id').delete(deleteUser);
 
 
-router.get('/prs/sync-users', async (req, res) => {
+router.post('/prs/sync-users', async (req, res) => {
     try {
         const prCollection = dbUser.bd().collection('pr_merge');
         const userCollection = dbUser.bd().collection('users');
@@ -30,27 +30,27 @@ router.get('/prs/sync-users', async (req, res) => {
 
             const exists = await userCollection.findOne({ githubId: githubUser.id });
             if (!exists) {
-
-
                 const headers = {
                     Authorization: `Bearer ${GITHUB_TOKEN}`,
                     Accept: 'application/vnd.github.v3+json'
                 };
 
                 let email = '';
+                let phone = ''; 
+
                 try {
                     const userDetails = await axios.get(`https://api.github.com/users/${githubUser.login}`, { headers });
-                    email = userDetails.data.email || ''; // peut être null
+                    email = userDetails.data.email || '';
+                    phone = userDetails.data.phone || '';
                 } catch (err) {
                     console.warn(`Impossible de récupérer l'email pour ${githubUser.login}`);
                 }
 
-                const newUser = new User(
-                    githubUser.login,
-                    '', // email non fourni
-                    '',
-                    githubUser.id,
-                    githubUser.html_url
+                const newUser = new User({
+                    name: githubUser.login,
+                    email,
+                    phone,
+                    githubData: githubUser}
                 );
 
                 await userCollection.insertOne(newUser);
