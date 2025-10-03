@@ -4,6 +4,12 @@ class User {
         this.email = email;
         this.phone = phone;
 
+
+        // Renommer le champ 'id' de GitHub en 'githubId'
+        if (githubData.id) {
+            this.githubId = githubData.id;
+        }
+
         // Stocker toutes les métadonnées GitHub
         Object.assign(this, githubData);
     }
@@ -11,7 +17,7 @@ class User {
     // Méthode pour afficher uniquement les champs utiles
     getPublicProfile() {
         return {
-            id: this.id,
+            githubId: this.githubId,
             login: this.login,
             html_url: this.html_url
         };

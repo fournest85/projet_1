@@ -94,6 +94,7 @@
             try {
                 const res = await axios.get(`${API_URL}?page=${currentUserPage}&limit=${USERS_PER_PAGE}`);
                 allUsers = res.data.users;
+                console.log('Données reçues du backend :', allUsers);
                 displayUsers(currentUserPage);
                 renderUserPagination(res.data.totalPages);
             } catch (err) {
@@ -111,7 +112,7 @@
 
                 if (user.login) {
                     // Utilisateur GitHub
-                    li.innerHTML = `<strong>${user.html_url}${user.login}</a></strong> <span style="color: #0366d6;">[GitHub]</span> - ID GitHub: ${user.id}`;
+                    li.innerHTML = `<a>${user.html_url}</a> <strong>${user.login}</strong> <span style="color: #0366d6;">[GitHub]</span> - ID GitHub: ${user.githubId}`;
                 } else {
                     // Utilisateur local
                     li.innerHTML = `<strong>${user.name}</strong> [${user.email}] (${user.phone}) - ID: ${user._id}`;

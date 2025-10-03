@@ -375,15 +375,33 @@ async function fetchModifiedPRsFromYesterdayFromDB() {
 }
 
 
-const updatePRs = async (req, res) => {
+
+const updatePRs = async (req = null, res = null) => {
     try {
         const count = await updatePRsWithUser();
-        res.status(200).json({ message: `${count} PR(s) mises à jour avec les données utilisateur.` });
+
+        const message = `${count} PR(s) mises à jour avec les données utilisateur.`;
+
+        // Si res est fourni (appel via route Express)
+        if (res && typeof res.status === 'function') {
+            return res.status(200).json({ message });
+        }
+
+        // Sinon, appel interne (ex: server.js)
+        console.log(`✅ ${message}`);
+        return count;
     } catch (error) {
+        const errorMessage = 'Erreur lors de la mise à jour des PRs.';
         console.error('❌ Erreur updatePRs :', error.message);
-        res.status(500).json({ error: 'Erreur lors de la mise à jour des PRs.' });
+
+        if (res && typeof res.status === 'function') {
+            return res.status(500).json({ error: errorMessage });
+        }
+
+        return 0;
     }
 };
+
 
 
 
