@@ -1,14 +1,18 @@
 require('dotenv').config();
 const express = require("express");
+const fs = require('fs');
 const path = require('path');
 const axios = require('axios');
 const open = require('open').default;
 const readline = require('readline');
 
+const dbUser = require('./bd/connect');
 const { connecter } = require("./bd/connect");
 const routesUser = require('./route/user');
 const prRoutes = require('./route/pr');
-const { fetchAndStorePRsRaw, showDiffsForModifiedPRsFromYesterday, fetchModifiedPRsFromYesterday, fetchModifiedPRsFromYesterdayFromDB, enrichPRsManuellement } = require('./controller/pr');
+const { fetchAndStorePRsRaw, showDiffsForModifiedPRsFromYesterday, fetchModifiedPRsFromYesterday, fetchModifiedPRsFromYesterdayFromDB, updatePRs } = require('./controller/pr');
+const { migrateUsersFromPRs, migrateUsersFromPRsInternal } = require('./controller/user');
+const { updatePRsWithUser } = require('./utils/update');
 const { initGithubCron } = require('./jobs/githubCron');
 
 const app = express();
@@ -44,6 +48,45 @@ function demanderDate(callback) {
     });
 }
 
+const importPRsFromFile = async () => {
+    dbUser.connecter(uri, async (err) => {
+        if (err) {
+            console.error('❌ Erreur de connexion à MongoDB :', err.message);
+            return;
+        }
+
+        try {
+            const filePath = path.join(__dirname, 'scripts', 'exports', 'export_prs_2025-10-03.json');
+
+            if (!fs.existsSync(filePath)) {
+                console.log(`❌ Le fichier ${filePath} est introuvable.`);
+                return;
+            }
+
+            const rawData = fs.readFileSync(filePath, 'utf-8');
+            const prs = JSON.parse(rawData);
+
+
+            const prCollection = dbUser.bd().collection('pr_merge');
+            let insertedCount = 0;
+
+            for (const pr of prs) {
+                const exists = await prCollection.findOne({ number: pr.number });
+                if (!exists) {
+                    await prCollection.insertOne(pr);
+                    insertedCount++;
+                }
+            }
+
+            console.log(`✅ ${insertedCount} PR(s) importée(s) depuis le fichier.`);
+        } catch (error) {
+            console.error('❌ Erreur lors de l’import :', error.message);
+        }
+    });
+};
+
+importPRsFromFile();
+
 connecter(uri, async (err) => {
     if (err) {
         console.error('❌ Failed to connect to the database');
@@ -54,11 +97,54 @@ connecter(uri, async (err) => {
 
         demanderDate(async (inputDate) => {
             try {
-                const message = await fetchAndStorePRsRaw(inputDate); // passe la date choisie
+                const message = await fetchAndStorePRsRaw(inputDate);
                 console.log('🚀 PRs récupérées au démarrage :', message);
             } catch (error) {
                 console.error('❌ Erreur au démarrage :', error.message);
             }
+
+            try {
+                console.log('🔧 Mise à jour des PRs avec les données utilisateur...');
+                const updated = await updatePRsWithUser();
+                console.log(`✅ ${updated} PR(s) enrichies avec les données utilisateur.`);
+            } catch (err) {
+                console.error('❌ Erreur lors de la mise à jour des PRs :', err.message);
+            }
+
+            try {
+                console.log('🚀 Migration des utilisateurs GitHub depuis pr_merge...');
+
+                const fakeReq = {
+                    body: {},
+                    query: {},
+                    params: {}
+                };
+
+                const fakeRes = {
+                    status: function (code) {
+                        return {
+                            json: function (data) {
+                                console.log(`📤 Response ${code}:`, data);
+                            }
+                        };
+                    }
+                };
+
+                await migrateUsersFromPRs(fakeReq, fakeRes);
+
+                console.log('✅ Migration terminée.');
+            } catch (err) {
+                console.error('❌ Erreur lors de la migration au démarrage :', err.message);
+            }
+
+            try {
+                console.log('🚀 Migration des utilisateurs GitHub depuis pr_merge...');
+                const count = await migrateUsersFromPRsInternal();
+                console.log(`✅ Migration terminée : ${count} utilisateur(s) inséré(s).`);
+            } catch (err) {
+                console.error('❌ Erreur lors de la migration au démarrage :', err.message);
+            }
+
             // Lancement du cron
             initGithubCron();
 
@@ -97,7 +183,7 @@ connecter(uri, async (err) => {
                 try {
                     const prs = await fetchModifiedPRsFromYesterdayFromDB();
                     console.log(`📦 PRs modifiées hier : ${prs.length}`);
-                    
+
                     prs.forEach(pr => {
                         console.log(`🧪 PR #${pr.number} - updated_at: ${pr.updated_at}`);
                     });
@@ -107,22 +193,12 @@ connecter(uri, async (err) => {
 
 
                 try {
-                    const prs = await fetchModifiedPRsFromYesterday(); 
-                    await showDiffsForModifiedPRsFromYesterday(prs);   
+                    const prs = await fetchModifiedPRsFromYesterday();
+                    await showDiffsForModifiedPRsFromYesterday(prs);
                     console.log('✅ PRs enrichies avec les lignes modifiées');
                 } catch (error) {
                     console.error('❌ Erreur lors de l’analyse des PRs modifiées de la veille :', error.message);
                 }
-
-
-                // Appel unique au démarrage
-                // try {
-                //     await enrichPRsManuellement();
-                //     console.log('✅ Enrichissement des PRs terminé au démarrage');
-                // } catch (err) {
-                //     console.error('❌ Erreur lors de l’enrichissement au démarrage :', err.message);
-                // }
-
             });
         });
     }

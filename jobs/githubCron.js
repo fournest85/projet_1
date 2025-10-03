@@ -1,5 +1,6 @@
 const { fetchAndStorePRsRaw } = require('../controller/pr');
 const { exportPRsToJson } = require('../scripts/export-prs');
+const { migrateUsersFromPRs } = require('../controller/user');
 const cron = require('node-cron');
 
 /**
@@ -14,6 +15,15 @@ function initGithubCron() {
 
             await exportPRsToJson();
             console.log('📁 Export JSON terminé.');
+
+            await migrateUsersFromPRs({
+                body: {},
+                query: {},
+                params: {},
+                status: () => ({ json: console.log })
+            });
+            console.log('👥 Migration des utilisateurs GitHub terminée.');
+
         } catch (error) {
             console.error('❌ Erreur dans le cron :', error.message);
         }

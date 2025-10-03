@@ -1,0 +1,2368 @@
+[
+  {
+    "_id": "68db995e71a7674ad83ffa2f",
+    "id": 2870824895,
+    "number": 8,
+    "title": "Test branche",
+    "user": {
+      "login": "fournest85",
+      "id": 233725179,
+      "node_id": "U_kgDODe5c-w",
+      "avatar_url": "https://avatars.githubusercontent.com/u/233725179?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/fournest85",
+      "html_url": "https://github.com/fournest85",
+      "followers_url": "https://api.github.com/users/fournest85/followers",
+      "following_url": "https://api.github.com/users/fournest85/following{/other_user}",
+      "gists_url": "https://api.github.com/users/fournest85/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/fournest85/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/fournest85/subscriptions",
+      "organizations_url": "https://api.github.com/users/fournest85/orgs",
+      "repos_url": "https://api.github.com/users/fournest85/repos",
+      "events_url": "https://api.github.com/users/fournest85/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/fournest85/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "state": "closed",
+    "created_at": "2025-09-29T14:12:01.000Z",
+    "updated_at": "2025-09-29T14:13:29.000Z",
+    "repo": "projet_1",
+    "files": [
+      {
+        "filename": "public/index.html",
+        "status": "modified",
+        "additions": 21,
+        "deletions": 15,
+        "changes": 36,
+        "raw_url": "https://github.com/fournest85/projet_1/raw/3f348e061000c756c534ae974c3e264dbf745a0e/public%2Findex.html",
+        "diff": [
+          {
+            "type": "removed",
+            "content": "        \n"
+          },
+          {
+            "type": "added",
+            "content": "\n"
+          },
+          {
+            "type": "removed",
+            "content": "                \n"
+          },
+          {
+            "type": "added",
+            "content": "\n"
+          },
+          {
+            "type": "removed",
+            "content": "                \n"
+          },
+          {
+            "type": "added",
+            "content": "\n\n"
+          },
+          {
+            "type": "removed",
+            "content": "            const li = document.createElement('li');\n            li.textContent = `${pr.title} - ${pr.user.login} (${pr.state})`;\n            prList.appendChild(li);\n        });\n        \n    } catch (err) {\n        console.error('Erreur chargement des PR :', err);\n    }\n}\n"
+          },
+          {
+            "type": "added",
+            "content": "                    const li = document.createElement('li');\n                    const link = document.createElement('a');\n                    link.href = pr.html_url; // lien vers la PR sur GitHub\n                    link.textContent = `${pr.title} - ${pr.user.login} (${pr.state})`;\n                    link.target = \"_blank\"; // ouvre dans un nouvel onglet\n                    li.appendChild(link);\n                    prList.appendChild(li);\n"
+          },
+          {
+            "type": "removed",
+            "content": "loadUsers();\nloadPRs();\n"
+          },
+          {
+            "type": "added",
+            "content": "                });\n\n            } catch (err) {\n                console.error('Erreur chargement des PR :', err);\n            }\n        }\n\n        loadUsers();\n        loadPRs();\n"
+          }
+        ]
+      }
+    ],
+    "date": "2025-10-03T06:17:37.871Z"
+  },
+  {
+    "_id": "68db995e71a7674ad83ffa30",
+    "id": 2870803323,
+    "number": 7,
+    "title": "mettre à jour la version master",
+    "user": {
+      "login": "fournest85",
+      "id": 233725179,
+      "node_id": "U_kgDODe5c-w",
+      "avatar_url": "https://avatars.githubusercontent.com/u/233725179?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/fournest85",
+      "html_url": "https://github.com/fournest85",
+      "followers_url": "https://api.github.com/users/fournest85/followers",
+      "following_url": "https://api.github.com/users/fournest85/following{/other_user}",
+      "gists_url": "https://api.github.com/users/fournest85/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/fournest85/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/fournest85/subscriptions",
+      "organizations_url": "https://api.github.com/users/fournest85/orgs",
+      "repos_url": "https://api.github.com/users/fournest85/repos",
+      "events_url": "https://api.github.com/users/fournest85/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/fournest85/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "state": "closed",
+    "created_at": "2025-09-29T14:06:16.000Z",
+    "updated_at": "2025-09-29T14:06:27.000Z",
+    "repo": "projet_1",
+    "files": [],
+    "date": "2025-10-03T06:17:38.501Z"
+  },
+  {
+    "_id": "68db995e71a7674ad83ffa31",
+    "id": 2863791462,
+    "number": 6,
+    "title": "essai de lien pour afficher les pr",
+    "user": {
+      "login": "fournest85",
+      "id": 233725179,
+      "node_id": "U_kgDODe5c-w",
+      "avatar_url": "https://avatars.githubusercontent.com/u/233725179?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/fournest85",
+      "html_url": "https://github.com/fournest85",
+      "followers_url": "https://api.github.com/users/fournest85/followers",
+      "following_url": "https://api.github.com/users/fournest85/following{/other_user}",
+      "gists_url": "https://api.github.com/users/fournest85/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/fournest85/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/fournest85/subscriptions",
+      "organizations_url": "https://api.github.com/users/fournest85/orgs",
+      "repos_url": "https://api.github.com/users/fournest85/repos",
+      "events_url": "https://api.github.com/users/fournest85/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/fournest85/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "state": "closed",
+    "created_at": "2025-09-26T11:40:43.000Z",
+    "updated_at": "2025-09-26T11:41:51.000Z",
+    "repo": "projet_1",
+    "files": [
+      {
+        "filename": "public/index.html",
+        "status": "modified",
+        "additions": 21,
+        "deletions": 15,
+        "changes": 36,
+        "raw_url": "https://github.com/fournest85/projet_1/raw/33ec03d2e29cf9e32139c422e4e00771288ae3dc/public%2Findex.html",
+        "diff": [
+          {
+            "type": "removed",
+            "content": "        \n"
+          },
+          {
+            "type": "added",
+            "content": "\n"
+          },
+          {
+            "type": "removed",
+            "content": "                \n"
+          },
+          {
+            "type": "added",
+            "content": "\n"
+          },
+          {
+            "type": "removed",
+            "content": "                \n"
+          },
+          {
+            "type": "added",
+            "content": "\n\n"
+          },
+          {
+            "type": "removed",
+            "content": "            const li = document.createElement('li');\n            li.textContent = `${pr.title} - ${pr.user.login} (${pr.state})`;\n            prList.appendChild(li);\n        });\n        \n    } catch (err) {\n        console.error('Erreur chargement des PR :', err);\n    }\n}\n"
+          },
+          {
+            "type": "added",
+            "content": "                    const li = document.createElement('li');\n                    const link = document.createElement('a');\n                    link.href = pr.html_url; // lien vers la PR sur GitHub\n                    link.textContent = `${pr.title} - ${pr.user.login} (${pr.state})`;\n                    link.target = \"_blank\"; // ouvre dans un nouvel onglet\n                    li.appendChild(link);\n                    prList.appendChild(li);\n"
+          },
+          {
+            "type": "removed",
+            "content": "loadUsers();\nloadPRs();\n"
+          },
+          {
+            "type": "added",
+            "content": "                });\n\n            } catch (err) {\n                console.error('Erreur chargement des PR :', err);\n            }\n        }\n\n        loadUsers();\n        loadPRs();\n"
+          }
+        ]
+      }
+    ],
+    "date": "2025-10-03T06:17:39.689Z"
+  },
+  {
+    "_id": "68db995e71a7674ad83ffa32",
+    "id": 2863355013,
+    "number": 5,
+    "title": "Test branche",
+    "user": {
+      "login": "fournest85",
+      "id": 233725179,
+      "node_id": "U_kgDODe5c-w",
+      "avatar_url": "https://avatars.githubusercontent.com/u/233725179?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/fournest85",
+      "html_url": "https://github.com/fournest85",
+      "followers_url": "https://api.github.com/users/fournest85/followers",
+      "following_url": "https://api.github.com/users/fournest85/following{/other_user}",
+      "gists_url": "https://api.github.com/users/fournest85/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/fournest85/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/fournest85/subscriptions",
+      "organizations_url": "https://api.github.com/users/fournest85/orgs",
+      "repos_url": "https://api.github.com/users/fournest85/repos",
+      "events_url": "https://api.github.com/users/fournest85/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/fournest85/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "state": "closed",
+    "created_at": "2025-09-26T09:42:46.000Z",
+    "updated_at": "2025-09-26T09:53:30.000Z",
+    "repo": "projet_1",
+    "files": [
+      {
+        "filename": "bd/connect.js",
+        "status": "modified",
+        "additions": 5,
+        "deletions": 5,
+        "changes": 10,
+        "raw_url": "https://github.com/fournest85/projet_1/raw/3c7a1aa2e577c853a514b9e8bdc0c03660a4a7ea/bd%2Fconnect.js",
+        "diff": [
+          {
+            "type": "removed",
+            "content": "require('dotenv').config();\n"
+          },
+          {
+            "type": "added",
+            "content": "// require('dotenv').config();\n"
+          },
+          {
+            "type": "removed",
+            "content": "                const dbName = process.env.DB_NAME || new URL(uri).pathname.substring(1);\n                if (!process.env.DB_NAME) {\n                    console.warn('⚠️ DB_NAME non défini dans .env, utilisation du nom extrait de l\\'URI :', dbName);\n                }\n"
+          },
+          {
+            "type": "added",
+            "content": "                const dbName = \"sebastienfournest_db_user\";\n                // if (!process.env.DB_NAME) {\n                //     console.warn('⚠️ DB_NAME non défini dans .env, utilisation du nom extrait de l\\'URI :', dbName);\n                // }\n"
+          }
+        ]
+      },
+      {
+        "filename": "fetchPRs.js",
+        "status": "modified",
+        "additions": 10,
+        "deletions": 5,
+        "changes": 15,
+        "raw_url": "https://github.com/fournest85/projet_1/raw/3c7a1aa2e577c853a514b9e8bdc0c03660a4a7ea/fetchPRs.js",
+        "diff": [
+          {
+            "type": "removed",
+            "content": "require('dotenv').config();\n"
+          },
+          {
+            "type": "added",
+            "content": "// require('dotenv').config();\n"
+          },
+          {
+            "type": "removed",
+            "content": "const { GITHUB_TOKEN, MONGODB_URI, GITHUB_OWNER, GITHUB_REPO } = process.env;\n"
+          },
+          {
+            "type": "added",
+            "content": "const GITHUB_TOKEN = \"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\";\nconst MONGODB_URI = \"mongodb+srv://sebastienfournest_db_user:R%40oulsky85@sebastien.xv9iiw3.mongodb.net/sebastienfournest_db_user?retryWrites=true&w=majority&appName=sebastien\";\nconst GITHUB_OWNER = \"fournest85\";\nconst GITHUB_REPO = \"projet_1\";\nconst DB_NAME = \"sebastienfournest_db_user\";\n"
+          },
+          {
+            "type": "added",
+            "content": "\n"
+          },
+          {
+            "type": "removed",
+            "content": "const githubApiUrl = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/pulls`;\n"
+          },
+          {
+            "type": "added",
+            "content": "const githubApiUrl = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/pulls?state=all`;\n"
+          },
+          {
+            "type": "removed",
+            "content": "        const dbName = new URL(MONGODB_URI).pathname.substring(1); \n        const db = client.db(dbName);\n"
+          },
+          {
+            "type": "added",
+            "content": "        // const dbName = new URL(MONGODB_URI).pathname.substring(1); \n        const db = client.db(DB_NAME);\n"
+          }
+        ]
+      },
+      {
+        "filename": "package-lock.json",
+        "status": "modified",
+        "additions": 150,
+        "deletions": 1,
+        "changes": 151,
+        "raw_url": "https://github.com/fournest85/projet_1/raw/3c7a1aa2e577c853a514b9e8bdc0c03660a4a7ea/package-lock.json",
+        "diff": [
+          {
+            "type": "removed",
+            "content": "        \"nodemon\": \"^3.1.10\"\n"
+          },
+          {
+            "type": "added",
+            "content": "        \"nodemon\": \"^3.1.10\",\n        \"open\": \"^10.2.0\"\n"
+          },
+          {
+            "type": "added",
+            "content": "    \"node_modules/bundle-name\": {\n      \"version\": \"4.1.0\",\n      \"resolved\": \"https://registry.npmjs.org/bundle-name/-/bundle-name-4.1.0.tgz\",\n      \"integrity\": \"sha512-tjwM5exMg6BGRI+kNmTntNsvdZS1X8BFYS6tnJ2hdH0kVxM6/eVZ2xy+FqStSWvYmtfFMDLIxurorHwDKfDz5Q==\",\n      \"license\": \"MIT\",\n      \"dependencies\": {\n        \"run-applescript\": \"^7.0.0\"\n      },\n      \"engines\": {\n        \"node\": \">=18\"\n      },\n      \"funding\": {\n        \"url\": \"https://github.com/sponsors/sindresorhus\"\n      }\n    },\n"
+          },
+          {
+            "type": "added",
+            "content": "    \"node_modules/default-browser\": {\n      \"version\": \"5.2.1\",\n      \"resolved\": \"https://registry.npmjs.org/default-browser/-/default-browser-5.2.1.tgz\",\n      \"integrity\": \"sha512-WY/3TUME0x3KPYdRRxEJJvXRHV4PyPoUsxtZa78lwItwRQRHhd2U9xOscaT/YTf8uCXIAjeJOFBVEh/7FtD8Xg==\",\n      \"license\": \"MIT\",\n      \"dependencies\": {\n        \"bundle-name\": \"^4.1.0\",\n        \"default-browser-id\": \"^5.0.0\"\n      },\n      \"engines\": {\n        \"node\": \">=18\"\n      },\n      \"funding\": {\n        \"url\": \"https://github.com/sponsors/sindresorhus\"\n      }\n    },\n    \"node_modules/default-browser-id\": {\n      \"version\": \"5.0.0\",\n      \"resolved\": \"https://registry.npmjs.org/default-browser-id/-/default-browser-id-5.0.0.tgz\",\n      \"integrity\": \"sha512-A6p/pu/6fyBcA1TRz/GqWYPViplrftcW2gZC9q79ngNCKAeR/X3gcEdXQHl4KNXV+3wgIJ1CPkJQ3IHM6lcsyA==\",\n      \"license\": \"MIT\",\n      \"engines\": {\n        \"node\": \">=18\"\n      },\n      \"funding\": {\n        \"url\": \"https://github.com/sponsors/sindresorhus\"\n      }\n    },\n    \"node_modules/define-lazy-prop\": {\n      \"version\": \"3.0.0\",\n      \"resolved\": \"https://registry.npmjs.org/define-lazy-prop/-/define-lazy-prop-3.0.0.tgz\",\n      \"integrity\": \"sha512-N+MeXYoqr3pOgn8xfyRPREN7gHakLYjhsHhWGT3fWAiL4IkAt0iDw14QiiEm2bE30c5XX5q0FtAA3CK5f9/BUg==\",\n      \"license\": \"MIT\",\n      \"engines\": {\n        \"node\": \">=12\"\n      },\n      \"funding\": {\n        \"url\": \"https://github.com/sponsors/sindresorhus\"\n      }\n    },\n"
+          },
+          {
+            "type": "added",
+            "content": "    \"node_modules/is-docker\": {\n      \"version\": \"3.0.0\",\n      \"resolved\": \"https://registry.npmjs.org/is-docker/-/is-docker-3.0.0.tgz\",\n      \"integrity\": \"sha512-eljcgEDlEns/7AXFosB5K/2nCM4P7FQPkGc/DWLy5rmFEWvZayGrik1d9/QIY5nJ4f9YsVvBkA6kJpHn9rISdQ==\",\n      \"license\": \"MIT\",\n      \"bin\": {\n        \"is-docker\": \"cli.js\"\n      },\n      \"engines\": {\n        \"node\": \"^12.20.0 || ^14.13.1 || >=16.0.0\"\n      },\n      \"funding\": {\n        \"url\": \"https://github.com/sponsors/sindresorhus\"\n      }\n    },\n"
+          },
+          {
+            "type": "added",
+            "content": "    \"node_modules/is-inside-container\": {\n      \"version\": \"1.0.0\",\n      \"resolved\": \"https://registry.npmjs.org/is-inside-container/-/is-inside-container-1.0.0.tgz\",\n      \"integrity\": \"sha512-KIYLCCJghfHZxqjYBE7rEy0OBuTd5xCHS7tHVgvCLkx7StIoaxwNW3hCALgEUjFfeRk+MG/Qxmp/vtETEF3tRA==\",\n      \"license\": \"MIT\",\n      \"dependencies\": {\n        \"is-docker\": \"^3.0.0\"\n      },\n      \"bin\": {\n        \"is-inside-container\": \"cli.js\"\n      },\n      \"engines\": {\n        \"node\": \">=14.16\"\n      },\n      \"funding\": {\n        \"url\": \"https://github.com/sponsors/sindresorhus\"\n      }\n    },\n"
+          },
+          {
+            "type": "added",
+            "content": "    \"node_modules/is-wsl\": {\n      \"version\": \"3.1.0\",\n      \"resolved\": \"https://registry.npmjs.org/is-wsl/-/is-wsl-3.1.0.tgz\",\n      \"integrity\": \"sha512-UcVfVfaK4Sc4m7X3dUSoHoozQGBEFeDC+zVo06t98xe8CzHSZZBekNXH+tu0NalHolcJ/QAGqS46Hef7QXBIMw==\",\n      \"license\": \"MIT\",\n      \"dependencies\": {\n        \"is-inside-container\": \"^1.0.0\"\n      },\n      \"engines\": {\n        \"node\": \">=16\"\n      },\n      \"funding\": {\n        \"url\": \"https://github.com/sponsors/sindresorhus\"\n      }\n    },\n"
+          },
+          {
+            "type": "added",
+            "content": "    \"node_modules/open\": {\n      \"version\": \"10.2.0\",\n      \"resolved\": \"https://registry.npmjs.org/open/-/open-10.2.0.tgz\",\n      \"integrity\": \"sha512-YgBpdJHPyQ2UE5x+hlSXcnejzAvD0b22U2OuAP+8OnlJT+PjWPxtgmGqKKc+RgTM63U9gN0YzrYc71R2WT/hTA==\",\n      \"license\": \"MIT\",\n      \"dependencies\": {\n        \"default-browser\": \"^5.2.1\",\n        \"define-lazy-prop\": \"^3.0.0\",\n        \"is-inside-container\": \"^1.0.0\",\n        \"wsl-utils\": \"^0.1.0\"\n      },\n      \"engines\": {\n        \"node\": \">=18\"\n      },\n      \"funding\": {\n        \"url\": \"https://github.com/sponsors/sindresorhus\"\n      }\n    },\n"
+          },
+          {
+            "type": "added",
+            "content": "    \"node_modules/run-applescript\": {\n      \"version\": \"7.1.0\",\n      \"resolved\": \"https://registry.npmjs.org/run-applescript/-/run-applescript-7.1.0.tgz\",\n      \"integrity\": \"sha512-DPe5pVFaAsinSaV6QjQ6gdiedWDcRCbUuiQfQa2wmWV7+xC9bGulGI8+TdRmoFkAPaBXk8CrAbnlY2ISniJ47Q==\",\n      \"license\": \"MIT\",\n      \"engines\": {\n        \"node\": \">=18\"\n      },\n      \"funding\": {\n        \"url\": \"https://github.com/sponsors/sindresorhus\"\n      }\n    },\n"
+          },
+          {
+            "type": "added",
+            "content": "    },\n    \"node_modules/wsl-utils\": {\n      \"version\": \"0.1.0\",\n      \"resolved\": \"https://registry.npmjs.org/wsl-utils/-/wsl-utils-0.1.0.tgz\",\n      \"integrity\": \"sha512-h3Fbisa2nKGPxCpm89Hk33lBLsnaGBvctQopaBSOW/uIs6FTe1ATyAnKFJrzVs9vpGdsTe73WF3V4lIsk4Gacw==\",\n      \"license\": \"MIT\",\n      \"dependencies\": {\n        \"is-wsl\": \"^3.1.0\"\n      },\n      \"engines\": {\n        \"node\": \">=18\"\n      },\n      \"funding\": {\n        \"url\": \"https://github.com/sponsors/sindresorhus\"\n      }\n"
+          }
+        ]
+      },
+      {
+        "filename": "package.json",
+        "status": "modified",
+        "additions": 2,
+        "deletions": 1,
+        "changes": 3,
+        "raw_url": "https://github.com/fournest85/projet_1/raw/3c7a1aa2e577c853a514b9e8bdc0c03660a4a7ea/package.json",
+        "diff": [
+          {
+            "type": "removed",
+            "content": "    \"nodemon\": \"^3.1.10\"\n"
+          },
+          {
+            "type": "added",
+            "content": "    \"nodemon\": \"^3.1.10\",\n    \"open\": \"^10.2.0\"\n"
+          }
+        ]
+      },
+      {
+        "filename": "public/index.html",
+        "status": "modified",
+        "additions": 1,
+        "deletions": 1,
+        "changes": 2,
+        "raw_url": "https://github.com/fournest85/projet_1/raw/3c7a1aa2e577c853a514b9e8bdc0c03660a4a7ea/public%2Findex.html",
+        "diff": [
+          {
+            "type": "removed",
+            "content": "    <title>Gestion des utilisateurs</title>\n"
+          },
+          {
+            "type": "added",
+            "content": "    <title>Gestion des utilisateurs et PRs</title>\n"
+          }
+        ]
+      },
+      {
+        "filename": "route/pr.js",
+        "status": "modified",
+        "additions": 4,
+        "deletions": 3,
+        "changes": 7,
+        "raw_url": "https://github.com/fournest85/projet_1/raw/3c7a1aa2e577c853a514b9e8bdc0c03660a4a7ea/route%2Fpr.js",
+        "diff": [
+          {
+            "type": "removed",
+            "content": "const { MONGODB_URI } = process.env;\n"
+          },
+          {
+            "type": "added",
+            "content": "const MONGODB_URI = \"mongodb+srv://sebastienfournest_db_user:R%40oulsky85@sebastien.xv9iiw3.mongodb.net/sebastienfournest_db_user?retryWrites=true&w=majority&appName=sebastien\";\nconst DB_NAME = \"sebastienfournest_db_user\";\n"
+          },
+          {
+            "type": "removed",
+            "content": "        const dbName = new URL(MONGODB_URI).pathname.substring(1);\n        const db = client.db(dbName);\n"
+          },
+          {
+            "type": "added",
+            "content": "        // const dbName = new URL(MONGODB_URI).pathname.substring(1);\n        const db = client.db(DB_NAME);\n"
+          }
+        ]
+      },
+      {
+        "filename": "server.js",
+        "status": "modified",
+        "additions": 8,
+        "deletions": 6,
+        "changes": 14,
+        "raw_url": "https://github.com/fournest85/projet_1/raw/3c7a1aa2e577c853a514b9e8bdc0c03660a4a7ea/server.js",
+        "diff": [
+          {
+            "type": "removed",
+            "content": "require('dotenv').config();\n"
+          },
+          {
+            "type": "added",
+            "content": "// require('dotenv').config();\n"
+          },
+          {
+            "type": "added",
+            "content": "const open = require('open').default;\n"
+          },
+          {
+            "type": "removed",
+            "content": "const port = process.env.PORT || 3000\nconst uri = process.env.MONGODB_URI;\n"
+          },
+          {
+            "type": "added",
+            "content": "const port = 3000\nconst uri = \"mongodb+srv://sebastienfournest_db_user:R%40oulsky85@sebastien.xv9iiw3.mongodb.net/sebastienfournest_db_user?retryWrites=true&w=majority&appName=sebastien\";\nconst DB_NAME = \"sebastienfournest_db_user\";\n"
+          },
+          {
+            "type": "removed",
+            "content": "\n"
+          },
+          {
+            "type": "removed",
+            "content": "        const dbName = new URL(uri).pathname.substring(1);\n        const db = client.db(dbName);\n"
+          },
+          {
+            "type": "added",
+            "content": "        // const dbName = new URL(uri).pathname.substring(1);\n        const db = client.db(DB_NAME);\n"
+          },
+          {
+            "type": "added",
+            "content": "            open(`http://localhost:${port}`);\n"
+          }
+        ]
+      }
+    ],
+    "date": "2025-10-03T06:17:44.597Z"
+  },
+  {
+    "_id": "68db995e71a7674ad83ffa33",
+    "id": 2863150468,
+    "number": 4,
+    "title": "Merge pull request #3 from fournest85/master",
+    "user": {
+      "login": "fournest85",
+      "id": 233725179,
+      "node_id": "U_kgDODe5c-w",
+      "avatar_url": "https://avatars.githubusercontent.com/u/233725179?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/fournest85",
+      "html_url": "https://github.com/fournest85",
+      "followers_url": "https://api.github.com/users/fournest85/followers",
+      "following_url": "https://api.github.com/users/fournest85/following{/other_user}",
+      "gists_url": "https://api.github.com/users/fournest85/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/fournest85/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/fournest85/subscriptions",
+      "organizations_url": "https://api.github.com/users/fournest85/orgs",
+      "repos_url": "https://api.github.com/users/fournest85/repos",
+      "events_url": "https://api.github.com/users/fournest85/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/fournest85/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "state": "closed",
+    "created_at": "2025-09-26T08:53:28.000Z",
+    "updated_at": "2025-09-26T09:07:00.000Z",
+    "repo": "projet_1",
+    "files": [],
+    "date": "2025-10-03T06:17:45.256Z"
+  },
+  {
+    "_id": "68db995e71a7674ad83ffa34",
+    "id": 2863029343,
+    "number": 3,
+    "title": "essai pr",
+    "user": {
+      "login": "fournest85",
+      "id": 233725179,
+      "node_id": "U_kgDODe5c-w",
+      "avatar_url": "https://avatars.githubusercontent.com/u/233725179?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/fournest85",
+      "html_url": "https://github.com/fournest85",
+      "followers_url": "https://api.github.com/users/fournest85/followers",
+      "following_url": "https://api.github.com/users/fournest85/following{/other_user}",
+      "gists_url": "https://api.github.com/users/fournest85/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/fournest85/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/fournest85/subscriptions",
+      "organizations_url": "https://api.github.com/users/fournest85/orgs",
+      "repos_url": "https://api.github.com/users/fournest85/repos",
+      "events_url": "https://api.github.com/users/fournest85/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/fournest85/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "state": "closed",
+    "created_at": "2025-09-26T08:18:43.000Z",
+    "updated_at": "2025-09-26T08:18:53.000Z",
+    "repo": "projet_1",
+    "files": [],
+    "date": "2025-10-03T06:17:45.936Z"
+  },
+  {
+    "_id": "68db995e71a7674ad83ffa35",
+    "id": 2862896429,
+    "number": 2,
+    "title": "essai de recuparation de pr, probleme de connection",
+    "user": {
+      "login": "fournest85",
+      "id": 233725179,
+      "node_id": "U_kgDODe5c-w",
+      "avatar_url": "https://avatars.githubusercontent.com/u/233725179?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/fournest85",
+      "html_url": "https://github.com/fournest85",
+      "followers_url": "https://api.github.com/users/fournest85/followers",
+      "following_url": "https://api.github.com/users/fournest85/following{/other_user}",
+      "gists_url": "https://api.github.com/users/fournest85/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/fournest85/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/fournest85/subscriptions",
+      "organizations_url": "https://api.github.com/users/fournest85/orgs",
+      "repos_url": "https://api.github.com/users/fournest85/repos",
+      "events_url": "https://api.github.com/users/fournest85/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/fournest85/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "state": "closed",
+    "created_at": "2025-09-26T07:40:08.000Z",
+    "updated_at": "2025-09-26T07:40:25.000Z",
+    "repo": "projet_1",
+    "files": [
+      {
+        "filename": ".gitignore",
+        "status": "modified",
+        "additions": 1,
+        "deletions": 0,
+        "changes": 1,
+        "raw_url": "https://github.com/fournest85/projet_1/raw/c07ca76562e329bd94df542f5b7406cc7fd8dc71/.gitignore",
+        "diff": [
+          {
+            "type": "added",
+            "content": "\n"
+          }
+        ]
+      },
+      {
+        "filename": "bd/connect.js",
+        "status": "modified",
+        "additions": 14,
+        "deletions": 10,
+        "changes": 24,
+        "raw_url": "https://github.com/fournest85/projet_1/raw/c07ca76562e329bd94df542f5b7406cc7fd8dc71/bd%2Fconnect.js",
+        "diff": [
+          {
+            "type": "added",
+            "content": "require('dotenv').config();\n"
+          },
+          {
+            "type": "removed",
+            "content": "let user = null;\n"
+          },
+          {
+            "type": "added",
+            "content": "let client = null;\n"
+          },
+          {
+            "type": "removed",
+            "content": "    if (!user) {\n        user = new MongoClient(uri);\n        user.connect()\n"
+          },
+          {
+            "type": "added",
+            "content": "    if (!client) {\n        client = new MongoClient(uri);\n        client.connect()\n"
+          },
+          {
+            "type": "removed",
+            "content": "\n                db = user.db(\"sebastienfournest_db_user\");\n"
+          },
+          {
+            "type": "added",
+            "content": "                const dbName = process.env.DB_NAME || new URL(uri).pathname.substring(1);\n                if (!process.env.DB_NAME) {\n                    console.warn('⚠️ DB_NAME non défini dans .env, utilisation du nom extrait de l\\'URI :', dbName);\n                }\n                db = client.db(dbName);\n"
+          },
+          {
+            "type": "removed",
+            "content": "                user = null;\n"
+          },
+          {
+            "type": "added",
+            "content": "                client = null;\n"
+          },
+          {
+            "type": "removed",
+            "content": "    if (user) {\n        user.close();\n        user = null;\n"
+          },
+          {
+            "type": "added",
+            "content": "    if (client) {\n        client.close();\n        client = null;\n"
+          }
+        ]
+      },
+      {
+        "filename": "fetchPRs.js",
+        "status": "added",
+        "additions": 60,
+        "deletions": 0,
+        "changes": 60,
+        "raw_url": "https://github.com/fournest85/projet_1/raw/c07ca76562e329bd94df542f5b7406cc7fd8dc71/fetchPRs.js"
+      },
+      {
+        "filename": "package-lock.json",
+        "status": "modified",
+        "additions": 13,
+        "deletions": 0,
+        "changes": 13,
+        "raw_url": "https://github.com/fournest85/projet_1/raw/c07ca76562e329bd94df542f5b7406cc7fd8dc71/package-lock.json",
+        "diff": [
+          {
+            "type": "added",
+            "content": "        \"dotenv\": \"^17.2.2\",\n"
+          },
+          {
+            "type": "added",
+            "content": "    \"node_modules/dotenv\": {\n      \"version\": \"17.2.2\",\n      \"resolved\": \"https://registry.npmjs.org/dotenv/-/dotenv-17.2.2.tgz\",\n      \"integrity\": \"sha512-Sf2LSQP+bOlhKWWyhFsn0UsfdK/kCWRv1iuA2gXAwt3dyNabr6QSj00I2V10pidqz69soatm9ZwZvpQMTIOd5Q==\",\n      \"license\": \"BSD-2-Clause\",\n      \"engines\": {\n        \"node\": \">=12\"\n      },\n      \"funding\": {\n        \"url\": \"https://dotenvx.com\"\n      }\n    },\n"
+          }
+        ]
+      },
+      {
+        "filename": "package.json",
+        "status": "modified",
+        "additions": 1,
+        "deletions": 0,
+        "changes": 1,
+        "raw_url": "https://github.com/fournest85/projet_1/raw/c07ca76562e329bd94df542f5b7406cc7fd8dc71/package.json",
+        "diff": [
+          {
+            "type": "added",
+            "content": "    \"dotenv\": \"^17.2.2\",\n"
+          }
+        ]
+      },
+      {
+        "filename": "public/index.html",
+        "status": "modified",
+        "additions": 34,
+        "deletions": 3,
+        "changes": 37,
+        "raw_url": "https://github.com/fournest85/projet_1/raw/c07ca76562e329bd94df542f5b7406cc7fd8dc71/public%2Findex.html",
+        "diff": [
+          {
+            "type": "added",
+            "content": "\n"
+          },
+          {
+            "type": "removed",
+            "content": "       <script src=\"http://cdn.jsdelivr.net/npm/axios/dist/axios.min.js\"></script>\n"
+          },
+          {
+            "type": "added",
+            "content": "    <script src=\"http://cdn.jsdelivr.net/npm/axios/dist/axios.min.js\"></script>\n"
+          },
+          {
+            "type": "added",
+            "content": "\n"
+          },
+          {
+            "type": "added",
+            "content": "\n        <h2>Liste des Pull Requests GitHub</h2>\n        <ul id=\"prList\"></ul>\n\n"
+          },
+          {
+            "type": "removed",
+            "content": "        loadUsers();\n"
+          },
+          {
+            "type": "added",
+            "content": "        \n        async function loadPRs() {\n            try {\n                const res = await axios.get('http://localhost:3000/api/github/prs');\n                const message = res.data.message;\n                const prList = document.getElementById('prList');\n                prList.innerHTML = '';\n                \n                // Optionnel : tu peux aussi afficher les PR stockées dans MongoDB\n                const response = await axios.get('http://localhost:3000/api/github/prs/list'); // à créer si tu veux\n                const prs = response.data;\n                \n                prs.forEach(pr => {\n            const li = document.createElement('li');\n            li.textContent = `${pr.title} - ${pr.user.login} (${pr.state})`;\n            prList.appendChild(li);\n        });\n        \n    } catch (err) {\n        console.error('Erreur chargement des PR :', err);\n    }\n}\n\nloadUsers();\nloadPRs();\n"
+          },
+          {
+            "type": "removed",
+            "content": "</html>\n"
+          },
+          {
+            "type": "added",
+            "content": "\n</html>"
+          }
+        ]
+      },
+      {
+        "filename": "route/pr.js",
+        "status": "added",
+        "additions": 33,
+        "deletions": 0,
+        "changes": 33,
+        "raw_url": "https://github.com/fournest85/projet_1/raw/c07ca76562e329bd94df542f5b7406cc7fd8dc71/route%2Fpr.js"
+      },
+      {
+        "filename": "server.js",
+        "status": "modified",
+        "additions": 38,
+        "deletions": 4,
+        "changes": 42,
+        "raw_url": "https://github.com/fournest85/projet_1/raw/c07ca76562e329bd94df542f5b7406cc7fd8dc71/server.js",
+        "diff": [
+          {
+            "type": "added",
+            "content": "require('dotenv').config();\n\n"
+          },
+          {
+            "type": "removed",
+            "content": "const { connecter, bd } = require(\"./bd/connect\");\n"
+          },
+          {
+            "type": "added",
+            "content": "const { connecter } = require(\"./bd/connect\");\n"
+          },
+          {
+            "type": "added",
+            "content": "const { fetchAndStorePRs } = require('./fetchPRs');\nconst { MongoClient } = require('mongodb');\n\n"
+          },
+          {
+            "type": "added",
+            "content": "const uri = process.env.MONGODB_URI;\n"
+          },
+          {
+            "type": "removed",
+            "content": "\n"
+          },
+          {
+            "type": "removed",
+            "content": "\n"
+          },
+          {
+            "type": "added",
+            "content": "app.get('/api/github/prs', async (req, res) => {\n    try {\n        const message = await fetchAndStorePRs();\n        res.status(200).json({ success: true, message });\n    } catch (error) {\n        res.status(500).json({ success: false, error: error.message });\n    }\n});\n"
+          },
+          {
+            "type": "removed",
+            "content": "connecter('mongodb+srv://sebastienfournest_db_user:R%40oulsky85@sebastien.xv9iiw3.mongodb.net/sebastienfournest_db_user?retryWrites=true&w=majority&appName=sebastien', (err) => {\n"
+          },
+          {
+            "type": "added",
+            "content": "\napp.get('/api/github/prs/list', async (req, res) => {\n    const client = new MongoClient(uri);\n    try {\n        await client.connect();\n        const dbName = new URL(uri).pathname.substring(1);\n        const db = client.db(dbName);\n        const collection = db.collection('pr_merge');\n\n        const prs = await collection.find().toArray();\n        res.status(200).json(prs);\n    } catch (error) {\n        res.status(500).json({ error: 'Erreur lors de la lecture des PRs.' });\n    } finally {\n        await client.close();\n    }\n});\n\n\n\n\nconnecter(uri, (err) => {\n"
+          },
+          {
+            "type": "added",
+            "content": "\n"
+          }
+        ]
+      }
+    ],
+    "date": "2025-10-03T06:17:49.924Z"
+  },
+  {
+    "_id": "68db995e71a7674ad83ffa36",
+    "id": 2859885300,
+    "number": 1,
+    "title": "creation du formulaire et creation du champ phone",
+    "user": {
+      "login": "fournest85",
+      "id": 233725179,
+      "node_id": "U_kgDODe5c-w",
+      "avatar_url": "https://avatars.githubusercontent.com/u/233725179?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/fournest85",
+      "html_url": "https://github.com/fournest85",
+      "followers_url": "https://api.github.com/users/fournest85/followers",
+      "following_url": "https://api.github.com/users/fournest85/following{/other_user}",
+      "gists_url": "https://api.github.com/users/fournest85/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/fournest85/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/fournest85/subscriptions",
+      "organizations_url": "https://api.github.com/users/fournest85/orgs",
+      "repos_url": "https://api.github.com/users/fournest85/repos",
+      "events_url": "https://api.github.com/users/fournest85/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/fournest85/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "state": "closed",
+    "created_at": "2025-09-25T09:18:30.000Z",
+    "updated_at": "2025-09-25T09:20:33.000Z",
+    "repo": "projet_1",
+    "files": [
+      {
+        "filename": "controller/user.js",
+        "status": "modified",
+        "additions": 6,
+        "deletions": 6,
+        "changes": 12,
+        "raw_url": "https://github.com/fournest85/projet_1/raw/2ee2966ff06b8351cc490aca660b013ec72ff129/controller%2Fuser.js",
+        "diff": [
+          {
+            "type": "removed",
+            "content": "        if (!req.body.name || !req.body.email) {\n            return res.status(400).json({ error: 'Name and email are required' });\n"
+          },
+          {
+            "type": "added",
+            "content": "        if (!req.body.name || !req.body.email || !req.body.phone) {\n            return res.status(400).json({ error: 'Name, email and phone are required' });\n"
+          },
+          {
+            "type": "removed",
+            "content": "        let user = new User(req.body.name, req.body.email);\n"
+          },
+          {
+            "type": "added",
+            "content": "        let user = new User(req.body.name, req.body.email, req.body.phone);\n"
+          },
+          {
+            "type": "removed",
+            "content": "        const { name, email } = req.body;\n"
+          },
+          {
+            "type": "added",
+            "content": "        const { name, email, phone } = req.body;\n"
+          },
+          {
+            "type": "removed",
+            "content": "        if (!name || !email) {\n"
+          },
+          {
+            "type": "added",
+            "content": "        if (!name || !email || !phone) {\n"
+          },
+          {
+            "type": "removed",
+            "content": "        const result = await dbUser.bd().collection('users').updateOne({ _id: id }, { $set: { name: name, email: email } });\n"
+          },
+          {
+            "type": "added",
+            "content": "        const result = await dbUser.bd().collection('users').updateOne({ _id: id }, { $set: { name: name, email: email, phone: phone } });\n"
+          }
+        ]
+      },
+      {
+        "filename": "model/user.js",
+        "status": "modified",
+        "additions": 2,
+        "deletions": 1,
+        "changes": 3,
+        "raw_url": "https://github.com/fournest85/projet_1/raw/2ee2966ff06b8351cc490aca660b013ec72ff129/model%2Fuser.js",
+        "diff": [
+          {
+            "type": "removed",
+            "content": "    constructor(name, email) {\n"
+          },
+          {
+            "type": "added",
+            "content": "    constructor(name, email, phone) {\n"
+          },
+          {
+            "type": "added",
+            "content": "        this.phone = phone;\n"
+          }
+        ]
+      },
+      {
+        "filename": "public/index.html",
+        "status": "modified",
+        "additions": 4,
+        "deletions": 2,
+        "changes": 6,
+        "raw_url": "https://github.com/fournest85/projet_1/raw/2ee2966ff06b8351cc490aca660b013ec72ff129/public%2Findex.html",
+        "diff": [
+          {
+            "type": "added",
+            "content": "            <input type=\"text\" id=\"phone\" placeholder=\"Téléphone\" required>\n"
+          },
+          {
+            "type": "added",
+            "content": "            const phone = document.getElementById('phone').value;\n"
+          },
+          {
+            "type": "removed",
+            "content": "            const user = { name, email };\n"
+          },
+          {
+            "type": "added",
+            "content": "            const user = { name, email, phone };\n"
+          },
+          {
+            "type": "removed",
+            "content": "                    li.textContent = `${user.name} (${user.email}) - ID: ${user._id}`;\n"
+          },
+          {
+            "type": "added",
+            "content": "                    li.textContent = `${user.name} (${user.email}) (${user.phone}) - ID: ${user._id}`;\n"
+          }
+        ]
+      },
+      {
+        "filename": "server.js",
+        "status": "modified",
+        "additions": 10,
+        "deletions": 1,
+        "changes": 11,
+        "raw_url": "https://github.com/fournest85/projet_1/raw/2ee2966ff06b8351cc490aca660b013ec72ff129/server.js",
+        "diff": [
+          {
+            "type": "removed",
+            "content": "const { connecter } = require(\"./bd/connect\");\n"
+          },
+          {
+            "type": "added",
+            "content": "const { connecter, bd } = require(\"./bd/connect\");\n"
+          },
+          {
+            "type": "added",
+            "content": "        // Mise à jour des utilisateurs : ajout du champ 'phone' si absent\n        // bd().collection('users').updateMany(\n        //     { phone: { $exists: false } }, // uniquement ceux qui n'ont pas le champ\n        //     { $set: { phone: null } }      // ajoute le champ avec valeur null\n        // ).then(result => {\n        //     console.log(`${result.modifiedCount} utilisateurs mis à jour avec le champ 'phone'.`);\n        // }).catch(error => {\n        //     console.error('Erreur lors de la mise à jour des utilisateurs :', error);\n        // });\n"
+          }
+        ]
+      }
+    ],
+    "date": "2025-10-03T06:17:52.882Z"
+  },
+  {
+    "_id": "68dbded9ac8f81a9cf0fb7e6",
+    "id": 2874539433,
+    "number": 9,
+    "title": "mise à jour de la branche master",
+    "user": {
+      "login": "fournest85",
+      "id": 233725179,
+      "node_id": "U_kgDODe5c-w",
+      "avatar_url": "https://avatars.githubusercontent.com/u/233725179?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/fournest85",
+      "html_url": "https://github.com/fournest85",
+      "followers_url": "https://api.github.com/users/fournest85/followers",
+      "following_url": "https://api.github.com/users/fournest85/following{/other_user}",
+      "gists_url": "https://api.github.com/users/fournest85/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/fournest85/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/fournest85/subscriptions",
+      "organizations_url": "https://api.github.com/users/fournest85/orgs",
+      "repos_url": "https://api.github.com/users/fournest85/repos",
+      "events_url": "https://api.github.com/users/fournest85/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/fournest85/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "state": "closed",
+    "created_at": "2025-09-30T13:18:39.000Z",
+    "updated_at": "2025-09-30T13:18:56.000Z",
+    "repo": "projet_1",
+    "files": [
+      {
+        "filename": "bd/connect.js",
+        "status": "modified",
+        "additions": 2,
+        "deletions": 2,
+        "changes": 4,
+        "raw_url": "https://github.com/fournest85/projet_1/raw/2df480e7171df6f163c7b81b3eceeba11ad0ff92/bd%2Fconnect.js",
+        "diff": [
+          {
+            "type": "removed",
+            "content": "// require('dotenv').config();\n"
+          },
+          {
+            "type": "added",
+            "content": "require('dotenv').config();\n"
+          },
+          {
+            "type": "removed",
+            "content": "                const dbName = \"sebastienfournest_db_user\";\n"
+          },
+          {
+            "type": "added",
+            "content": "                const dbName = process.env.DB_NAME || \"sebastienfournest_db_user\";\n"
+          }
+        ]
+      },
+      {
+        "filename": "controller/user.js",
+        "status": "modified",
+        "additions": 14,
+        "deletions": 7,
+        "changes": 21,
+        "raw_url": "https://github.com/fournest85/projet_1/raw/2df480e7171df6f163c7b81b3eceeba11ad0ff92/controller%2Fuser.js",
+        "diff": [
+          {
+            "type": "removed",
+            "content": "        if (!name || !email || !phone) {\n            return res.status(400).json({ error: 'Name and email are required' });\n        }\n"
+          },
+          {
+            "type": "removed",
+            "content": "        const existingUser = await dbUser.bd().collection('users').findOne({ email: email, _id: { $ne: id } });\n        if (existingUser) {\n            return res.status(409).json({ error: 'Email already used by another user' });\n"
+          },
+          {
+            "type": "added",
+            "content": "        const updateFields = {};\n        if (name) updateFields.name = name;\n        if (email) updateFields.email = email;\n        if (phone) updateFields.phone = phone;\n\n        if (Object.keys(updateFields).length === 0) {\n            return res.status(400).json({ error: 'Aucun champ à mettre à jour' });\n"
+          },
+          {
+            "type": "added",
+            "content": "        if (email) {\n"
+          },
+          {
+            "type": "removed",
+            "content": "        const result = await dbUser.bd().collection('users').updateOne({ _id: id }, { $set: { name: name, email: email, phone: phone } });\n"
+          },
+          {
+            "type": "added",
+            "content": "            const existingUser = await dbUser.bd().collection('users').findOne({ email: email, _id: { $ne: id } });\n            if (existingUser) {\n                return res.status(409).json({ error: 'Email already used by another user' });\n            }\n        }\n        const result = await dbUser.bd().collection('users').updateOne({ _id: id }, { $set: updateFields });\n"
+          }
+        ]
+      },
+      {
+        "filename": "fetchPRs.js",
+        "status": "modified",
+        "additions": 24,
+        "deletions": 27,
+        "changes": 51,
+        "raw_url": "https://github.com/fournest85/projet_1/raw/2df480e7171df6f163c7b81b3eceeba11ad0ff92/fetchPRs.js",
+        "diff": [
+          {
+            "type": "removed",
+            "content": "// require('dotenv').config();\n"
+          },
+          {
+            "type": "added",
+            "content": "require('dotenv').config();\n"
+          },
+          {
+            "type": "removed",
+            "content": "const GITHUB_TOKEN = \"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\";\nconst MONGODB_URI = \"mongodb+srv://sebastienfournest_db_user:R%40oulsky85@sebastien.xv9iiw3.mongodb.net/sebastienfournest_db_user?retryWrites=true&w=majority&appName=sebastien\";\nconst GITHUB_OWNER = \"fournest85\";\nconst GITHUB_REPO = \"projet_1\";\nconst DB_NAME = \"sebastienfournest_db_user\";\n"
+          },
+          {
+            "type": "added",
+            "content": "const GITHUB_TOKEN = process.env.GITHUB_TOKEN;\nconst MONGODB_URI = process.env.MONGODB_URI;\nconst GITHUB_OWNER = process.env.GITHUB_OWNER;\nconst GITHUB_REPO = process.env.GITHUB_REPO;\nconst DB_NAME = process.env.DB_NAME;\n"
+          },
+          {
+            "type": "added",
+            "content": "\n\n"
+          },
+          {
+            "type": "removed",
+            "content": "    Authorization: `token ${GITHUB_TOKEN}`,\n"
+          },
+          {
+            "type": "added",
+            "content": "    Authorization: `Bearer ${GITHUB_TOKEN}`,\n"
+          },
+          {
+            "type": "removed",
+            "content": "\n"
+          },
+          {
+            "type": "added",
+            "content": "        // console.log('Token utilisé :', process.env.GITHUB_TOKEN);\n"
+          },
+          {
+            "type": "removed",
+            "content": "        const operations = prs.map(pr => ({\n            updateOne: {\n                filter: { id: pr.id },\n                update: {\n                    $set: {\n                        id: pr.id,\n                        title: pr.title,\n                        user: pr.user,\n                        state: pr.state,\n                        created_at: pr.created_at,\n                        updated_at: pr.updated_at,\n                        url: pr.html_url\n                    }\n                },\n                upsert: true\n            }\n"
+          },
+          {
+            "type": "added",
+            "content": "        await collection.deleteMany({});\n\n        const docs = prs.map(pr => ({\n            id: pr.id,\n            title: pr.title,\n            user: pr.user,\n            state: pr.state,\n            created_at: pr.created_at,\n            updated_at: pr.updated_at,\n            html_url: pr.html_url\n\n"
+          },
+          {
+            "type": "removed",
+            "content": "        if (operations.length > 0) {\n            const result = await collection.bulkWrite(operations);\n            console.log(`✅ ${result.upsertedCount + result.modifiedCount} PRs enregistrées.`);\n"
+          },
+          {
+            "type": "added",
+            "content": "        if (docs.length > 0) {\n            await collection.insertMany(docs);\n            console.log(`✅ ${docs.length} PRs enregistrées.`);\n"
+          }
+        ]
+      },
+      {
+        "filename": "model/user.js",
+        "status": "modified",
+        "additions": 6,
+        "deletions": 3,
+        "changes": 9,
+        "raw_url": "https://github.com/fournest85/projet_1/raw/2df480e7171df6f163c7b81b3eceeba11ad0ff92/model%2Fuser.js",
+        "diff": [
+          {
+            "type": "removed",
+            "content": "class User  {   \n    constructor(name, email, phone) {\n"
+          },
+          {
+            "type": "added",
+            "content": "class User {\n    constructor(name, email, phone, githubId=null, githubUrl=null) {\n"
+          },
+          {
+            "type": "removed",
+            "content": "        this.email = email; \n"
+          },
+          {
+            "type": "added",
+            "content": "        this.email = email;\n"
+          },
+          {
+            "type": "added",
+            "content": "        this.githubId = githubId;\n        this.githubUrl = githubUrl;\n\n"
+          }
+        ]
+      },
+      {
+        "filename": "public/index.html",
+        "status": "modified",
+        "additions": 37,
+        "deletions": 12,
+        "changes": 49,
+        "raw_url": "https://github.com/fournest85/projet_1/raw/2df480e7171df6f163c7b81b3eceeba11ad0ff92/public%2Findex.html",
+        "diff": [
+          {
+            "type": "removed",
+            "content": "            <input type=\"text\" id=\"name\" placeholder=\"Nom\" required>\n            <input type=\"email\" id=\"email\" placeholder=\"Email\" required>\n            <input type=\"text\" id=\"phone\" placeholder=\"Téléphone\" required>\n"
+          },
+          {
+            "type": "added",
+            "content": "            <input type=\"text\" id=\"name\" placeholder=\"Nom\" >\n            <input type=\"email\" id=\"email\" placeholder=\"Email\" >\n            <input type=\"text\" id=\"phone\" placeholder=\"Téléphone\" >\n"
+          },
+          {
+            "type": "removed",
+            "content": "        <h2>Liste des utilisateurs</h2>\n        <ul id=\"userList\"></ul>\n"
+          },
+          {
+            "type": "added",
+            "content": "        <div class=\"lists-container\">\n            <div class=\"list-block\">\n"
+          },
+          {
+            "type": "removed",
+            "content": "        <h2>Liste des Pull Requests GitHub</h2>\n        <ul id=\"prList\"></ul>\n"
+          },
+          {
+            "type": "added",
+            "content": "                <h2><a href=\"http://localhost:3000/api/users\" target=\"_blank\">Liste des utilisateurs</a></h2>\n                <button onclick=\"syncGitHubUsers()\">Synchroniser les utilisateurs GitHub</button>\n                <ul id=\"userList\"></ul>\n            </div>\n            <div class=\"list-block\">\n                <h2><a href=\"http://localhost:3000/api/github/prs/list\" target=\"_blank\">Liste des Pull Requests\n                        GitHub</a></h2>\n                <ul id=\"prList\"></ul>\n            </div>\n        </div>\n"
+          },
+          {
+            "type": "removed",
+            "content": "                    const link = document.createElement('a');\n                    link.href = pr.html_url; // lien vers la PR sur GitHub\n                    link.textContent = `${pr.title} - ${pr.user.login} (${pr.state})`;\n                    link.target = \"_blank\"; // ouvre dans un nouvel onglet\n                    li.appendChild(link);\n"
+          },
+          {
+            "type": "added",
+            "content": "                    if (pr.html_url) {\n                        const link = document.createElement('a');\n                        link.href = pr.html_url;\n                        link.textContent = `${pr.title} - ${pr.user.login} (${pr.state})`;\n                        link.target = \"_blank\";\n                        li.appendChild(link);\n                    } else {\n                        li.textContent = `${pr.title} - ${pr.user.login} (${pr.state}) [lien manquant]`;\n                    }\n\n"
+          },
+          {
+            "type": "added",
+            "content": "\n        async function syncGitHubUsers() {\n            try {\n                const res = await axios.get('http://localhost:3000/api/prs/sync-users');\n                alert(res.data.message);\n                loadUsers(); // recharge la liste des utilisateurs\n            } catch (err) {\n                alert('Erreur : ' + (err.response?.data?.error || err.message));\n            }\n        }\n\n\n"
+          }
+        ]
+      },
+      {
+        "filename": "public/style.css",
+        "status": "modified",
+        "additions": 20,
+        "deletions": 2,
+        "changes": 22,
+        "raw_url": "https://github.com/fournest85/projet_1/raw/2df480e7171df6f163c7b81b3eceeba11ad0ff92/public%2Fstyle.css",
+        "diff": [
+          {
+            "type": "removed",
+            "content": "    max-width: 500px;\n"
+          },
+          {
+            "type": "added",
+            "content": "    max-width: 1000px; /* élargi pour accueillir les deux colonnes */\n"
+          },
+          {
+            "type": "added",
+            "content": "    margin-bottom: 20px;\n"
+          },
+          {
+            "type": "added",
+            "content": ".lists-container {\n    display: flex;\n    gap: 40px;\n    justify-content: space-between;\n    align-items: flex-start;\n    flex-wrap: wrap; /* pour que ça reste responsive */\n}\n\n.list-block {\n    flex: 1;\n    min-width: 300px;\n}\n\n"
+          },
+          {
+            "type": "removed",
+            "content": "li {\n"
+          },
+          {
+            "type": "added",
+            "content": "ul li {\n"
+          },
+          {
+            "type": "added",
+            "content": "\nul li:nth-child(odd) {\n    background-color: #f9f9f9;\n}\n"
+          }
+        ]
+      },
+      {
+        "filename": "route/pr.js",
+        "status": "modified",
+        "additions": 6,
+        "deletions": 2,
+        "changes": 8,
+        "raw_url": "https://github.com/fournest85/projet_1/raw/2df480e7171df6f163c7b81b3eceeba11ad0ff92/route%2Fpr.js",
+        "diff": [
+          {
+            "type": "added",
+            "content": "require('dotenv').config();\n\n"
+          },
+          {
+            "type": "removed",
+            "content": "const MONGODB_URI = \"mongodb+srv://sebastienfournest_db_user:R%40oulsky85@sebastien.xv9iiw3.mongodb.net/sebastienfournest_db_user?retryWrites=true&w=majority&appName=sebastien\";\nconst DB_NAME = \"sebastienfournest_db_user\";\n"
+          },
+          {
+            "type": "added",
+            "content": "const MONGODB_URI = process.env.MONGODB_URI;\nconst DB_NAME = process.env.DB_NAME;\n\n\n"
+          }
+        ]
+      },
+      {
+        "filename": "route/user.js",
+        "status": "modified",
+        "additions": 59,
+        "deletions": 1,
+        "changes": 60,
+        "raw_url": "https://github.com/fournest85/projet_1/raw/2df480e7171df6f163c7b81b3eceeba11ad0ff92/route%2Fuser.js",
+        "diff": [
+          {
+            "type": "added",
+            "content": "require('dotenv').config();\n\n"
+          },
+          {
+            "type": "removed",
+            "content": "const { createUser, getAllUsers, getUser,updateUser, deleteUser } = require('../controller/user');\n"
+          },
+          {
+            "type": "added",
+            "content": "const { createUser, getAllUsers, getUser, updateUser, deleteUser } = require('../controller/user');\nconst { User } = require('../model/user');\nconst dbUser = require('../bd/connect');\nconst GITHUB_TOKEN = process.env.GITHUB_TOKEN;\n\n"
+          },
+          {
+            "type": "added",
+            "content": "\nrouter.get('/prs/sync-users', async (req, res) => {\n    try {\n        const prCollection = dbUser.bd().collection('pr_merge');\n        const userCollection = dbUser.bd().collection('users');\n\n        const prs = await prCollection.find().toArray();\n        let insertedCount = 0;\n\n        for (const pr of prs) {\n            const githubUser = pr.user;\n\n\n            const exists = await userCollection.findOne({ githubId: githubUser.id });\n            if (!exists) {\n\n\n                const headers = {\n                    Authorization: `Bearer ${GITHUB_TOKEN}`,\n                    Accept: 'application/vnd.github.v3+json'\n                };\n\n                let email = '';\n                try {\n                    const userDetails = await axios.get(`https://api.github.com/users/${githubUser.login}`, { headers });\n                    email = userDetails.data.email || ''; // peut être null\n                } catch (err) {\n                    console.warn(`Impossible de récupérer l'email pour ${githubUser.login}`);\n                }\n\n                const newUser = new User(\n                    githubUser.login,\n                    '', // email non fourni\n                    '',\n                    githubUser.id,\n                    githubUser.html_url\n                );\n\n                await userCollection.insertOne(newUser);\n                insertedCount++;\n            }\n        }\n\n        res.status(200).json({ message: `${insertedCount} utilisateur(s) GitHub ajouté(s).` });\n    } catch (err) {\n        console.error('Erreur sync-users :', err);\n        res.status(500).json({ error: 'Erreur lors de la synchronisation des utilisateurs GitHub.' });\n    }\n});\n\n\n\n"
+          }
+        ]
+      },
+      {
+        "filename": "server.js",
+        "status": "modified",
+        "additions": 7,
+        "deletions": 5,
+        "changes": 12,
+        "raw_url": "https://github.com/fournest85/projet_1/raw/2df480e7171df6f163c7b81b3eceeba11ad0ff92/server.js",
+        "diff": [
+          {
+            "type": "removed",
+            "content": "// require('dotenv').config();\n"
+          },
+          {
+            "type": "added",
+            "content": "require('dotenv').config();\n"
+          },
+          {
+            "type": "removed",
+            "content": "const API_URL = 'http://localhost:3000/api/users';\nconst port = 3000\nconst uri = \"mongodb+srv://sebastienfournest_db_user:R%40oulsky85@sebastien.xv9iiw3.mongodb.net/sebastienfournest_db_user?retryWrites=true&w=majority&appName=sebastien\";\nconst DB_NAME = \"sebastienfournest_db_user\";\n"
+          },
+          {
+            "type": "added",
+            "content": "const API_URL = process.env.API_URL;\nconst port = process.env.PORT || 3000;\nconst uri = process.env.MONGODB_URI;\nconst DB_NAME = process.env.DB_NAME;\n\n\n"
+          }
+        ]
+      }
+    ],
+    "date": "2025-10-03T06:17:36.351Z"
+  },
+  {
+    "_id": "68dbe62c4e7385a3ab542560",
+    "id": 2874787446,
+    "number": 11,
+    "title": "recupération du retard.",
+    "user": {
+      "login": "fournest85",
+      "id": 233725179,
+      "node_id": "U_kgDODe5c-w",
+      "avatar_url": "https://avatars.githubusercontent.com/u/233725179?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/fournest85",
+      "html_url": "https://github.com/fournest85",
+      "followers_url": "https://api.github.com/users/fournest85/followers",
+      "following_url": "https://api.github.com/users/fournest85/following{/other_user}",
+      "gists_url": "https://api.github.com/users/fournest85/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/fournest85/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/fournest85/subscriptions",
+      "organizations_url": "https://api.github.com/users/fournest85/orgs",
+      "repos_url": "https://api.github.com/users/fournest85/repos",
+      "events_url": "https://api.github.com/users/fournest85/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/fournest85/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "state": "closed",
+    "created_at": "2025-09-30T14:14:20.000Z",
+    "updated_at": "2025-09-30T14:14:29.000Z",
+    "repo": "projet_1",
+    "files": [],
+    "date": "2025-10-03T06:17:26.322Z"
+  },
+  {
+    "_id": "68dbe62c4e7385a3ab542561",
+    "id": 2874768908,
+    "number": 10,
+    "title": "mise en place du githubCron",
+    "user": {
+      "login": "fournest85",
+      "id": 233725179,
+      "node_id": "U_kgDODe5c-w",
+      "avatar_url": "https://avatars.githubusercontent.com/u/233725179?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/fournest85",
+      "html_url": "https://github.com/fournest85",
+      "followers_url": "https://api.github.com/users/fournest85/followers",
+      "following_url": "https://api.github.com/users/fournest85/following{/other_user}",
+      "gists_url": "https://api.github.com/users/fournest85/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/fournest85/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/fournest85/subscriptions",
+      "organizations_url": "https://api.github.com/users/fournest85/orgs",
+      "repos_url": "https://api.github.com/users/fournest85/repos",
+      "events_url": "https://api.github.com/users/fournest85/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/fournest85/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "state": "closed",
+    "created_at": "2025-09-30T14:10:29.000Z",
+    "updated_at": "2025-09-30T14:10:44.000Z",
+    "repo": "projet_1",
+    "files": [
+      {
+        "filename": "controller/user.js",
+        "status": "modified",
+        "additions": 15,
+        "deletions": 7,
+        "changes": 22,
+        "raw_url": "https://github.com/fournest85/projet_1/raw/5d6b613231aeb7501a5594890bc2793af19b3959/controller%2Fuser.js",
+        "diff": [
+          {
+            "type": "removed",
+            "content": "        let cursor = dbUser.bd().collection('users').find();\n        let result = await cursor.toArray();\n        if (result.length > 0) {\n            res.status(200).json(result);\n        } else {\n            res.status(204).json({ message: 'No Content' });\n        }\n"
+          },
+          {
+            "type": "added",
+            "content": "        const page = parseInt(req.query.page) || 1;\n        const limit = parseInt(req.query.limit) || 10;\n        const skip = (page - 1) * limit;\n\n        const collection = dbUser.bd().collection('users');\n\n        const users = await collection.find().skip(skip).limit(limit).toArray();\n        const total = await collection.countDocuments();\n\n        res.status(200).json({\n            users,\n            total,\n            page,\n            totalPages: Math.ceil(total / limit)\n        });\n"
+          }
+        ]
+      },
+      {
+        "filename": "fetchPRs.js",
+        "status": "modified",
+        "additions": 38,
+        "deletions": 11,
+        "changes": 49,
+        "raw_url": "https://github.com/fournest85/projet_1/raw/5d6b613231aeb7501a5594890bc2793af19b3959/fetchPRs.js",
+        "diff": [
+          {
+            "type": "added",
+            "content": "\nasync function fetchFilesForPR(prNumber) {\n    const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/pulls/${prNumber}/files`;\n    const response = await axios.get(url, { headers });\n    return response.data.map(file => ({\n        filename: file.filename,\n        status: file.status,\n        additions: file.additions,\n        deletions: file.deletions,\n        changes: file.changes,\n        raw_url: file.raw_url\n    }));\n}\n\n\n"
+          },
+          {
+            "type": "removed",
+            "content": "        // console.log('Token utilisé :', process.env.GITHUB_TOKEN);\n"
+          },
+          {
+            "type": "added",
+            "content": "        const github_repo = process.env.GITHUB_REPO;\n"
+          },
+          {
+            "type": "removed",
+            "content": "        await collection.deleteMany({});\n"
+          },
+          {
+            "type": "added",
+            "content": "        // await collection.deleteMany({});\n"
+          },
+          {
+            "type": "removed",
+            "content": "        const docs = prs.map(pr => ({\n            id: pr.id,\n            title: pr.title,\n            user: pr.user,\n            state: pr.state,\n            created_at: pr.created_at,\n            updated_at: pr.updated_at,\n            html_url: pr.html_url\n"
+          },
+          {
+            "type": "added",
+            "content": "        const docs = [];\n"
+          },
+          {
+            "type": "removed",
+            "content": "        }));\n"
+          },
+          {
+            "type": "added",
+            "content": "        for (const pr of prs) {\n            const files = await fetchFilesForPR(pr.number);\n"
+          },
+          {
+            "type": "added",
+            "content": "            docs.push({\n                id: pr.id,\n                number: pr.number,\n                title: pr.title,\n                user: pr.user,\n                state: pr.state,\n                created_at: pr.created_at,\n                updated_at: pr.updated_at,\n                repo: github_repo,\n                // html_url: pr.html_url,\n                files: files,\n                date: new Date()    \n            });\n\n            \n        }\n\n\n"
+          }
+        ]
+      },
+      {
+        "filename": "jobs/githubCron.js",
+        "status": "added",
+        "additions": 15,
+        "deletions": 0,
+        "changes": 15,
+        "raw_url": "https://github.com/fournest85/projet_1/raw/5d6b613231aeb7501a5594890bc2793af19b3959/jobs%2FgithubCron.js"
+      },
+      {
+        "filename": "package-lock.json",
+        "status": "modified",
+        "additions": 10,
+        "deletions": 0,
+        "changes": 10,
+        "raw_url": "https://github.com/fournest85/projet_1/raw/5d6b613231aeb7501a5594890bc2793af19b3959/package-lock.json",
+        "diff": [
+          {
+            "type": "added",
+            "content": "        \"node-cron\": \"^4.2.1\",\n"
+          },
+          {
+            "type": "added",
+            "content": "    \"node_modules/node-cron\": {\n      \"version\": \"4.2.1\",\n      \"resolved\": \"https://registry.npmjs.org/node-cron/-/node-cron-4.2.1.tgz\",\n      \"integrity\": \"sha512-lgimEHPE/QDgFlywTd8yTR61ptugX3Qer29efeyWw2rv259HtGBNn1vZVmp8lB9uo9wC0t/AT4iGqXxia+CJFg==\",\n      \"license\": \"ISC\",\n      \"engines\": {\n        \"node\": \">=6.0.0\"\n      }\n    },\n"
+          }
+        ]
+      },
+      {
+        "filename": "package.json",
+        "status": "modified",
+        "additions": 1,
+        "deletions": 0,
+        "changes": 1,
+        "raw_url": "https://github.com/fournest85/projet_1/raw/5d6b613231aeb7501a5594890bc2793af19b3959/package.json",
+        "diff": [
+          {
+            "type": "added",
+            "content": "    \"node-cron\": \"^4.2.1\",\n"
+          }
+        ]
+      },
+      {
+        "filename": "public/index.html",
+        "status": "modified",
+        "additions": 119,
+        "deletions": 34,
+        "changes": 153,
+        "raw_url": "https://github.com/fournest85/projet_1/raw/5d6b613231aeb7501a5594890bc2793af19b3959/public%2Findex.html",
+        "diff": [
+          {
+            "type": "removed",
+            "content": "            <input type=\"text\" id=\"name\" placeholder=\"Nom\" >\n            <input type=\"email\" id=\"email\" placeholder=\"Email\" >\n            <input type=\"text\" id=\"phone\" placeholder=\"Téléphone\" >\n"
+          },
+          {
+            "type": "added",
+            "content": "            <input type=\"text\" id=\"name\" placeholder=\"Nom\">\n            <input type=\"email\" id=\"email\" placeholder=\"Email\">\n            <input type=\"text\" id=\"phone\" placeholder=\"Téléphone\">\n"
+          },
+          {
+            "type": "added",
+            "content": "                <div id=\"userPagination\"></div>\n"
+          },
+          {
+            "type": "added",
+            "content": "                <label for=\"prDateFilter\">Filtrer les PRs par date :</label>\n                <input type=\"date\" id=\"prDateFilter\">\n                <button onclick=\"loadPRsByDate()\">Filtrer</button>\n"
+          },
+          {
+            "type": "added",
+            "content": "                <div id=\"prPagination\"></div>\n"
+          },
+          {
+            "type": "added",
+            "content": "        const USERS_PER_PAGE = 10;\n        const PRS_PER_PAGE = 10;\n        let currentUserPage = 1;\n        let currentPRPage = 1;\n        let allUsers = [];\n        let allPRs = [];\n"
+          },
+          {
+            "type": "added",
+            "content": "\n"
+          },
+          {
+            "type": "removed",
+            "content": "                const res = await axios.get(API_URL);\n                const users = res.data;\n                const list = document.getElementById('userList');\n                list.innerHTML = '';\n                users.forEach(user => {\n                    const li = document.createElement('li');\n                    li.textContent = `${user.name} (${user.email}) (${user.phone}) - ID: ${user._id}`;\n                    list.appendChild(li);\n                });\n"
+          },
+          {
+            "type": "added",
+            "content": "                const res = await axios.get(`${API_URL}?page=${currentUserPage}&limit=${USERS_PER_PAGE}`);\n                allUsers = res.data.users;\n                displayUsers(currentUserPage);\n                renderUserPagination(res.data.totalPages);\n"
+          },
+          {
+            "type": "removed",
+            "content": "        async function loadPRs() {\n            try {\n                const res = await axios.get('http://localhost:3000/api/github/prs');\n                const message = res.data.message;\n                const prList = document.getElementById('prList');\n                prList.innerHTML = '';\n"
+          },
+          {
+            "type": "added",
+            "content": "        function displayUsers(page) {\n            const list = document.getElementById('userList');\n            list.innerHTML = '';\n"
+          },
+          {
+            "type": "removed",
+            "content": "                // Optionnel : tu peux aussi afficher les PR stockées dans MongoDB\n                const response = await axios.get('http://localhost:3000/api/github/prs/list'); // à créer si tu veux\n                const prs = response.data;\n"
+          },
+          {
+            "type": "added",
+            "content": "            allUsers.forEach(user => {\n                const li = document.createElement('li');\n"
+          },
+          {
+            "type": "added",
+            "content": "                const identity = user.githubUrl && user.name\n                    ? `<a href= \"${user.githubUrl}\" target=\"_blank\">${user.name}</a>`\n                    : `<strong>${user.name}</strong>`;\n"
+          },
+          {
+            "type": "removed",
+            "content": "                prs.forEach(pr => {\n                    const li = document.createElement('li');\n                    if (pr.html_url) {\n                        const link = document.createElement('a');\n                        link.href = pr.html_url;\n                        link.textContent = `${pr.title} - ${pr.user.login} (${pr.state})`;\n                        link.target = \"_blank\";\n                        li.appendChild(link);\n                    } else {\n                        li.textContent = `${pr.title} - ${pr.user.login} (${pr.state}) [lien manquant]`;\n                    }\n"
+          },
+          {
+            "type": "added",
+            "content": "                li.innerHTML = `${identity} [${user.email}] (${user.phone}) - ID: ${user._id}`;\n                list.appendChild(li);\n            });\n        }\n"
+          },
+          {
+            "type": "removed",
+            "content": "                    prList.appendChild(li);\n"
+          },
+          {
+            "type": "added",
+            "content": "        function renderUserPagination(totalPages) {\n            const container = document.getElementById('userPagination');\n            container.innerHTML = '';\n            for (let i = 1; i <= totalPages; i++) {\n                const btn = document.createElement('button');\n                btn.textContent = i;\n                btn.onclick = () => {\n                    currentUserPage = i;\n                    loadUsers();\n                };\n                container.appendChild(btn);\n            }\n        }\n"
+          },
+          {
+            "type": "removed",
+            "content": "                });\n"
+          },
+          {
+            "type": "added",
+            "content": "        function getYesterdayDateString() {\n            const yesterday = new Date();\n            yesterday.setDate(yesterday.getDate() - 1);\n            const day = String(yesterday.getDate()).padStart(2, '0');\n            const month = String(yesterday.getMonth() + 1).padStart(2, '0');\n            const year = yesterday.getFullYear();\n            return `${year}-${month}-${day}`;\n        }\n\n\n        document.addEventListener('DOMContentLoaded', () => {\n            document.getElementById('prDateFilter').value = getYesterdayDateString();\n            loadPRs();\n        });\n\n\n        async function loadPRs() {\n            const yesterday = getYesterdayDateString();\n            try {\n                const res = await axios.get(`http://localhost:3000/api/github/prs/list?date=${yesterday}&page=${currentPRPage}&limit=${PRS_PER_PAGE}`);\n                allPRs = res.data.prs;\n                displayPRs(currentPRPage);\n                renderPRPagination(res.data.totalPages);\n"
+          },
+          {
+            "type": "added",
+            "content": "        async function loadPRsByDate() {\n            const selectedDate = document.getElementById('prDateFilter').value;\n            if (!selectedDate) return;\n"
+          },
+          {
+            "type": "added",
+            "content": "            try {\n                const res = await axios.get(`http://localhost:3000/api/github/prs/list?date=${selectedDate}&page=${currentPRPage}&limit=${PRS_PER_PAGE}`);\n                allPRs = res.data.prs;\n                displayPRs(currentPRPage);\n                renderPRPagination(res.data.totalPages);\n            } catch (err) {\n                console.error('Erreur chargement des PR filtrées :', err);\n            }\n        }\n\n        function displayPRs(page) {\n            const list = document.getElementById('prList');\n            list.innerHTML = '';\n\n            allPRs.forEach(pr => {\n                const li = document.createElement('li');\n                const dateText = pr.date ? new Date(pr.date).toLocaleDateString('fr-FR', {\n                    weekday: 'long',\n                    year: 'numeric',\n                    month: 'long',\n                    day: 'numeric'\n                }) : 'Date inconnue';\n\n                const login = pr.user?.login || 'Utilisateur inconnu';\n\n                li.innerHTML = `<strong>${pr.title}</strong> - ${pr.user.login} (${pr.state})<br><em>Enregistrée le : ${dateText}</em>`;\n                li.style.cursor = 'pointer';\n                li.onclick = () => {\n                    window.location.href = `/prs-details?number=${pr.number}`;\n                };\n                list.appendChild(li);\n            });\n        }\n        function renderPRPagination(totalPages) {\n            const container = document.getElementById('prPagination');\n            container.innerHTML = '';\n            // const totalPages = Math.ceil(allPRs.length / PRS_PER_PAGE);\n            for (let i = 1; i <= totalPages; i++) {\n                const btn = document.createElement('button');\n                btn.textContent = i;\n                btn.onclick = () => {\n                    currentPRPage = i;\n                    loadPRs();\n                };\n                container.appendChild(btn);\n            }\n        }\n\n\n"
+          }
+        ]
+      },
+      {
+        "filename": "public/pr-details.html",
+        "status": "added",
+        "additions": 97,
+        "deletions": 0,
+        "changes": 97,
+        "raw_url": "https://github.com/fournest85/projet_1/raw/5d6b613231aeb7501a5594890bc2793af19b3959/public%2Fpr-details.html"
+      },
+      {
+        "filename": "server.js",
+        "status": "modified",
+        "additions": 68,
+        "deletions": 3,
+        "changes": 71,
+        "raw_url": "https://github.com/fournest85/projet_1/raw/5d6b613231aeb7501a5594890bc2793af19b3959/server.js",
+        "diff": [
+          {
+            "type": "added",
+            "content": "require('./jobs/githubCron');\n"
+          },
+          {
+            "type": "added",
+            "content": "    const page = parseInt(req.query.page) || 1;\n    const limit = parseInt(req.query.limit) || 10;\n    const skip = (page - 1) * limit;\n\n    const today = new Date();\n    today.setHours(0, 0, 0, 0);\n    const yesterday = new Date(today);\n    yesterday.setDate(today.getDate() - 1);\n\n"
+          },
+          {
+            "type": "removed",
+            "content": "        // const dbName = new URL(uri).pathname.substring(1);\n"
+          },
+          {
+            "type": "removed",
+            "content": "        const prs = await collection.find().toArray();\n        res.status(200).json(prs);\n"
+          },
+          {
+            "type": "added",
+            "content": "        let query = {};\n        const dateParam = req.query.date;\n\n        if (dateParam) {\n            const selectedDate = new Date(dateParam);\n            selectedDate.setHours(0, 0, 0, 0);\n            const nextDay = new Date(selectedDate);\n            nextDay.setDate(selectedDate.getDate() + 1);\n\n            query.date = {\n                $gte: selectedDate,\n                $lt: nextDay\n            };\n        } else {\n            query.date = {\n                $gte: yesterday,\n                $lt: today\n            };\n        }\n\n\n        const prs = await collection.find(query).skip(skip).limit(limit).toArray();\n        const total = await collection.countDocuments(query);\n\n        res.status(200).json({\n            prs,\n            total,\n            page,\n            totalPages: Math.ceil(total / limit)\n        });\n"
+          },
+          {
+            "type": "added",
+            "content": "app.get('/prs-details', (req, res) => {\n    res.sendFile(path.resolve(__dirname, 'public', 'pr-details.html'));\n});\n"
+          },
+          {
+            "type": "added",
+            "content": "app.get('/api/github/prs/:number', async (req, res) => {\n    const client = new MongoClient(uri);\n    const prNumber = parseInt(req.params.number);\n"
+          },
+          {
+            "type": "added",
+            "content": "    try {\n        await client.connect();\n        const db = client.db(DB_NAME);\n        const collection = db.collection('pr_merge');\n"
+          },
+          {
+            "type": "added",
+            "content": "        const pr = await collection.findOne({ number: prNumber });\n\n        if (!pr) {\n            return res.status(404).json({ error: 'PR non trouvée.' });\n        }\n\n        res.status(200).json(pr);\n    } catch (error) {\n        res.status(500).json({ error: 'Erreur lors de la récupération de la PR.' });\n    } finally {\n        await client.close();\n    }\n});\n\n\n\n\n\n"
+          }
+        ]
+      }
+    ],
+    "date": "2025-10-03T06:17:30.560Z"
+  },
+  {
+    "_id": "68df6a755b492148af804bfd",
+    "number": 12,
+    "created_at": "2025-10-02T14:55:26.000Z",
+    "date": "2025-10-03T06:17:25.600Z",
+    "files": [
+      {
+        "filename": "bd/connect.js",
+        "status": "modified",
+        "additions": 29,
+        "deletions": 5,
+        "changes": 34,
+        "raw_url": "https://github.com/fournest85/projet_1/raw/68e19c849a8ca87b799106e89ab852918b07694c/bd%2Fconnect.js",
+        "diff": [
+          {
+            "type": "removed",
+            "content": "            .then(() => {\n"
+          },
+          {
+            "type": "added",
+            "content": "            .then(async () => {\n"
+          },
+          {
+            "type": "removed",
+            "content": "                // if (!process.env.DB_NAME) {\n                //     console.warn('⚠️ DB_NAME non défini dans .env, utilisation du nom extrait de l\\'URI :', dbName);\n                // }\n"
+          },
+          {
+            "type": "removed",
+            "content": "                callback();\n"
+          },
+          {
+            "type": "added",
+            "content": "\n                const collection = db.collection('pr_merge');\n\n                try {\n                    const duplicates = await collection.aggregate([\n                        {\n                            $group: {\n                                _id: \"$number\",\n                                ids: { $push: \"$_id\" },\n                                count: { $sum: 1 }\n                            }\n                        },\n                        { $match: { count: { $gt: 1 } } }\n                    ]).toArray();\n\n                    for (const dup of duplicates) {\n                        const idsToDelete = dup.ids.slice(1);\n                        await collection.deleteMany({ _id: { $in: idsToDelete } });\n                        console.log(`🧹 Doublons supprimés pour number ${dup._id}`);\n                    }\n\n                    await collection.createIndex({ number: 1 }, { unique: true });\n                    console.log('✅ Index unique sur \"number\" créé dans pr_merge');\n                } catch (indexErr) {\n                    console.warn('⚠️ Erreur lors du nettoyage ou de la création de l’index :', indexErr.message);\n                }\n\n                callback(); \n"
+          }
+        ]
+      },
+      {
+        "filename": "controller/pr.js",
+        "status": "added",
+        "additions": 390,
+        "deletions": 0,
+        "changes": 390,
+        "raw_url": "https://github.com/fournest85/projet_1/raw/68e19c849a8ca87b799106e89ab852918b07694c/controller%2Fpr.js"
+      },
+      {
+        "filename": "controller/user.js",
+        "status": "modified",
+        "additions": 22,
+        "deletions": 9,
+        "changes": 31,
+        "raw_url": "https://github.com/fournest85/projet_1/raw/68e19c849a8ca87b799106e89ab852918b07694c/controller%2Fuser.js",
+        "diff": [
+          {
+            "type": "added",
+            "content": "\n"
+          },
+          {
+            "type": "added",
+            "content": "        const { name, email, phone, githubData } = req.body;\n"
+          },
+          {
+            "type": "removed",
+            "content": "\n        if (!req.body.name || !req.body.email || !req.body.phone) {\n"
+          },
+          {
+            "type": "added",
+            "content": "        if (!name || !email || !phone) {\n"
+          },
+          {
+            "type": "removed",
+            "content": "        const existingUser = await dbUser.bd().collection('users').findOne({ email: req.body.email });\n"
+          },
+          {
+            "type": "added",
+            "content": "        const existingUser = await dbUser.bd().collection('users').findOne({ email });\n"
+          },
+          {
+            "type": "removed",
+            "content": "        let user = new User(req.body.name, req.body.email, req.body.phone);\n        let result = await dbUser.bd().collection('users').insertOne(user);\n"
+          },
+          {
+            "type": "added",
+            "content": "        // Création de l'utilisateur avec les métadonnées GitHub si présentes\n        const user = new User({ name, email, phone, githubData });\n"
+          },
+          {
+            "type": "added",
+            "content": "        const result = await dbUser.bd().collection('users').insertOne(user);\n\n"
+          },
+          {
+            "type": "removed",
+            "content": "        console.log(\"User created\");\n"
+          },
+          {
+            "type": "added",
+            "content": "\n        console.log(\"User created:\", result.insertedId);\n"
+          },
+          {
+            "type": "added",
+            "content": "\n"
+          },
+          {
+            "type": "removed",
+            "content": "        const users = await collection.find().skip(skip).limit(limit).toArray();\n"
+          },
+          {
+            "type": "added",
+            "content": "        // 🔍 Projection pour n'afficher que les champs utiles\n        const users = await collection.find({}, {\n            projection: { id: 1, login: 1, html_url: 1, _id: 0 }\n        }).skip(skip).limit(limit).toArray();\n\n"
+          },
+          {
+            "type": "removed",
+            "content": "        let id = new ObjectId(req.params.id);\n        const user = await dbUser.bd().collection('users').findOne({ _id: id });\n"
+          },
+          {
+            "type": "added",
+            "content": "        const id = new ObjectId(req.params.id);\n        const user = await dbUser.bd().collection('users').findOne(\n            { _id: id },\n            { projection: { id: 1, login: 1, html_url: 1, _id: 0 } }\n        );\n\n"
+          }
+        ]
+      },
+      {
+        "filename": "fetchPRs.js",
+        "status": "modified",
+        "additions": 66,
+        "deletions": 66,
+        "changes": 132,
+        "raw_url": "https://github.com/fournest85/projet_1/raw/68e19c849a8ca87b799106e89ab852918b07694c/fetchPRs.js",
+        "diff": [
+          {
+            "type": "removed",
+            "content": "require('dotenv').config();\nconst axios = require('axios');\nconst { MongoClient } = require('mongodb');\n"
+          },
+          {
+            "type": "added",
+            "content": "// require('dotenv').config();\n// const axios = require('axios');\n// const { MongoClient } = require('mongodb');\n"
+          },
+          {
+            "type": "removed",
+            "content": "const GITHUB_TOKEN = process.env.GITHUB_TOKEN;\nconst MONGODB_URI = process.env.MONGODB_URI;\nconst GITHUB_OWNER = process.env.GITHUB_OWNER;\nconst GITHUB_REPO = process.env.GITHUB_REPO;\nconst DB_NAME = process.env.DB_NAME;\n"
+          },
+          {
+            "type": "added",
+            "content": "// const GITHUB_TOKEN = process.env.GITHUB_TOKEN;\n// const MONGODB_URI = process.env.MONGODB_URI;\n// const GITHUB_OWNER = process.env.GITHUB_OWNER;\n// const GITHUB_REPO = process.env.GITHUB_REPO;\n// const DB_NAME = process.env.DB_NAME;\n"
+          },
+          {
+            "type": "removed",
+            "content": "const headers = {\n    Authorization: `Bearer ${GITHUB_TOKEN}`,\n    Accept: 'application/vnd.github.v3+json'\n};\n"
+          },
+          {
+            "type": "added",
+            "content": "// const headers = {\n//     Authorization: `Bearer ${GITHUB_TOKEN}`,\n//     Accept: 'application/vnd.github.v3+json'\n// };\n"
+          },
+          {
+            "type": "removed",
+            "content": "const githubApiUrl = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/pulls?state=all`;\n"
+          },
+          {
+            "type": "added",
+            "content": "// const githubApiUrl = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/pulls?state=all`;\n"
+          },
+          {
+            "type": "removed",
+            "content": "async function fetchFilesForPR(prNumber) {\n    const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/pulls/${prNumber}/files`;\n    const response = await axios.get(url, { headers });\n    return response.data.map(file => ({\n        filename: file.filename,\n        status: file.status,\n        additions: file.additions,\n        deletions: file.deletions,\n        changes: file.changes,\n        raw_url: file.raw_url\n    }));\n}\n"
+          },
+          {
+            "type": "added",
+            "content": "// async function fetchFilesForPR(prNumber) {\n//     const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/pulls/${prNumber}/files`;\n//     const response = await axios.get(url, { headers });\n//     return response.data.map(file => ({\n//         filename: file.filename,\n//         status: file.status,\n//         additions: file.additions,\n//         deletions: file.deletions,\n//         changes: file.changes,\n//         raw_url: file.raw_url\n//     }));\n// }\n"
+          },
+          {
+            "type": "removed",
+            "content": "async function fetchAndStorePRs() {\n    const client = new MongoClient(MONGODB_URI);\n"
+          },
+          {
+            "type": "added",
+            "content": "// async function fetchAndStorePRs() {\n//     const client = new MongoClient(MONGODB_URI);\n"
+          },
+          {
+            "type": "removed",
+            "content": "    try {\n        await client.connect();\n"
+          },
+          {
+            "type": "added",
+            "content": "//     try {\n//         await client.connect();\n"
+          },
+          {
+            "type": "removed",
+            "content": "        // const dbName = new URL(MONGODB_URI).pathname.substring(1); \n        const db = client.db(DB_NAME);\n        const collection = db.collection('pr_merge');\n        const github_repo = process.env.GITHUB_REPO;\n        const response = await axios.get(githubApiUrl, { headers });\n        const prs = response.data;\n"
+          },
+          {
+            "type": "added",
+            "content": "//         // const dbName = new URL(MONGODB_URI).pathname.substring(1); \n//         const db = client.db(DB_NAME);\n//         const collection = db.collection('pr_merge');\n//         const github_repo = process.env.GITHUB_REPO;\n//         const response = await axios.get(githubApiUrl, { headers });\n//         const prs = response.data;\n"
+          },
+          {
+            "type": "removed",
+            "content": "        // await collection.deleteMany({});\n"
+          },
+          {
+            "type": "added",
+            "content": "//         // await collection.deleteMany({});\n"
+          },
+          {
+            "type": "removed",
+            "content": "        const docs = [];\n"
+          },
+          {
+            "type": "added",
+            "content": "//         const docs = [];\n"
+          },
+          {
+            "type": "removed",
+            "content": "        for (const pr of prs) {\n            const files = await fetchFilesForPR(pr.number);\n"
+          },
+          {
+            "type": "added",
+            "content": "//         for (const pr of prs) {\n//             const files = await fetchFilesForPR(pr.number);\n"
+          },
+          {
+            "type": "removed",
+            "content": "            docs.push({\n                id: pr.id,\n                number: pr.number,\n                title: pr.title,\n                user: pr.user,\n                state: pr.state,\n                created_at: pr.created_at,\n                updated_at: pr.updated_at,\n                repo: github_repo,\n                // html_url: pr.html_url,\n                files: files,\n                date: new Date()    \n            });\n"
+          },
+          {
+            "type": "added",
+            "content": "//             docs.push({\n//                 id: pr.id,\n//                 number: pr.number,\n//                 title: pr.title,\n//                 user: pr.user,\n//                 state: pr.state,\n//                 created_at: pr.created_at,\n//                 updated_at: pr.updated_at,\n//                 repo: github_repo,\n//                 // html_url: pr.html_url,\n//                 files: files,\n//                 date: new Date()    \n//             });\n"
+          },
+          {
+            "type": "removed",
+            "content": "        }\n"
+          },
+          {
+            "type": "added",
+            "content": "//         }\n"
+          },
+          {
+            "type": "removed",
+            "content": "        if (docs.length > 0) {\n            await collection.insertMany(docs);\n            console.log(`✅ ${docs.length} PRs enregistrées.`);\n        } else {\n            console.log('ℹ️ Aucune PR trouvée.');\n        }\n"
+          },
+          {
+            "type": "added",
+            "content": "//         if (docs.length > 0) {\n//             await collection.insertMany(docs);\n//             console.log(`✅ ${docs.length} PRs enregistrées.`);\n//         } else {\n//             console.log('ℹ️ Aucune PR trouvée.');\n//         }\n"
+          },
+          {
+            "type": "removed",
+            "content": "    } catch (error) {\n        console.error('❌ Erreur :', error.message);\n    } finally {\n        await client.close();\n    }\n}\n"
+          },
+          {
+            "type": "added",
+            "content": "//     } catch (error) {\n//         console.error('❌ Erreur :', error.message);\n//     } finally {\n//         await client.close();\n//     }\n// }\n"
+          },
+          {
+            "type": "removed",
+            "content": "module.exports = { fetchAndStorePRs };\n"
+          },
+          {
+            "type": "added",
+            "content": "// module.exports = { fetchAndStorePRs };\n"
+          }
+        ]
+      },
+      {
+        "filename": "jobs/githubCron.js",
+        "status": "modified",
+        "additions": 20,
+        "deletions": 12,
+        "changes": 32,
+        "raw_url": "https://github.com/fournest85/projet_1/raw/68e19c849a8ca87b799106e89ab852918b07694c/jobs%2FgithubCron.js",
+        "diff": [
+          {
+            "type": "added",
+            "content": "const { fetchAndStorePRsRaw } = require('../controller/pr');\nconst { exportPRsToJson } = require('../scripts/export-prs');\n"
+          },
+          {
+            "type": "removed",
+            "content": "const { fetchAndStorePRs } = require('../fetchPRs');\n"
+          },
+          {
+            "type": "removed",
+            "content": "// Planifie l'exécution tous les jours à 1h du matin\ncron.schedule('0 1 * * *', async () => {\n    console.log('⏰ Cron lancé pour récupérer les PRs modifiées...');\n    await fetchAndStorePRs();\n});\n"
+          },
+          {
+            "type": "added",
+            "content": "/**\n * Initialise le cron pour récupérer les PRs modifiées chaque jour à 1h du matin.\n */\nfunction initGithubCron() {\n    cron.schedule('0 1 * * *', async () => {\n        console.log('⏰ Cron lancé pour récupérer les PRs modifiées...');\n        try {\n            const message = await fetchAndStorePRsRaw();\n            console.log('✅', message);\n"
+          },
+          {
+            "type": "removed",
+            "content": "// Lancement immédiat au démarrage (optionnel)\n(async () => {\n    console.log('🚀 Lancement initial de la récupération des PRs...');\n    await fetchAndStorePRs();\n})\n    ();"
+          },
+          {
+            "type": "added",
+            "content": "            await exportPRsToJson();\n            console.log('📁 Export JSON terminé.');\n        } catch (error) {\n            console.error('❌ Erreur dans le cron :', error.message);\n        }\n    });\n}\n\nmodule.exports = { initGithubCron };\n"
+          }
+        ]
+      },
+      {
+        "filename": "model/pr.js",
+        "status": "added",
+        "additions": 18,
+        "deletions": 0,
+        "changes": 18,
+        "raw_url": "https://github.com/fournest85/projet_1/raw/68e19c849a8ca87b799106e89ab852918b07694c/model%2Fpr.js"
+      },
+      {
+        "filename": "model/user.js",
+        "status": "modified",
+        "additions": 12,
+        "deletions": 3,
+        "changes": 15,
+        "raw_url": "https://github.com/fournest85/projet_1/raw/68e19c849a8ca87b799106e89ab852918b07694c/model%2Fuser.js",
+        "diff": [
+          {
+            "type": "removed",
+            "content": "    constructor(name, email, phone, githubId=null, githubUrl=null) {\n"
+          },
+          {
+            "type": "added",
+            "content": "    constructor({ name, email, phone, githubData = {} }) {\n"
+          },
+          {
+            "type": "removed",
+            "content": "        this.githubId = githubId;\n        this.githubUrl = githubUrl;\n"
+          },
+          {
+            "type": "added",
+            "content": "        // Stocker toutes les métadonnées GitHub\n        Object.assign(this, githubData);\n"
+          },
+          {
+            "type": "added",
+            "content": "\n    // Méthode pour afficher uniquement les champs utiles\n    getPublicProfile() {\n        return {\n            id: this.id,\n            login: this.login,\n            html_url: this.html_url\n        };\n    }\n"
+          }
+        ]
+      },
+      {
+        "filename": "package-lock.json",
+        "status": "modified",
+        "additions": 10,
+        "deletions": 0,
+        "changes": 10,
+        "raw_url": "https://github.com/fournest85/projet_1/raw/68e19c849a8ca87b799106e89ab852918b07694c/package-lock.json",
+        "diff": [
+          {
+            "type": "added",
+            "content": "        \"diff\": \"^8.0.2\",\n"
+          },
+          {
+            "type": "added",
+            "content": "    \"node_modules/diff\": {\n      \"version\": \"8.0.2\",\n      \"resolved\": \"https://registry.npmjs.org/diff/-/diff-8.0.2.tgz\",\n      \"integrity\": \"sha512-sSuxWU5j5SR9QQji/o2qMvqRNYRDOcBTgsJ/DeCf4iSN4gW+gNMXM7wFIP+fdXZxoNiAnHUTGjCr+TSWXdRDKg==\",\n      \"license\": \"BSD-3-Clause\",\n      \"engines\": {\n        \"node\": \">=0.3.1\"\n      }\n    },\n"
+          }
+        ]
+      },
+      {
+        "filename": "package.json",
+        "status": "modified",
+        "additions": 1,
+        "deletions": 0,
+        "changes": 1,
+        "raw_url": "https://github.com/fournest85/projet_1/raw/68e19c849a8ca87b799106e89ab852918b07694c/package.json",
+        "diff": [
+          {
+            "type": "added",
+            "content": "    \"diff\": \"^8.0.2\",\n"
+          }
+        ]
+      },
+      {
+        "filename": "public/index.html",
+        "status": "modified",
+        "additions": 39,
+        "deletions": 19,
+        "changes": 58,
+        "raw_url": "https://github.com/fournest85/projet_1/raw/68e19c849a8ca87b799106e89ab852918b07694c/public%2Findex.html",
+        "diff": [
+          {
+            "type": "removed",
+            "content": "                    ? `<a href= \"${user.githubUrl}\" target=\"_blank\">${user.name}</a>`\n"
+          },
+          {
+            "type": "added",
+            "content": "                    ? `<strong><a href= \"${user.githubUrl}\" target=\"_blank\">${user.name}</a></strong>`\n"
+          },
+          {
+            "type": "added",
+            "content": "            loadUsers();\n"
+          },
+          {
+            "type": "removed",
+            "content": "                const res = await axios.get(`http://localhost:3000/api/github/prs/list?date=${yesterday}&page=${currentPRPage}&limit=${PRS_PER_PAGE}`);\n"
+          },
+          {
+            "type": "added",
+            "content": "                const res = await axios.get(`http://localhost:3000/api/github/prs/list?date=${yesterday}&sort=titleAndDate&page=${currentPRPage}&limit=${PRS_PER_PAGE}`);\n"
+          },
+          {
+            "type": "added",
+            "content": "            // Regrouper les PRs par titre\n            const groupedPRs = {};\n"
+          },
+          {
+            "type": "added",
+            "content": "                if (!groupedPRs[pr.title]) {\n                    groupedPRs[pr.title] = [];\n                }\n                groupedPRs[pr.title].push(pr);\n            });\n\n            // Trier les titres alphabétiquement\n            const sortedTitles = Object.keys(groupedPRs).sort();\n\n            sortedTitles.forEach(title => {\n                const group = groupedPRs[title].sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at)); // tri par date décroissante\n\n"
+          },
+          {
+            "type": "removed",
+            "content": "                const dateText = pr.date ? new Date(pr.date).toLocaleDateString('fr-FR', {\n                    weekday: 'long',\n                    year: 'numeric',\n                    month: 'long',\n                    day: 'numeric'\n                }) : 'Date inconnue';\n"
+          },
+          {
+            "type": "added",
+            "content": "                li.innerHTML = `<strong>${title}</strong> (${group.length} PR${group.length > 1 ? 's' : ''})`;\n"
+          },
+          {
+            "type": "removed",
+            "content": "                const login = pr.user?.login || 'Utilisateur inconnu';\n"
+          },
+          {
+            "type": "added",
+            "content": "                const subList = document.createElement('ul');\n                group.forEach(pr => {\n                    const dateText = pr.updated_at ? new Date(pr.updated_at).toLocaleDateString('fr-FR', {\n                        weekday: 'long',\n                        year: 'numeric',\n                        month: 'long',\n                        day: 'numeric'\n                    }) : 'Date inconnue';\n"
+          },
+          {
+            "type": "removed",
+            "content": "                li.innerHTML = `<strong>${pr.title}</strong> - ${pr.user.login} (${pr.state})<br><em>Enregistrée le : ${dateText}</em>`;\n                li.style.cursor = 'pointer';\n                li.onclick = () => {\n                    window.location.href = `/prs-details?number=${pr.number}`;\n                };\n"
+          },
+          {
+            "type": "added",
+            "content": "                    const subLi = document.createElement('li');\n                    subLi.innerHTML = `#${pr.number} - ${pr.user?.login || 'Utilisateur inconnu'} (${pr.state})<br><em>Enregistrée le : ${dateText}</em>`;\n                    subLi.style.cursor = 'pointer';\n                    subLi.onclick = () => {\n                        window.location.href = `/prs-details?number=${pr.number}`;\n                    };\n                    subList.appendChild(subLi);\n                });\n\n                li.appendChild(subList);\n"
+          },
+          {
+            "type": "removed",
+            "content": "                const res = await axios.get('http://localhost:3000/api/prs/sync-users');\n"
+          },
+          {
+            "type": "added",
+            "content": "                const res = await axios.post('http://localhost:3000/api/prs/sync-users');\n"
+          },
+          {
+            "type": "removed",
+            "content": "        loadUsers();\n        loadPRs();\n"
+          }
+        ]
+      },
+      {
+        "filename": "route/pr.js",
+        "status": "modified",
+        "additions": 20,
+        "deletions": 25,
+        "changes": 45,
+        "raw_url": "https://github.com/fournest85/projet_1/raw/68e19c849a8ca87b799106e89ab852918b07694c/route%2Fpr.js",
+        "diff": [
+          {
+            "type": "removed",
+            "content": "const { fetchAndStorePRs } = require('../fetchPRs'); \nconst { MongoClient } = require('mongodb');\n"
+          },
+          {
+            "type": "added",
+            "content": "const { fetchAndStorePRs, getPRs } = require('../controller/pr');\n"
+          },
+          {
+            "type": "removed",
+            "content": "const MONGODB_URI = process.env.MONGODB_URI;\nconst DB_NAME = process.env.DB_NAME;\n"
+          },
+          {
+            "type": "added",
+            "content": "router.get('/fetch', fetchAndStorePRs);\n"
+          },
+          {
+            "type": "added",
+            "content": "router.get('/list', getPRs);\n"
+          },
+          {
+            "type": "removed",
+            "content": "router.get('/prs', async (req, res) => {\n"
+          },
+          {
+            "type": "added",
+            "content": "// console.log(typeof enrichPRsManuellement);\n// router.get('/enrich-prs', enrichPRsManuellement);\n\nrouter.get('/:number', async (req, res) => {\n    const number = parseInt(req.params.number);\n    const collection = require('../bd/connect').bd().collection('pr_merge');\n\n"
+          },
+          {
+            "type": "removed",
+            "content": "        await fetchAndStorePRs();\n        res.json({ message: 'PRs récupérées et enregistrées.' });\n    } catch (err) {\n        res.status(500).json({ error: 'Erreur lors de la récupération des PRs.' });\n"
+          },
+          {
+            "type": "added",
+            "content": "        const pr = await collection.findOne({ number });\n        if (pr) {\n            res.status(200).json(pr);\n        } else {\n            res.status(404).json({ error: 'PR non trouvée' });\n        }\n    } catch (error) {\n        console.error(error);\n        res.status(500).json({ error: 'Erreur serveur' });\n"
+          },
+          {
+            "type": "removed",
+            "content": "router.get('/prs/list', async (req, res) => {\n    const client = new MongoClient(MONGODB_URI);\n    try {\n        await client.connect();\n        // const dbName = new URL(MONGODB_URI).pathname.substring(1);\n        const db = client.db(DB_NAME);\n        const collection = db.collection('pr_merge');\n"
+          },
+          {
+            "type": "removed",
+            "content": "        const prs = await collection.find().toArray();\n        res.json(prs);\n    } catch (err) {\n        res.status(500).json({ error: 'Erreur lors de la lecture des PRs.' });\n    } finally {\n        await client.close();\n    }\n});\n"
+          }
+        ]
+      },
+      {
+        "filename": "route/user.js",
+        "status": "modified",
+        "additions": 10,
+        "deletions": 10,
+        "changes": 20,
+        "raw_url": "https://github.com/fournest85/projet_1/raw/68e19c849a8ca87b799106e89ab852918b07694c/route%2Fuser.js",
+        "diff": [
+          {
+            "type": "removed",
+            "content": "router.get('/prs/sync-users', async (req, res) => {\n"
+          },
+          {
+            "type": "added",
+            "content": "router.post('/prs/sync-users', async (req, res) => {\n"
+          },
+          {
+            "type": "removed",
+            "content": "\n\n"
+          },
+          {
+            "type": "added",
+            "content": "                let phone = ''; \n\n"
+          },
+          {
+            "type": "removed",
+            "content": "                    email = userDetails.data.email || ''; // peut être null\n"
+          },
+          {
+            "type": "added",
+            "content": "                    email = userDetails.data.email || '';\n                    phone = userDetails.data.phone || '';\n"
+          },
+          {
+            "type": "removed",
+            "content": "                const newUser = new User(\n                    githubUser.login,\n                    '', // email non fourni\n                    '',\n                    githubUser.id,\n                    githubUser.html_url\n"
+          },
+          {
+            "type": "added",
+            "content": "                const newUser = new User({\n                    name: githubUser.login,\n                    email,\n                    phone,\n                    githubData: githubUser}\n"
+          }
+        ]
+      },
+      {
+        "filename": "scripts/export-prs.js",
+        "status": "added",
+        "additions": 40,
+        "deletions": 0,
+        "changes": 40,
+        "raw_url": "https://github.com/fournest85/projet_1/raw/68e19c849a8ca87b799106e89ab852918b07694c/scripts%2Fexport-prs.js"
+      },
+      {
+        "filename": "scripts/exports/export_prs_2025-10-02.json",
+        "status": "added",
+        "additions": 1616,
+        "deletions": 0,
+        "changes": 1616,
+        "raw_url": "https://github.com/fournest85/projet_1/raw/68e19c849a8ca87b799106e89ab852918b07694c/scripts%2Fexports%2Fexport_prs_2025-10-02.json"
+      },
+      {
+        "filename": "server.js",
+        "status": "modified",
+        "additions": 97,
+        "deletions": 122,
+        "changes": 219,
+        "raw_url": "https://github.com/fournest85/projet_1/raw/68e19c849a8ca87b799106e89ab852918b07694c/server.js",
+        "diff": [
+          {
+            "type": "removed",
+            "content": "\n"
+          },
+          {
+            "type": "added",
+            "content": "const axios = require('axios');\nconst open = require('open').default;\nconst readline = require('readline');\n\n"
+          },
+          {
+            "type": "removed",
+            "content": "const { fetchAndStorePRs } = require('./fetchPRs');\nconst { MongoClient } = require('mongodb');\nconst open = require('open').default;\nrequire('./jobs/githubCron');\n"
+          },
+          {
+            "type": "added",
+            "content": "const prRoutes = require('./route/pr');\nconst { fetchAndStorePRsRaw, showDiffsForModifiedPRsFromYesterday, fetchModifiedPRsFromYesterday, fetchModifiedPRsFromYesterdayFromDB, enrichPRsManuellement } = require('./controller/pr');\nconst { initGithubCron } = require('./jobs/githubCron');\n"
+          },
+          {
+            "type": "removed",
+            "content": "const axios = require('axios');\n"
+          },
+          {
+            "type": "removed",
+            "content": "const DB_NAME = process.env.DB_NAME;\n"
+          },
+          {
+            "type": "removed",
+            "content": "\n"
+          },
+          {
+            "type": "added",
+            "content": "\n"
+          },
+          {
+            "type": "added",
+            "content": "app.use('/api/github/prs', prRoutes);\n"
+          },
+          {
+            "type": "removed",
+            "content": "app.get('/api/github/prs', async (req, res) => {\n    try {\n        const message = await fetchAndStorePRs();\n        res.status(200).json({ success: true, message });\n    } catch (error) {\n        res.status(500).json({ success: false, error: error.message });\n    }\n"
+          },
+          {
+            "type": "added",
+            "content": "app.get('/prs-details', (req, res) => {\n    res.sendFile(path.resolve(__dirname, 'public', 'pr-details.html'));\n"
+          },
+          {
+            "type": "added",
+            "content": "function demanderDate(callback) {\n    const rl = readline.createInterface({\n        input: process.stdin,\n        output: process.stdout\n    });\n"
+          },
+          {
+            "type": "removed",
+            "content": "app.get('/api/github/prs/list', async (req, res) => {\n    const client = new MongoClient(uri);\n    const page = parseInt(req.query.page) || 1;\n    const limit = parseInt(req.query.limit) || 10;\n    const skip = (page - 1) * limit;\n"
+          },
+          {
+            "type": "added",
+            "content": "    rl.question('📅 Entrez une date (YYYY-MM-DD) ou appuyez sur Entrée pour utiliser la date d’hier : ', (input) => {\n        rl.close();\n        callback(input.trim());\n    });\n}\n"
+          },
+          {
+            "type": "removed",
+            "content": "    const today = new Date();\n    today.setHours(0, 0, 0, 0);\n    const yesterday = new Date(today);\n    yesterday.setDate(today.getDate() - 1);\n"
+          },
+          {
+            "type": "added",
+            "content": "connecter(uri, async (err) => {\n    if (err) {\n        console.error('❌ Failed to connect to the database');\n        process.exit(-1);\n    } else {\n        console.log('✅ Connected to the database');\n"
+          },
+          {
+            "type": "removed",
+            "content": "    try {\n        await client.connect();\n        const db = client.db(DB_NAME);\n        const collection = db.collection('pr_merge');\n"
+          },
+          {
+            "type": "removed",
+            "content": "        let query = {};\n        const dateParam = req.query.date;\n"
+          },
+          {
+            "type": "added",
+            "content": "        demanderDate(async (inputDate) => {\n            try {\n                const message = await fetchAndStorePRsRaw(inputDate); // passe la date choisie\n                console.log('🚀 PRs récupérées au démarrage :', message);\n            } catch (error) {\n                console.error('❌ Erreur au démarrage :', error.message);\n            }\n            // Lancement du cron\n            initGithubCron();\n"
+          },
+          {
+            "type": "removed",
+            "content": "        if (dateParam) {\n            const selectedDate = new Date(dateParam);\n            selectedDate.setHours(0, 0, 0, 0);\n            const nextDay = new Date(selectedDate);\n            nextDay.setDate(selectedDate.getDate() + 1);\n"
+          },
+          {
+            "type": "added",
+            "content": "            // Démarrage du serveur\n            app.listen(port, async () => {\n                console.log(`Server is running on http://localhost:${port}`);\n                open(`http://localhost:${port}`);\n                // Récupération des utilisateurs depuis l'API externe\n                const allUsers = [];\n                let page = 1;\n                let totalPages = 1;\n"
+          },
+          {
+            "type": "removed",
+            "content": "            query.date = {\n                $gte: selectedDate,\n                $lt: nextDay\n            };\n        } else {\n            query.date = {\n                $gte: yesterday,\n                $lt: today\n            };\n        }\n"
+          },
+          {
+            "type": "added",
+            "content": "                try {\n"
+          },
+          {
+            "type": "added",
+            "content": "                    do {\n                        const response = await axios.get(`${API_URL}?page=${page}`);\n                        const users = response.data.users;\n                        totalPages = response.data.totalPages || 1;\n"
+          },
+          {
+            "type": "removed",
+            "content": "        const prs = await collection.find(query).skip(skip).limit(limit).toArray();\n        const total = await collection.countDocuments(query);\n"
+          },
+          {
+            "type": "added",
+            "content": "                        if (Array.isArray(users)) {\n                            allUsers.push(...users);\n                        }\n"
+          },
+          {
+            "type": "removed",
+            "content": "        res.status(200).json({\n            prs,\n            total,\n            page,\n            totalPages: Math.ceil(total / limit)\n        });\n    } catch (error) {\n        res.status(500).json({ error: 'Erreur lors de la lecture des PRs.' });\n    } finally {\n        await client.close();\n    }\n});\n"
+          },
+          {
+            "type": "added",
+            "content": "                        page++;\n                    } while (page <= totalPages);\n"
+          },
+          {
+            "type": "removed",
+            "content": "app.get('/prs-details', (req, res) => {\n    res.sendFile(path.resolve(__dirname, 'public', 'pr-details.html'));\n});\n"
+          },
+          {
+            "type": "added",
+            "content": "                    const uniqueUsers = Array.from(\n                        new Map(allUsers.map(user => [user._id, user])).values()\n                    );\n"
+          },
+          {
+            "type": "removed",
+            "content": "app.get('/api/github/prs/:number', async (req, res) => {\n    const client = new MongoClient(uri);\n    const prNumber = parseInt(req.params.number);\n"
+          },
+          {
+            "type": "added",
+            "content": "                    console.log(`👥 Utilisateurs : ${uniqueUsers.length}`);\n                } catch (error) {\n                    console.error('❌ Erreur lors de la récupération des utilisateurs :', error.message);\n                }\n                // Récupération des PRs modifiées la veille\n                try {\n                    const prs = await fetchModifiedPRsFromYesterdayFromDB();\n                    console.log(`📦 PRs modifiées hier : ${prs.length}`);\n                    \n                    prs.forEach(pr => {\n                        console.log(`🧪 PR #${pr.number} - updated_at: ${pr.updated_at}`);\n                    });\n                } catch (error) {\n                    console.error('❌ Erreur lors de la récupération des PRs de la veille :', error.message);\n                }\n"
+          },
+          {
+            "type": "removed",
+            "content": "    try {\n        await client.connect();\n        const db = client.db(DB_NAME);\n        const collection = db.collection('pr_merge');\n"
+          },
+          {
+            "type": "removed",
+            "content": "        const pr = await collection.findOne({ number: prNumber });\n"
+          },
+          {
+            "type": "added",
+            "content": "                try {\n                    const prs = await fetchModifiedPRsFromYesterday(); \n                    await showDiffsForModifiedPRsFromYesterday(prs);   \n                    console.log('✅ PRs enrichies avec les lignes modifiées');\n                } catch (error) {\n                    console.error('❌ Erreur lors de l’analyse des PRs modifiées de la veille :', error.message);\n                }\n"
+          },
+          {
+            "type": "removed",
+            "content": "        if (!pr) {\n            return res.status(404).json({ error: 'PR non trouvée.' });\n        }\n"
+          },
+          {
+            "type": "removed",
+            "content": "        res.status(200).json(pr);\n    } catch (error) {\n        res.status(500).json({ error: 'Erreur lors de la récupération de la PR.' });\n    } finally {\n        await client.close();\n    }\n});\n"
+          },
+          {
+            "type": "added",
+            "content": "                // Appel unique au démarrage\n                // try {\n                //     await enrichPRsManuellement();\n                //     console.log('✅ Enrichissement des PRs terminé au démarrage');\n                // } catch (err) {\n                //     console.error('❌ Erreur lors de l’enrichissement au démarrage :', err.message);\n                // }\n"
+          },
+          {
+            "type": "removed",
+            "content": "\n\n\n\nconnecter(uri, (err) => {\n    if (err) {\n        console.error('Failed to connect to the database');\n        process.exit(-1);\n    } else {\n        console.log('Connected to the database');\n        // Mise à jour des utilisateurs : ajout du champ 'phone' si absent\n        // bd().collection('users').updateMany(\n        //     { phone: { $exists: false } }, // uniquement ceux qui n'ont pas le champ\n        //     { $set: { phone: null } }      // ajoute le champ avec valeur null\n        // ).then(result => {\n        //     console.log(`${result.modifiedCount} utilisateurs mis à jour avec le champ 'phone'.`);\n        // }).catch(error => {\n        //     console.error('Erreur lors de la mise à jour des utilisateurs :', error);\n        // });\n        app.listen(port, () => {\n            console.log(`Server is running on http://localhost:${port}`);\n            axios.get(API_URL)\n                .then(response => {\n                    console.log(response.data);\n                })\n                .catch(error => {\n                    console.error(error);\n                });\n            open(`http://localhost:${port}`);\n"
+          },
+          {
+            "type": "added",
+            "content": "            });\n"
+          },
+          {
+            "type": "removed",
+            "content": "});\n\n\n\n"
+          },
+          {
+            "type": "added",
+            "content": "});"
+          }
+        ]
+      }
+    ],
+    "id": 2882075506,
+    "repo": "projet_1",
+    "state": "closed",
+    "title": "creation de export json et affichage dans le terminal des pr faites la veille.",
+    "updated_at": "2025-10-02T14:55:39.000Z",
+    "user": {
+      "login": "fournest85",
+      "id": 233725179,
+      "node_id": "U_kgDODe5c-w",
+      "avatar_url": "https://avatars.githubusercontent.com/u/233725179?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/fournest85",
+      "html_url": "https://github.com/fournest85",
+      "followers_url": "https://api.github.com/users/fournest85/followers",
+      "following_url": "https://api.github.com/users/fournest85/following{/other_user}",
+      "gists_url": "https://api.github.com/users/fournest85/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/fournest85/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/fournest85/subscriptions",
+      "organizations_url": "https://api.github.com/users/fournest85/orgs",
+      "repos_url": "https://api.github.com/users/fournest85/repos",
+      "events_url": "https://api.github.com/users/fournest85/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/fournest85/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    }
+  }
+]
