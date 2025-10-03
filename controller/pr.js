@@ -3,6 +3,7 @@ const axios = require('axios');
 const diff = require('diff');
 const { PR } = require('../model/pr');
 const dbUser = require('../bd/connect');
+const { updatePRsWithUser } = require('../utils/update');
 
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 const GITHUB_OWNER = process.env.GITHUB_OWNER;
@@ -51,36 +52,6 @@ function showDiff(oldText, newText, filename) {
         });
     });
 }
-
-// async function analyzePRFiles(prNumber, baseCommitSha) {
-//     const files = await fetchFilesForPR(prNumber);
-
-//     for (const file of files) {
-//         if (file.status === 'modified') {
-//             try {
-//                 const newContentResponse = await axios.get(file.raw_url, {
-//                     headers: {
-//                         Authorization: `Bearer ${GITHUB_TOKEN}`,
-//                         Accept: 'application/vnd.github.v3.raw'
-//                     }
-//                 });
-//                 const newText = newContentResponse.data;
-
-//                 const oldText = await getFileAtCommit(
-//                     GITHUB_OWNER,
-//                     GITHUB_REPO,
-//                     file.filename,
-//                     baseCommitSha,
-//                     GITHUB_TOKEN
-//                 );
-
-//                 showDiff(oldText, newText, file.filename);
-//             } catch (err) {
-//                 console.error(`❌ Erreur sur ${file.filename} :`, err.message);
-//             }
-//         }
-//     }
-// }
 
 async function getBaseCommitSha(prNumber) {
     const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/pulls/${prNumber}`;
@@ -152,7 +123,7 @@ async function fetchAndStorePRsRaw(date) {
                     const changes = diff.diffLines(oldText, newText);
 
                     file.diff = changes
-                        .filter(part => part.added || part.removed) 
+                        .filter(part => part.added || part.removed)
                         .map(part => ({
                             type: part.added ? 'added' : 'removed',
                             content: part.value
@@ -167,7 +138,14 @@ async function fetchAndStorePRsRaw(date) {
             id: pr.id,
             number: pr.number,
             title: pr.title,
-            user: pr.user,
+            user: {
+                name: pr.user.name,
+                email: pr.user.email,
+                phone: pr.user.phone,
+                githubId: pr.user.id,
+                githubUrl: pr.user.html_url
+            },
+
             state: pr.state,
             created_at: pr.created_at,
             updated_at: pr.updated_at,
@@ -195,7 +173,6 @@ async function fetchAndStorePRsRaw(date) {
 
     return `${count} PRs enregistrées et analysées.`;
 }
-
 
 const fetchAndStorePRs = async (req, res) => {
     try {
@@ -268,13 +245,23 @@ async function fetchModifiedPRsFromYesterday() {
             const modifiedFiles = filesResponse.data.filter(file => file.status === 'modified');
 
             if (modifiedFiles.length > 0) {
+
+                const userFromDB = await usersCollection.findOne({ githubId: pr.user.id });
+                const enrichedUser = {
+                    name: userFromDB?.name || '',
+                    email: userFromDB?.email || '',
+                    phone: userFromDB?.phone || '',
+                    githubId: pr.user.id,
+                    githubUrl: pr.user.html_url
+                };
+
                 modifiedPRs.push({
                     number: pr.number,
                     title: pr.title,
                     baseSha: pr.base.sha,
                     files: modifiedFiles,
                     updated_at: pr.updated_at,
-                    user: pr.user
+                    user: enrichedUser
                 });
             }
         }
@@ -288,6 +275,7 @@ async function showDiffsForModifiedPRsFromYesterday() {
     try {
         const prs = await fetchModifiedPRsFromYesterday();
         const collection = dbUser.bd().collection('pr_merge');
+        const usersCollection = dbUser.bd().collection('users');
 
         for (const pr of prs) {
             console.log(`🔍 PR #${pr.number} - ${pr.title}`);
@@ -331,13 +319,23 @@ async function showDiffsForModifiedPRsFromYesterday() {
                 }
             }
             console.log(`📦 Diff pour PR #${pr.number}:`, JSON.stringify(pr.files, null, 2));
+
+            const userFromDB = await usersCollection.findOne({ githubId: pr.user.id });
+            const enrichedUser = {
+                name: userFromDB?.name || '',
+                email: userFromDB?.email || '',
+                phone: userFromDB?.phone || '',
+                githubId: pr.user.id,
+                githubUrl: pr.user.html_url
+            };
+
             await collection.updateOne(
                 { number: pr.number },
                 {
                     $set: {
                         title: pr.title,
                         updated_at: pr.updated_at,
-                        user: pr.user,
+                        user: enrichedUser,
                         state: pr.state,
                         repo: GITHUB_REPO,
                         files: pr.files
@@ -377,14 +375,16 @@ async function fetchModifiedPRsFromYesterdayFromDB() {
 }
 
 
-// async function enrichPRsManuellement() {
-//     try {
-//         const modifiedPRs = await fetchModifiedPRsFromYesterday();
-//         await showDiffsForModifiedPRsFromYesterday(modifiedPRs);
-//         console.log('✅ Enrichissement manuel terminé');
-//     } catch (err) {
-//         console.error("❌ Erreur lors de l’enrichissement manuel :", err);
-//     }
-// }
+const updatePRs = async (req, res) => {
+    try {
+        const count = await updatePRsWithUser();
+        res.status(200).json({ message: `${count} PR(s) mises à jour avec les données utilisateur.` });
+    } catch (error) {
+        console.error('❌ Erreur updatePRs :', error.message);
+        res.status(500).json({ error: 'Erreur lors de la mise à jour des PRs.' });
+    }
+};
 
-module.exports = { fetchAndStorePRs, getPRs, fetchAndStorePRsRaw, fetchModifiedPRsFromYesterday, showDiffsForModifiedPRsFromYesterday, fetchModifiedPRsFromYesterdayFromDB, enrichPRsManuellement };
+
+
+module.exports = { fetchAndStorePRs, getPRs, fetchAndStorePRsRaw, fetchModifiedPRsFromYesterday, showDiffsForModifiedPRsFromYesterday, fetchModifiedPRsFromYesterdayFromDB, updatePRs };

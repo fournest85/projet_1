@@ -27,7 +27,7 @@
             <div class="list-block">
 
                 <h2><a href="http://localhost:3000/api/users" target="_blank">Liste des utilisateurs</a></h2>
-                <button onclick="syncGitHubUsers()">Synchroniser les utilisateurs GitHub</button>
+                <!-- <button onclick="syncGitHubUsers()">Synchroniser les utilisateurs GitHub</button> -->
                 <ul id="userList"></ul>
                 <div id="userPagination"></div>
             </div>
@@ -109,11 +109,14 @@
             allUsers.forEach(user => {
                 const li = document.createElement('li');
 
-                const identity = user.githubUrl && user.name
-                    ? `<strong><a href= "${user.githubUrl}" target="_blank">${user.name}</a></strong>`
-                    : `<strong>${user.name}</strong>`;
+                if (user.login) {
+                    // Utilisateur GitHub
+                    li.innerHTML = `<strong>${user.html_url}${user.login}</a></strong> <span style="color: #0366d6;">[GitHub]</span> - ID GitHub: ${user.id}`;
+                } else {
+                    // Utilisateur local
+                    li.innerHTML = `<strong>${user.name}</strong> [${user.email}] (${user.phone}) - ID: ${user._id}`;
+                }
 
-                li.innerHTML = `${identity} [${user.email}] (${user.phone}) - ID: ${user._id}`;
                 list.appendChild(li);
             });
         }
@@ -236,15 +239,15 @@
         }
 
 
-        async function syncGitHubUsers() {
-            try {
-                const res = await axios.post('http://localhost:3000/api/prs/sync-users');
-                alert(res.data.message);
-                loadUsers(); // recharge la liste des utilisateurs
-            } catch (err) {
-                alert('Erreur : ' + (err.response?.data?.error || err.message));
-            }
-        }
+        // async function syncGitHubUsers() {
+        //     try {
+        //         const res = await axios.post('http://localhost:3000/api/prs/sync-users');
+        //         alert(res.data.message);
+        //         loadUsers(); // recharge la liste des utilisateurs
+        //     } catch (err) {
+        //         alert('Erreur : ' + (err.response?.data?.error || err.message));
+        //     }
+        // }
 
 
     </script>

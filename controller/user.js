@@ -44,12 +44,40 @@ const getAllUsers = async (req, res) => {
 
         const collection = dbUser.bd().collection('users');
 
-        // 🔍 Projection pour n'afficher que les champs utiles
-        const users = await collection.find({}, {
-            projection: { id: 1, login: 1, html_url: 1, _id: 0 }
+        // Projection complète pour les deux types d'utilisateurs
+        const rawUsers = await collection.find({}, {
+            projection: {
+                name: 1,
+                email: 1,
+                phone: 1,
+                id: 1,
+                login: 1,
+                html_url: 1,
+                _id: 1
+            }
         }).skip(skip).limit(limit).toArray();
 
         const total = await collection.countDocuments();
+
+        // Optionnel : transformation pour le frontend
+        const users = rawUsers.map(user => {
+            if (user.login) {
+                return {
+                    type: 'github',
+                    id: user.id,
+                    login: user.login,
+                    html_url: user.html_url
+                };
+            } else {
+                return {
+                    type: 'local',
+                    _id: user._id,
+                    name: user.name,
+                    email: user.email,
+                    phone: user.phone
+                };
+            }
+        });
 
         res.status(200).json({
             users,
@@ -62,6 +90,7 @@ const getAllUsers = async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 };
+
 
 const getUser = async (req, res) => {
     try {
@@ -138,4 +167,79 @@ const deleteUser = async (req, res) => {
     }
 };
 
-module.exports = { createUser, getAllUsers, getUser, updateUser, deleteUser };
+const migrateUsersFromPRsInternal = async () => {
+    try {
+        const prCollection = dbUser.bd().collection('pr_merge');
+        const userCollection = dbUser.bd().collection('users');
+
+        const prs = await prCollection.find().toArray();
+        let insertedCount = 0;
+
+        for (const pr of prs) {
+
+            const githubUser = pr.user;
+            const prNumber = pr.number;
+
+            if (!githubUser) {
+                console.log(`❌ PR #${prNumber} ignorée : aucun champ 'user'`);
+                continue;
+            }
+
+            const githubId = githubUser.githubId || githubUser.id;
+            if (!githubId) {
+                console.log(`❌ PR #${prNumber} ignorée : 'id' et 'githubId' manquants pour l'utilisateur ${githubUser.login || '[login inconnu]'}`);
+                continue;
+            }
+
+
+            const exists = await userCollection.findOne({ githubId });
+            if (exists) {
+                console.log(`ℹ️ Utilisateur déjà présent : ${exists.login} (githubId: ${githubId})`);
+                continue;
+            }
+
+            const newUser = {
+                githubId,
+                login: githubUser.login || 'unknown',
+                html_url: githubUser.html_url || githubUser.url || null,
+                avatar_url: githubUser.avatar_url || null,
+                gravatar_id: githubUser.gravatar_id || null,
+                url: githubUser.url || null,
+                followers_url: githubUser.followers_url || null,
+                following_url: githubUser.following_url || null,
+                gists_url: githubUser.gists_url || null,
+                starred_url: githubUser.starred_url || null,
+                subscriptions_url: githubUser.subscriptions_url || null,
+                organizations_url: githubUser.organizations_url || null,
+                repos_url: githubUser.repos_url || null,
+                events_url: githubUser.events_url || null,
+                received_events_url: githubUser.received_events_url || null,
+                type: githubUser.type || null,
+                site_admin: githubUser.site_admin ?? false
+            };
+
+            await userCollection.insertOne(newUser);
+            insertedCount++;
+            console.log(`✅ Utilisateur inséré : ${newUser.login} (githubId: ${newUser.githubId})`);
+        }
+
+
+        return insertedCount;
+    } catch (error) {
+        console.error('❌ Erreur migration interne :', error.message);
+        return 0;
+    }
+
+};
+
+const migrateUsersFromPRs = async (req, res) => {
+    try {
+        const count = await migrateUsersFromPRsInternal();
+
+        res.status(200).json({ message: `${count} utilisateur(s) migré(s) depuis pr_merge.` });
+    } catch (error) {
+        console.error('❌ Erreur migration :', error.message);
+        res.status(500).json({ error: 'Erreur lors de la migration.' });
+    }
+};
+module.exports = { createUser, getAllUsers, getUser, updateUser, deleteUser, migrateUsersFromPRs, migrateUsersFromPRsInternal };

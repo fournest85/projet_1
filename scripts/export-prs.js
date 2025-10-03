@@ -15,18 +15,23 @@ if (!fs.existsSync(exportDir)) {
 
 async function exportPRsToJson() {
     const client = new MongoClient(uri);
-    
+
     try {
         await client.connect();
         const db = client.db(dbName);
         const collection = db.collection(collectionName);
-        
+
         const prs = await collection.find({}).toArray();
-        
+
         const today = new Date();
         const dateStr = today.toISOString().split('T')[0]; // format YYYY-MM-DD
         const fileName = `export_prs_${dateStr}.json`;
         const filePath = path.join(exportDir, fileName);
+
+        if (fs.existsSync(filePath)) {
+            console.log(`📁 Le fichier ${fileName} existe déjà. Export ignoré.`);
+            return;
+        }
 
         fs.writeFileSync(filePath, JSON.stringify(prs, null, 2), 'utf-8');
         console.log(`✅ Export terminé : ${filePath}`);

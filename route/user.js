@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 const express = require("express");
-const { createUser, getAllUsers, getUser, updateUser, deleteUser } = require('../controller/user');
+const { createUser, getAllUsers, getUser, updateUser, deleteUser,migrateUsersFromPRs } = require('../controller/user');
 const { User } = require('../model/user');
 const dbUser = require('../bd/connect');
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
@@ -14,6 +14,9 @@ router.route('/users').get(getAllUsers);
 router.route('/users/:id').get(getUser);
 router.route('/users/:id').put(updateUser);
 router.route('/users/:id').delete(deleteUser);
+router.route('/users/migrate-from-prs').post(migrateUsersFromPRs);
+
+const axios = require('axios');
 
 
 router.post('/prs/sync-users', async (req, res) => {

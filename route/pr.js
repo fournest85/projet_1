@@ -2,14 +2,13 @@ require('dotenv').config();
 
 const express = require('express');
 const router = express.Router();
-const { fetchAndStorePRs, getPRs } = require('../controller/pr');
+const { fetchAndStorePRs, getPRs, updatePRs } = require('../controller/pr');
 
 router.get('/fetch', fetchAndStorePRs);
 
 router.get('/list', getPRs);
 
-// console.log(typeof enrichPRsManuellement);
-// router.get('/enrich-prs', enrichPRsManuellement);
+router.put('/update', updatePRs);
 
 router.get('/:number', async (req, res) => {
     const number = parseInt(req.params.number);
