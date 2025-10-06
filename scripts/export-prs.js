@@ -2,6 +2,7 @@ require('dotenv').config();
 const fs = require('fs');
 const path = require('path');
 const { MongoClient } = require('mongodb');
+const { mapUsersByGithubId, enrichPRsWithUsers, getExportFilePath } = require('./githubService');
 
 const uri = process.env.MONGODB_URI;
 const dbName = process.env.DB_NAME;
@@ -13,33 +14,42 @@ if (!fs.existsSync(exportDir)) {
 }
 
 
-async function exportPRsToJson() {
+async function exportPRsToJson({ enrichWithUsers = false } = {}) {
     const client = new MongoClient(uri);
 
     try {
         await client.connect();
         const db = client.db(dbName);
         const collection = db.collection(collectionName);
-
         const prs = await collection.find({}).toArray();
 
-        const today = new Date();
-        const dateStr = today.toISOString().split('T')[0]; // format YYYY-MM-DD
-        const fileName = `export_prs_${dateStr}.json`;
-        const filePath = path.join(exportDir, fileName);
+        let finalPRs = prs;
+
+        if (enrichWithUsers) {
+            const userCollection = db.collection('users');
+            const users = await userCollection.find({}).toArray();
+            const usersByGithubId = mapUsersByGithubId(users);
+            finalPRs = enrichPRsWithUsers(prs, usersByGithubId);
+        }
+
+        const filePath = getExportFilePath(exportDir);
 
         if (fs.existsSync(filePath)) {
-            console.log(`📁 Le fichier ${fileName} existe déjà. Export ignoré.`);
+            console.log(`📁 Le fichier ${path.basename(filePath)} existe déjà. Export ignoré.`);
             return;
         }
 
-        fs.writeFileSync(filePath, JSON.stringify(prs, null, 2), 'utf-8');
-        console.log(`✅ Export terminé : ${filePath}`);
+
+        fs.writeFileSync(filePath, JSON.stringify(finalPRs, null, 2), 'utf-8');
+        console.log(`✅ Export ${enrichWithUsers ? 'enrichi ' : ''}terminé : ${filePath}`);
     } catch (err) {
         console.error('❌ Erreur lors de l’export :', err.message);
     } finally {
         await client.close();
     }
+
 }
 
-exportPRsToJson();
+
+
+module.exports = { exportPRsToJson };

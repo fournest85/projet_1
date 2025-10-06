@@ -174,6 +174,7 @@ const migrateUsersFromPRsInternal = async () => {
 
         const prs = await prCollection.find().toArray();
         let insertedCount = 0;
+        let duplicatesCount = 0;
 
         for (const pr of prs) {
             const prNumber = pr.number;
@@ -194,7 +195,7 @@ const migrateUsersFromPRsInternal = async () => {
 
             const exists = await userCollection.findOne({ githubId });
             if (exists) {
-                console.log(`ℹ️ Utilisateur déjà présent : ${exists.login} (githubId: ${githubId})`);
+                duplicatesCount++;
                 continue;
             }
 
@@ -223,10 +224,10 @@ const migrateUsersFromPRsInternal = async () => {
             console.log(`✅ Utilisateur inséré : ${newUser.login} (githubId: ${newUser.githubId})`);
         }
 
-        return insertedCount;
+        return { inserted: insertedCount, duplicates: duplicatesCount };
     } catch (error) {
         console.error('❌ Erreur migration interne :', error.message);
-        return 0;
+        return { inserted: 0, duplicates: 0 };
     }
 };
 

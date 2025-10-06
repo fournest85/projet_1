@@ -1,19 +1,14 @@
 require('dotenv').config();
 const express = require("express");
-// const fs = require('fs');
 const path = require('path');
-const axios = require('axios');
 const open = require('open').default;
 const readline = require('readline');
 
-// const dbUser = require('./bd/connect');
 const { connecter } = require("./bd/connect");
 const routesUser = require('./route/user');
 const prRoutes = require('./route/pr');
-const { fetchAndStorePRsRaw, showDiffsForModifiedPRsFromYesterday, fetchModifiedPRsFromYesterday, fetchModifiedPRsFromYesterdayFromDB, updatePRs } = require('./controller/pr');
-const { migrateUsersFromPRs, migrateUsersFromPRsInternal } = require('./controller/user');
-// const { updatePRsWithUser } = require('./utils/update');
 const { initGithubCron } = require('./jobs/githubCron');
+const { runStartupTasks } = require('./scripts/startupTasks');
 
 const app = express();
 
@@ -57,85 +52,17 @@ connecter(uri, async (err) => {
         console.log('✅ Connected to the database');
 
 
-        demanderDate(async (inputDate) => {
-            try {
-                const message = await fetchAndStorePRsRaw(inputDate);
-                console.log('🚀 PRs récupérées au démarrage :', message);
-            } catch (error) {
-                console.error('❌ Erreur au démarrage :', error.message);
-            }
 
-            try {
-                console.log('🔧 Mise à jour des PRs avec les données utilisateur...');
-                const updated = await updatePRs();
-                console.log(`✅ ${updated} PR(s) enrichies avec les données utilisateur.`);
-            } catch (err) {
-                console.error('❌ Erreur lors de la mise à jour des PRs :', err.message);
-            }
+        // Démarrage du serveur
+        app.listen(port, async () => {
+            console.log(`Server is running on http://localhost:${port}`);
+            open(`http://localhost:${port}`);
 
+            demanderDate(async (inputDate) => {
+                await runStartupTasks(inputDate, API_URL);
 
-            try {
-                console.log('🚀 Migration des utilisateurs GitHub depuis pr_merge...');
-                const count = await migrateUsersFromPRsInternal();
-                console.log(`✅ Migration terminée : ${count} utilisateur(s) inséré(s).`);
-            } catch (err) {
-                console.error('❌ Erreur lors de la migration au démarrage :', err.message);
-            }
-
-            // Lancement du cron
-            initGithubCron();
-
-            // Démarrage du serveur
-            app.listen(port, async () => {
-                console.log(`Server is running on http://localhost:${port}`);
-                open(`http://localhost:${port}`);
-                // Récupération des utilisateurs depuis l'API externe
-                const allUsers = [];
-                let page = 1;
-                let totalPages = 1;
-
-                try {
-
-                    do {
-                        const response = await axios.get(`${API_URL}?page=${page}`);
-                        const users = response.data.users;
-                        totalPages = response.data.totalPages || 1;
-
-                        if (Array.isArray(users)) {
-                            allUsers.push(...users);
-                        }
-
-                        page++;
-                    } while (page <= totalPages);
-
-                    const uniqueUsers = Array.from(
-                        new Map(allUsers.map(user => [user._id, user])).values()
-                    );
-
-                    console.log(`👥 Utilisateurs : ${uniqueUsers.length}`);
-                } catch (error) {
-                    console.error('❌ Erreur lors de la récupération des utilisateurs :', error.message);
-                }
-                // Récupération des PRs modifiées la veille
-                try {
-                    const prs = await fetchModifiedPRsFromYesterdayFromDB();
-                    console.log(`📦 PRs modifiées hier : ${prs.length}`);
-
-                    prs.forEach(pr => {
-                        console.log(`🧪 PR #${pr.number} - updated_at: ${pr.updated_at}`);
-                    });
-                } catch (error) {
-                    console.error('❌ Erreur lors de la récupération des PRs de la veille :', error.message);
-                }
-
-
-                try {
-                    const prs = await fetchModifiedPRsFromYesterday();
-                    await showDiffsForModifiedPRsFromYesterday(prs);
-                    console.log('✅ PRs enrichies avec les lignes modifiées');
-                } catch (error) {
-                    console.error('❌ Erreur lors de l’analyse des PRs modifiées de la veille :', error.message);
-                }
+                // Lancement du cron
+                initGithubCron();
             });
         });
     }
