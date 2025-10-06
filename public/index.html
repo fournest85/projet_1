@@ -27,7 +27,6 @@
             <div class="list-block">
 
                 <h2><a href="http://localhost:3000/api/users" target="_blank">Liste des utilisateurs</a></h2>
-                <!-- <button onclick="syncGitHubUsers()">Synchroniser les utilisateurs GitHub</button> -->
                 <ul id="userList"></ul>
                 <div id="userPagination"></div>
             </div>
@@ -238,18 +237,6 @@
                 container.appendChild(btn);
             }
         }
-
-
-        // async function syncGitHubUsers() {
-        //     try {
-        //         const res = await axios.post('http://localhost:3000/api/prs/sync-users');
-        //         alert(res.data.message);
-        //         loadUsers(); // recharge la liste des utilisateurs
-        //     } catch (err) {
-        //         alert('Erreur : ' + (err.response?.data?.error || err.message));
-        //     }
-        // }
-
 
     </script>
 </body>

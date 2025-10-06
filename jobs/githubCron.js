@@ -1,6 +1,7 @@
-const { fetchAndStorePRsRaw } = require('../controller/pr');
-const { exportPRsToJson } = require('../scripts/export-prs');
+const { fetchAndStorePRsRaw } = require('../scripts/prService');
 const { migrateUsersFromPRs } = require('../controller/user');
+const { exportPRsToJson } = require('../scripts/export-prs');
+const { generateRapportMarkdown } = require("../scripts/generateRapport");
 const cron = require('node-cron');
 
 /**
@@ -13,7 +14,7 @@ function initGithubCron() {
             const message = await fetchAndStorePRsRaw();
             console.log('✅', message);
 
-            await exportPRsToJson();
+            await exportPRsToJson({ enrichWithUsers: true });
             console.log('📁 Export JSON terminé.');
 
             await migrateUsersFromPRs({
@@ -23,6 +24,12 @@ function initGithubCron() {
                 status: () => ({ json: console.log })
             });
             console.log('👥 Migration des utilisateurs GitHub terminée.');
+
+
+            // 📝 Génération du rapport Markdown
+            generateRapportMarkdown();
+            console.log('📄 Rapport Markdown généré.');
+
 
         } catch (error) {
             console.error('❌ Erreur dans le cron :', error.message);

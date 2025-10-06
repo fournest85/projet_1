@@ -1,4 +1,5 @@
-const dbUser = require('../bd/connect');
+const e = require('express');
+const dbUser = require('../../bd/connect');
 
 const updatePRsWithUser = async () => {
     try {
@@ -21,22 +22,23 @@ const updatePRsWithUser = async () => {
                     id: existingUser.githubId,
                     login: existingUser.githubUrl.split('/').pop(), // extrait le login depuis l'URL
                     html_url: existingUser.githubUrl,
-                    avatar_url: null,
-                    gravatar_id: null,
+                    avatar_url: existingUser.avatar_url, 
+                    gravatar_id: existingUser.gravatar_id, 
                     url: existingUser.githubUrl,
-                    followers_url: null,
-                    following_url: null,
-                    gists_url: null,
-                    starred_url: null,
-                    subscriptions_url: null,
-                    organizations_url: null,
-                    repos_url: null,
-                    events_url: null,
-                    received_events_url: null,
+                    followers_url: existingUser.followers_url,
+                    following_url: existingUser.following_url,
+                    gists_url: existingUser.gists_url,
+                    starred_url: existingUser.starred_url,
+                    subscriptions_url:existingUser.subscriptions_url,
+                    organizations_url: existingUser.organizations_url,
+                    repos_url: existingUser.repos_url,  
+                    repos_url: existingUser.repos_url,
+                    events_url: existingUser.events_url,
+                    received_events_url: existingUser.received_events_url,
                     type: 'User',
                     site_admin: false
                 };
-
+                    
                 await prCollection.updateOne(
                     { _id: pr._id },
                     { $set: { user: enrichedUser } }

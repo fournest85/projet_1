@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 const express = require("express");
-const { createUser, getAllUsers, getUser, updateUser, deleteUser,migrateUsersFromPRs } = require('../controller/user');
+const { createUser, getAllUsers, getUser, updateUser, deleteUser, migrateUsersFromPRs } = require('../controller/user');
 const { User } = require('../model/user');
 const dbUser = require('../bd/connect');
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
@@ -38,29 +38,26 @@ router.post('/prs/sync-users', async (req, res) => {
                     Accept: 'application/vnd.github.v3+json'
                 };
 
-                let email = '';
-                let phone = ''; 
 
                 try {
                     const userDetails = await axios.get(`https://api.github.com/users/${githubUser.login}`, { headers });
-                    email = userDetails.data.email || '';
-                    phone = userDetails.data.phone || '';
+
+                    const newUser = new User({
+                        name: githubUser.login,
+                        email: userDetails.data.email || '',
+                        phone: '',
+                        githubData: userDetails.data
+                    });
+
+                    await userCollection.insertOne({ ...newUser });
+
+                    insertedCount++;
+
                 } catch (err) {
-                    console.warn(`Impossible de récupérer l'email pour ${githubUser.login}`);
+                    console.warn(`Impossible de récupérer les détails pour ${githubUser.login}`, err.message);
                 }
-
-                const newUser = new User({
-                    name: githubUser.login,
-                    email,
-                    phone,
-                    githubData: githubUser}
-                );
-
-                await userCollection.insertOne(newUser);
-                insertedCount++;
             }
         }
-
         res.status(200).json({ message: `${insertedCount} utilisateur(s) GitHub ajouté(s).` });
     } catch (err) {
         console.error('Erreur sync-users :', err);
