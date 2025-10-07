@@ -29,7 +29,7 @@ const getPRs = async (req, res) => {
         const total = await collection.countDocuments(query);
         const prs = await collection.find(query).sort({ updated_at: -1 }).skip(skip).limit(parseInt(limit)).toArray();
 
-        console.log(` 📥 getPRs appelé avec date=${date}, page=${page}, limit=${limit}`);
+        // console.log(` 📥 getPRs appelé avec date=${date}, page=${page}, limit=${limit}`);
 
         res.status(200).json({
             prs,

@@ -9,6 +9,8 @@ const {
 } = require('./prService');
 const { fetchModifiedPRsFromYesterday } = require('./githubService');
 const { migrateUsersFromPRsInternal } = require('../controller/user');
+const { generateRapportMarkdown } = require("./generateRapport");
+const limit = 100; // Nombre de PRs par page
 const axios = require('axios');
 
 async function runStartupTasks(inputDate, API_URL) {
@@ -74,11 +76,12 @@ async function runStartupTasks(inputDate, API_URL) {
         }
 
         // Log déplacé à la fin
-        console.log(`📥 getPRs appelé avec date=${inputDate}, page=1, limit=10`);
+        console.log(` 📥 getPRs appelé avec date=${inputDate}, page=${page}, limit=${limit}`);
+        generateRapportMarkdown(inputDate);
     } catch (err) {
         console.error('❌ Erreur dans les tâches de démarrage :', err.stack || err.message || err);
     }
-    
+
 }
 
 

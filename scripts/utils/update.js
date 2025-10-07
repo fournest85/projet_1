@@ -12,7 +12,7 @@ const updatePRsWithUser = async () => {
 
             // Ignore si déjà enrichi avec login et html_url
             if (existingUser && existingUser.login && existingUser.html_url) {
-                console.log(`ℹ️ PR #${pr.number} déjà enrichie avec ${existingUser.login}, ignorée.`);
+                // console.log(`ℹ️ PR #${pr.number} déjà enrichie avec ${existingUser.login}, ignorée.`);
                 continue;
             }
 
@@ -45,13 +45,13 @@ const updatePRsWithUser = async () => {
                 );
 
                 updatedCount++;
-                console.log(`🔄 PR #${pr.number} mise à jour avec l'utilisateur ${enrichedUser.login}`);
+                // console.log(`🔄 PR #${pr.number} mise à jour avec l'utilisateur ${enrichedUser.login}`);
             } else {
                 console.warn(`⚠️ PR #${pr.number} ignorée : utilisateur GitHub introuvable`);
             }
         }
 
-        console.log(`✅ ${updatedCount} PR(s) mises à jour avec les données utilisateur.`);
+        // console.log(`✅ ${updatedCount} PR(s) mises à jour avec les données utilisateur.`);
         return updatedCount;
     } catch (error) {
         console.error('❌ Erreur lors de la mise à jour des PRs :', error.message);

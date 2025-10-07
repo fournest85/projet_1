@@ -8,10 +8,11 @@ const uri = process.env.MONGODB_URI;
 const dbName = process.env.DB_NAME;
 const collectionName = 'pr_merge';
 
-const exportDir = path.join(__dirname, 'exports');
-if (!fs.existsSync(exportDir)) {
-    fs.mkdirSync(exportDir);
+const exportFolder = path.join(__dirname, 'exports');
+if (!fs.existsSync(exportFolder)) {
+    fs.mkdirSync(exportFolder, { recursive: true });
 }
+
 
 
 async function exportPRsToJson({ enrichWithUsers = false } = {}) {
@@ -32,8 +33,8 @@ async function exportPRsToJson({ enrichWithUsers = false } = {}) {
             finalPRs = enrichPRsWithUsers(prs, usersByGithubId);
         }
 
-        const filePath = getExportFilePath(exportDir);
-
+        const filePath = getExportFilePath();
+        console.log(`🔍 Vérification de l'existence du fichier : ${filePath}`);
         if (fs.existsSync(filePath)) {
             console.log(`📁 Le fichier ${path.basename(filePath)} existe déjà. Export ignoré.`);
             return;

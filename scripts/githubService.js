@@ -2,6 +2,9 @@ require('dotenv').config();
 const axios = require('axios');
 const dbUser = require('../bd/connect');
 
+const path = require('path');
+const exportDir = path.join(__dirname, 'exports');
+
 const { GITHUB_TOKEN, GITHUB_OWNER, GITHUB_REPO } = process.env;
 const headers = {
     Authorization: `Bearer ${GITHUB_TOKEN}`,
@@ -134,18 +137,12 @@ function enrichPRsWithUsers(prs, usersByGithubId) {
         const user = usersByGithubId[pr.user?.id];
         return {
             ...pr,
-            user: user ? {
-                login: user.login,
-                html_url: user.html_url,
-                githubId: user.githubId
-            } : pr.user
+            user: user ? user : pr.user
         };
     });
 }
 
-function getExportFilePath(prefix = 'export_prs') {
-    const today = new Date();
-    const dateStr = today.toISOString().split('T')[0];
+function getExportFilePath(prefix = 'export_prs', dateStr) {
     const fileName = `${prefix}_${dateStr}.json`;
     return path.join(exportDir, fileName);
 }

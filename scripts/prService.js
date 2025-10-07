@@ -250,7 +250,7 @@ const updatePRs = async (req = null, res = null) => {
         }
 
         // Sinon, appel interne (ex: server.js)
-        console.log(`✅ ${message}`);
+        // console.log(`✅ ${message}`);
         return count;
     } catch (error) {
         const errorMessage = 'Erreur lors de la mise à jour des PRs.';
