@@ -59,7 +59,8 @@ connecter(uri, async (err) => {
             open(`http://localhost:${port}`);
 
             demanderDate(async (inputDate) => {
-                await runStartupTasks(inputDate, API_URL);
+                const dateToUse = inputDate || new Date(Date.now() - 86400000).toISOString().split('T')[0];
+                await runStartupTasks(dateToUse, API_URL);
 
                 // Lancement du cron
                 initGithubCron();

@@ -3,6 +3,7 @@ const { migrateUsersFromPRs } = require('../controller/user');
 const { exportPRsToJson } = require('../scripts/export-prs');
 const { generateRapportMarkdown } = require("../scripts/generateRapport");
 const cron = require('node-cron');
+const dayjs = require('dayjs');
 
 /**
  * Initialise le cron pour récupérer les PRs modifiées chaque jour à 1h du matin.
@@ -15,6 +16,7 @@ function initGithubCron() {
             console.log('✅', message);
 
             await exportPRsToJson({ enrichWithUsers: true });
+            console.log('📤 exportPRsToJson lancé');
             console.log('📁 Export JSON terminé.');
 
             await migrateUsersFromPRs({
@@ -27,7 +29,9 @@ function initGithubCron() {
 
 
             // 📝 Génération du rapport Markdown
-            generateRapportMarkdown();
+            const dateStr = dayjs().subtract(1, 'day').format('YYYY-MM-DD');
+            generateRapportMarkdown(dateStr);
+            console.log('📝 generateRapportMarkdown lancé');
             console.log('📄 Rapport Markdown généré.');
 
 

@@ -1,6 +1,7 @@
 const { User } = require('../model/user');
 const { ObjectId } = require('mongodb');
 const dbUser = require('../bd/connect');
+const axios = require('axios');
 
 
 
@@ -45,17 +46,11 @@ const getAllUsers = async (req, res) => {
         const collection = dbUser.bd().collection('users');
 
         // Projection complète pour les deux types d'utilisateurs
-        const rawUsers = await collection.find({}, {
-            projection: {
-                name: 1,
-                email: 1,
-                phone: 1,
-                githubId: 1,
-                login: 1,
-                html_url: 1,
-                _id: 1
-            }
-        }).skip(skip).limit(limit).toArray();
+        const rawUsers = await collection.find({})
+            .skip(skip)
+            .limit(limit)
+            .toArray();
+
 
         const total = await collection.countDocuments();
 
@@ -171,65 +166,79 @@ const migrateUsersFromPRsInternal = async () => {
     try {
         const prCollection = dbUser.bd().collection('pr_merge');
         const userCollection = dbUser.bd().collection('users');
-
         const prs = await prCollection.find().toArray();
+
         let insertedCount = 0;
-        let duplicatesCount = 0;
+        let skippedCount = 0;
+        let updatedCount = 0;
 
         for (const pr of prs) {
-            const prNumber = pr.number;
-            const githubUser = pr.user;
 
-            if (!githubUser) {
-                console.log(`❌ PR #${prNumber} ignorée : aucun champ 'user'`);
+            const githubUser = pr.user;
+            if (!githubUser || !githubUser.login) {
+                console.log(`⚠️ PR #${pr.number} ignorée : utilisateur GitHub invalide`);
+                skippedCount++;
                 continue;
             }
-
-            const githubId = githubUser.githubId || githubUser.id;
             const login = githubUser.login;
 
-            if (!githubId || !login || login === 'unknown') {
-                console.log(`⚠️ PR #${prNumber} ignorée : utilisateur GitHub invalide (id: ${githubId}, login: ${login})`);
+
+            let fullUserData;
+            try {
+                const response = await axios.get(`https://api.github.com/users/${login}`);
+                fullUserData = response.data;
+            } catch (err) {
+                console.error(`❌ Échec récupération API GitHub pour ${login} :`, err.message);
+                skippedCount++;
                 continue;
             }
 
-            const exists = await userCollection.findOne({ githubId });
-            if (exists) {
-                duplicatesCount++;
-                continue;
-            }
+            const githubId = fullUserData.id;
 
-            const newUser = {
+            const userDoc = {
                 githubId,
-                login,
-                html_url: githubUser.html_url || githubUser.url || null,
-                avatar_url: githubUser.avatar_url || null,
-                gravatar_id: githubUser.gravatar_id || null,
-                url: githubUser.url || null,
-                followers_url: githubUser.followers_url || null,
-                following_url: githubUser.following_url || null,
-                gists_url: githubUser.gists_url || null,
-                starred_url: githubUser.starred_url || null,
-                subscriptions_url: githubUser.subscriptions_url || null,
-                organizations_url: githubUser.organizations_url || null,
-                repos_url: githubUser.repos_url || null,
-                events_url: githubUser.events_url || null,
-                received_events_url: githubUser.received_events_url || null,
-                type: githubUser.type || 'User',
-                site_admin: githubUser.site_admin ?? false
+                login: fullUserData.login,
+                html_url: fullUserData.html_url,
+                avatar_url: fullUserData.avatar_url ?? null,
+                gravatar_id: fullUserData.gravatar_id ?? null,
+                url: fullUserData.url ?? null,
+                followers_url: fullUserData.followers_url ?? null,
+                following_url: fullUserData.following_url ?? null,
+                gists_url: fullUserData.gists_url ?? null,
+                starred_url: fullUserData.starred_url ?? null,
+                subscriptions_url: fullUserData.subscriptions_url ?? null,
+                organizations_url: fullUserData.organizations_url ?? null,
+                repos_url: fullUserData.repos_url ?? null,
+                events_url: fullUserData.events_url ?? null,
+                received_events_url: fullUserData.received_events_url ?? null,
+                type: fullUserData.type ?? 'User',
+                site_admin: fullUserData.site_admin ?? false
             };
 
-            await userCollection.insertOne(newUser);
-            insertedCount++;
-            console.log(`✅ Utilisateur inséré : ${newUser.login} (githubId: ${newUser.githubId})`);
+            const existing = await userCollection.findOne({ githubId });
+
+            if (existing) {
+                await userCollection.updateOne({ githubId }, { $set: userDoc });
+                console.log(`🔄 Utilisateur mis à jour : ${login}`);
+                updatedCount++;
+            } else {
+                await userCollection.insertOne(userDoc);
+                console.log(`✅ Utilisateur inséré : ${login}`);
+                insertedCount++;
+            }
         }
 
-        return { inserted: insertedCount, duplicates: duplicatesCount };
+        return {
+            inserted: insertedCount,
+            updated: updatedCount,
+            skipped: skippedCount
+        };
     } catch (error) {
-        console.error('❌ Erreur migration interne :', error.message);
-        return { inserted: 0, duplicates: 0 };
+        console.error('❌ Erreur migration enrichie :', error.message);
+        return { inserted: 0, updated: 0, skipped: 0 };
     }
 };
+
 
 const migrateUsersFromPRs = async (req = null, res = null) => {
     try {
