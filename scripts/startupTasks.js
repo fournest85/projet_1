@@ -10,6 +10,7 @@ const {
 const { fetchModifiedPRsFromYesterday } = require('./githubService');
 const { migrateUsersFromPRsInternal } = require('../controller/user');
 const { generateRapportMarkdown } = require("./generateRapport");
+const { exportPRsToJson } = require("./export-prs");
 const limit = 100; // Nombre de PRs par page
 const axios = require('axios');
 
@@ -74,10 +75,12 @@ async function runStartupTasks(inputDate, API_URL) {
         } catch (err) {
             console.error('❌ Erreur lors de l’analyse des PRs modifiées :', err.stack || err.message || err);
         }
+        await exportPRsToJson({ enrichWithUsers: true, date: inputDate });
+        console.log(`✅ exportPRsToJson terminé avec enrichWithUsers=true`);
 
         // Log déplacé à la fin
         console.log(` 📥 getPRs appelé avec date=${inputDate}, page=${page}, limit=${limit}`);
-        generateRapportMarkdown(inputDate);
+        await generateRapportMarkdown(inputDate);
     } catch (err) {
         console.error('❌ Erreur dans les tâches de démarrage :', err.stack || err.message || err);
     }

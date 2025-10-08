@@ -134,13 +134,36 @@ function mapUsersByGithubId(users) {
 
 function enrichPRsWithUsers(prs, usersByGithubId) {
     return prs.map(pr => {
-        const user = usersByGithubId[pr.user?.id];
-        return {
-            ...pr,
-            user: user ? user : pr.user
-        };
+        const githubId = pr.user?.githubId;
+        const userMeta = githubId ? usersByGithubId[githubId] : null;
+
+        if (userMeta) {
+            const {
+                githubId,
+                login,
+                html_url,
+                avatar_url,
+                type,
+                site_admin
+            } = userMeta;
+
+            return {
+                ...pr,
+                user: {
+                    githubId,
+                    login,
+                    html_url,
+                    avatar_url,
+                    type,
+                    site_admin
+                }
+            };
+        }
+
+        return pr;
     });
 }
+
 
 function getExportFilePath(prefix = 'export_prs', dateStr) {
     const fileName = `${prefix}_${dateStr}.json`;

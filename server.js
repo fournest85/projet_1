@@ -9,6 +9,7 @@ const routesUser = require('./route/user');
 const prRoutes = require('./route/pr');
 const { initGithubCron } = require('./jobs/githubCron');
 const { runStartupTasks } = require('./scripts/startupTasks');
+const cors = require('cors');
 
 const app = express();
 
@@ -19,6 +20,7 @@ const uri = process.env.MONGODB_URI;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static('public'));
+app.use(cors());
 
 app.use('/api', routesUser);
 app.use('/api/github/prs', prRoutes);

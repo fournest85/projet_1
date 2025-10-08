@@ -7,6 +7,7 @@ const { mapUsersByGithubId, enrichPRsWithUsers, getExportFilePath } = require('.
 const uri = process.env.MONGODB_URI;
 const dbName = process.env.DB_NAME;
 const collectionName = 'pr_merge';
+const dayjs = require('dayjs');
 
 const exportFolder = path.join(__dirname, 'exports');
 if (!fs.existsSync(exportFolder)) {
@@ -33,7 +34,8 @@ async function exportPRsToJson({ enrichWithUsers = false } = {}) {
             finalPRs = enrichPRsWithUsers(prs, usersByGithubId);
         }
 
-        const filePath = getExportFilePath();
+        const dateStr = dayjs().subtract(1, 'day').format('YYYY-MM-DD');
+        const filePath = getExportFilePath('export_prs', dateStr);
         console.log(`🔍 Vérification de l'existence du fichier : ${filePath}`);
         if (fs.existsSync(filePath)) {
             console.log(`📁 Le fichier ${path.basename(filePath)} existe déjà. Export ignoré.`);
@@ -43,6 +45,7 @@ async function exportPRsToJson({ enrichWithUsers = false } = {}) {
 
         fs.writeFileSync(filePath, JSON.stringify(finalPRs, null, 2), 'utf-8');
         console.log(`✅ Export ${enrichWithUsers ? 'enrichi ' : ''}terminé : ${filePath}`);
+        console.log(`📁 Écriture du fichier JSON à : ${filePath}`);
     } catch (err) {
         console.error('❌ Erreur lors de l’export :', err.message);
     } finally {
