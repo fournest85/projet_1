@@ -1,62 +1,65 @@
 const e = require('express');
 const dbUser = require('../../bd/connect');
+const { MongoClient } = require('mongodb');
+
+
+const MONGO_URI = process.env.MONGODB_URI;
+const DB_NAME = process.env.DB_NAME;
+
 
 const updatePRsWithUser = async () => {
+
+    const client = new MongoClient(MONGO_URI);
     try {
-        const prCollection = dbUser.bd().collection('pr_merge');
+        await client.connect();
+        const db = client.db(DB_NAME);
+        const prCollection = db.collection('pr_merge');
+        const userCollection = db.collection('users');
+
         const prs = await prCollection.find().toArray();
         let updatedCount = 0;
 
         for (const pr of prs) {
-            const existingUser = pr.user;
-
-            // Ignore si déjà enrichi avec login et html_url
-            if (existingUser && existingUser.login && existingUser.html_url) {
-                // console.log(`ℹ️ PR #${pr.number} déjà enrichie avec ${existingUser.login}, ignorée.`);
+            let login = pr.user?.login;
+            if (!login && pr.user?.githubUrl) {
+                login = pr.user.githubUrl.split('/').pop();
+                // console.log(`🔍 Login extrait depuis githubUrl : ${login}`);
+            }
+            if (!login) {
+                console.warn(`⚠️ PR #${pr.number} ignorée : login utilisateur manquant`);
                 continue;
             }
 
-            // Utilise les données existantes si githubId et githubUrl sont présents
-            if (existingUser && existingUser.githubId && existingUser.githubUrl) {
-                const enrichedUser = {
-                    id: existingUser.githubId,
-                    login: existingUser.githubUrl.split('/').pop(), // extrait le login depuis l'URL
-                    html_url: existingUser.githubUrl,
-                    avatar_url: existingUser.avatar_url, 
-                    gravatar_id: existingUser.gravatar_id, 
-                    url: existingUser.githubUrl,
-                    followers_url: existingUser.followers_url,
-                    following_url: existingUser.following_url,
-                    gists_url: existingUser.gists_url,
-                    starred_url: existingUser.starred_url,
-                    subscriptions_url:existingUser.subscriptions_url,
-                    organizations_url: existingUser.organizations_url,
-                    repos_url: existingUser.repos_url,  
-                    repos_url: existingUser.repos_url,
-                    events_url: existingUser.events_url,
-                    received_events_url: existingUser.received_events_url,
-                    type: 'User',
-                    site_admin: false
-                };
-                    
-                await prCollection.updateOne(
-                    { _id: pr._id },
-                    { $set: { user: enrichedUser } }
-                );
-
-                updatedCount++;
-                // console.log(`🔄 PR #${pr.number} mise à jour avec l'utilisateur ${enrichedUser.login}`);
-            } else {
-                console.warn(`⚠️ PR #${pr.number} ignorée : utilisateur GitHub introuvable`);
+            const userMeta = await userCollection.findOne({ login });
+            if (!userMeta || !userMeta.html_url) {
+                console.warn(`⚠️ Métadonnées incomplètes pour l'utilisateur : ${login}`);
+                continue;
             }
+
+            const filteredUser = {
+                githubId: userMeta.githubId,
+                githubUrl: userMeta.html_url
+            };
+            // console.log(`👤 Utilisateur trouvé : ${login} → githubId: ${userMeta.githubId}`)
+            await prCollection.updateOne(
+                { _id: pr._id },
+                { $set: { user: filteredUser } }
+            );
+
+            updatedCount++;
+            // console.log(`🔄 PR #${pr.number} mise à jour avec githubId et githubUrl`);
         }
 
-        // console.log(`✅ ${updatedCount} PR(s) mises à jour avec les données utilisateur.`);
+        console.log(`✅ ${updatedCount} PR(s) mises à jour.`);
         return updatedCount;
     } catch (error) {
         console.error('❌ Erreur lors de la mise à jour des PRs :', error.message);
         return 0;
+    } finally {
+        await client.close();
     }
 };
+
+
 
 module.exports = { updatePRsWithUser };

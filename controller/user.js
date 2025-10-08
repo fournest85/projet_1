@@ -167,6 +167,7 @@ const migrateUsersFromPRsInternal = async () => {
         const prCollection = dbUser.bd().collection('pr_merge');
         const userCollection = dbUser.bd().collection('users');
         const prs = await prCollection.find().toArray();
+        const fetchedUsersCache = new Set();
 
         let insertedCount = 0;
         let skippedCount = 0;
@@ -182,11 +183,17 @@ const migrateUsersFromPRsInternal = async () => {
             }
             const login = githubUser.login;
 
-
+            if (fetchedUsersCache.has(login)) {
+                skippedCount++;
+                continue;
+            }
+            
+            
             let fullUserData;
             try {
                 const response = await axios.get(`https://api.github.com/users/${login}`);
                 fullUserData = response.data;
+                fetchedUsersCache.add(login);
             } catch (err) {
                 console.error(`❌ Échec récupération API GitHub pour ${login} :`, err.message);
                 skippedCount++;
@@ -218,9 +225,12 @@ const migrateUsersFromPRsInternal = async () => {
             const existing = await userCollection.findOne({ githubId });
 
             if (existing) {
-                await userCollection.updateOne({ githubId }, { $set: userDoc });
-                console.log(`🔄 Utilisateur mis à jour : ${login}`);
-                updatedCount++;
+                const hasChanged = JSON.stringify(existing) !== JSON.stringify(userDoc);
+                if (hasChanged) {
+                    await userCollection.updateOne({ githubId }, { $set: userDoc });
+                    console.log(`🔄 Utilisateur mis à jour : ${login}`);
+                    updatedCount++;
+                }
             } else {
                 await userCollection.insertOne(userDoc);
                 console.log(`✅ Utilisateur inséré : ${login}`);

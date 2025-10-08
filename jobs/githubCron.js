@@ -30,7 +30,7 @@ function initGithubCron() {
 
             // 📝 Génération du rapport Markdown
             const dateStr = dayjs().subtract(1, 'day').format('YYYY-MM-DD');
-            generateRapportMarkdown(dateStr);
+            await generateRapportMarkdown(dateStr);
             console.log('📝 generateRapportMarkdown lancé');
             console.log('📄 Rapport Markdown généré.');
 
