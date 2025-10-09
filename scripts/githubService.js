@@ -134,8 +134,11 @@ function mapUsersByGithubId(users) {
 
 function enrichPRsWithUsers(prs, usersByGithubId) {
     return prs.map(pr => {
-        const githubId = pr.user?.githubId;
+        const githubId = Number(pr.user?.githubId);
         const userMeta = githubId ? usersByGithubId[githubId] : null;
+        if (!userMeta) {
+            console.warn(`⚠️ Utilisateur GitHub non trouvé pour PR #${pr.number} - githubId: ${githubId}`);
+        }
 
         if (userMeta) {
             const {
