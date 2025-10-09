@@ -16,6 +16,7 @@ const axios = require('axios');
 
 async function runStartupTasks(inputDate, API_URL) {
     try {
+        console.log(`🗓️ Démarrage des tâches pour la date : ${inputDate}`);
         console.log('--- [Fetch PRs] ---');
         const message = await fetchAndStorePRsRaw(inputDate);
         console.log('✅ PRs récupérées :', message);
@@ -75,11 +76,11 @@ async function runStartupTasks(inputDate, API_URL) {
         } catch (err) {
             console.error('❌ Erreur lors de l’analyse des PRs modifiées :', err.stack || err.message || err);
         }
-        await exportPRsToJson({ enrichWithUsers: true, date: inputDate });
+        await exportPRsToJson({ enrichWithUsers: true, dateToUse: inputDate });
         console.log(`✅ exportPRsToJson terminé avec enrichWithUsers=true`);
 
         // Log déplacé à la fin
-        console.log(` 📥 getPRs appelé avec date=${inputDate}, page=${page}, limit=${limit}`);
+        console.log(`📥 Traitement terminé pour la date d'analyse : ${inputDate}`);
         await generateRapportMarkdown(inputDate);
     } catch (err) {
         console.error('❌ Erreur dans les tâches de démarrage :', err.stack || err.message || err);

@@ -1,0 +1,5177 @@
+[
+  {
+    "_id": "68e76049c833581caeac72b6",
+    "number": 17,
+    "created_at": "2025-10-08T15:24:58.000Z",
+    "date": "2025-10-09T09:02:09.250Z",
+    "files": [
+      {
+        "filename": "controller/user.js",
+        "status": "modified",
+        "additions": 14,
+        "deletions": 4,
+        "changes": 18,
+        "raw_url": "https://github.com/fournest85/projet_1_back/raw/8c6a3e89ba841a030e75d4c15ec55cdc8d981932/controller%2Fuser.js",
+        "modifiedLines": [
+          {
+            "line": 170,
+            "type": "added",
+            "content": "        const fetchedUsersCache = new Set();"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": 186,
+            "type": "added",
+            "content": "            if (fetchedUsersCache.has(login)) {"
+          },
+          {
+            "line": 187,
+            "type": "added",
+            "content": "                skippedCount++;"
+          },
+          {
+            "line": 188,
+            "type": "added",
+            "content": "                continue;"
+          },
+          {
+            "line": 189,
+            "type": "added",
+            "content": "            }"
+          },
+          {
+            "line": 190,
+            "type": "added",
+            "content": "            "
+          },
+          {
+            "line": 191,
+            "type": "added",
+            "content": "            "
+          },
+          {
+            "line": 196,
+            "type": "added",
+            "content": "                fetchedUsersCache.add(login);"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                await userCollection.updateOne({ githubId }, { $set: userDoc });"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                console.log(`🔄 Utilisateur mis à jour : ${login}`);"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                updatedCount++;"
+          },
+          {
+            "line": 228,
+            "type": "added",
+            "content": "                const hasChanged = JSON.stringify(existing) !== JSON.stringify(userDoc);"
+          },
+          {
+            "line": 229,
+            "type": "added",
+            "content": "                if (hasChanged) {"
+          },
+          {
+            "line": 230,
+            "type": "added",
+            "content": "                    await userCollection.updateOne({ githubId }, { $set: userDoc });"
+          },
+          {
+            "line": 231,
+            "type": "added",
+            "content": "                    console.log(`🔄 Utilisateur mis à jour : ${login}`);"
+          },
+          {
+            "line": 232,
+            "type": "added",
+            "content": "                    updatedCount++;"
+          },
+          {
+            "line": 233,
+            "type": "added",
+            "content": "                }"
+          }
+        ],
+        "diff": []
+      },
+      {
+        "filename": "fetchPRs.js",
+        "status": "removed",
+        "additions": 0,
+        "deletions": 89,
+        "changes": 89,
+        "raw_url": "https://github.com/fournest85/projet_1_back/raw/fabed2911671071b82be70cccbcabe731f1146c4/fetchPRs.js",
+        "modifiedLines": [
+          {
+            "line": null,
+            "type": "removed",
+            "content": "// require('dotenv').config();"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "// const axios = require('axios');"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "// const { MongoClient } = require('mongodb');"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "// const GITHUB_TOKEN = process.env.GITHUB_TOKEN;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "// const MONGODB_URI = process.env.MONGODB_URI;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "// const GITHUB_OWNER = process.env.GITHUB_OWNER;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "// const GITHUB_REPO = process.env.GITHUB_REPO;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "// const DB_NAME = process.env.DB_NAME;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "// const headers = {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "//     Authorization: `Bearer ${GITHUB_TOKEN}`,"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "//     Accept: 'application/vnd.github.v3+json'"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "// };"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "// const githubApiUrl = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/pulls?state=all`;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "// async function fetchFilesForPR(prNumber) {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "//     const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/pulls/${prNumber}/files`;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "//     const response = await axios.get(url, { headers });"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "//     return response.data.map(file => ({"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "//         filename: file.filename,"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "//         status: file.status,"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "//         additions: file.additions,"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "//         deletions: file.deletions,"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "//         changes: file.changes,"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "//         raw_url: file.raw_url"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "//     }));"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "// }"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "// async function fetchAndStorePRs() {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "//     const client = new MongoClient(MONGODB_URI);"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "//     try {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "//         await client.connect();"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "//         // const dbName = new URL(MONGODB_URI).pathname.substring(1); "
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "//         const db = client.db(DB_NAME);"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "//         const collection = db.collection('pr_merge');"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "//         const github_repo = process.env.GITHUB_REPO;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "//         const response = await axios.get(githubApiUrl, { headers });"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "//         const prs = response.data;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "//         // await collection.deleteMany({});"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "//         const docs = [];"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "//         for (const pr of prs) {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "//             const files = await fetchFilesForPR(pr.number);"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "//             docs.push({"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "//                 id: pr.id,"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "//                 number: pr.number,"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "//                 title: pr.title,"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "//                 user: pr.user,"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "//                 state: pr.state,"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "//                 created_at: pr.created_at,"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "//                 updated_at: pr.updated_at,"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "//                 repo: github_repo,"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "//                 // html_url: pr.html_url,"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "//                 files: files,"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "//                 date: new Date()    "
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "//             });"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            "
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "//         }"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "//         if (docs.length > 0) {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "//             await collection.insertMany(docs);"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "//             console.log(`✅ ${docs.length} PRs enregistrées.`);"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "//         } else {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "//             console.log('ℹ️ Aucune PR trouvée.');"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "//         }"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "//     } catch (error) {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "//         console.error('❌ Erreur :', error.message);"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "//     } finally {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "//         await client.close();"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "//     }"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "// }"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "// module.exports = { fetchAndStorePRs };"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          }
+        ]
+      },
+      {
+        "filename": "jobs/githubCron.js",
+        "status": "modified",
+        "additions": 1,
+        "deletions": 1,
+        "changes": 2,
+        "raw_url": "https://github.com/fournest85/projet_1_back/raw/8c6a3e89ba841a030e75d4c15ec55cdc8d981932/jobs%2FgithubCron.js",
+        "modifiedLines": [
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            generateRapportMarkdown(dateStr);"
+          },
+          {
+            "line": 33,
+            "type": "added",
+            "content": "            await generateRapportMarkdown(dateStr);"
+          }
+        ],
+        "diff": []
+      },
+      {
+        "filename": "package-lock.json",
+        "status": "modified",
+        "additions": 23,
+        "deletions": 0,
+        "changes": 23,
+        "raw_url": "https://github.com/fournest85/projet_1_back/raw/8c6a3e89ba841a030e75d4c15ec55cdc8d981932/package-lock.json",
+        "modifiedLines": [
+          {
+            "line": 13,
+            "type": "added",
+            "content": "        \"cors\": \"^2.8.5\","
+          },
+          {
+            "line": 294,
+            "type": "added",
+            "content": "    \"node_modules/cors\": {"
+          },
+          {
+            "line": 295,
+            "type": "added",
+            "content": "      \"version\": \"2.8.5\","
+          },
+          {
+            "line": 296,
+            "type": "added",
+            "content": "      \"resolved\": \"https://registry.npmjs.org/cors/-/cors-2.8.5.tgz\","
+          },
+          {
+            "line": 297,
+            "type": "added",
+            "content": "      \"integrity\": \"sha512-KIHbLJqu73RGr/hnbrO9uBeixNGuvSQjul/jdFvS/KFSIH1hWVd1ng7zOHx+YrEfInLG7q4n6GHQ9cDtxv/P6g==\","
+          },
+          {
+            "line": 298,
+            "type": "added",
+            "content": "      \"license\": \"MIT\","
+          },
+          {
+            "line": 299,
+            "type": "added",
+            "content": "      \"dependencies\": {"
+          },
+          {
+            "line": 300,
+            "type": "added",
+            "content": "        \"object-assign\": \"^4\","
+          },
+          {
+            "line": 301,
+            "type": "added",
+            "content": "        \"vary\": \"^1\""
+          },
+          {
+            "line": 302,
+            "type": "added",
+            "content": "      },"
+          },
+          {
+            "line": 303,
+            "type": "added",
+            "content": "      \"engines\": {"
+          },
+          {
+            "line": 304,
+            "type": "added",
+            "content": "        \"node\": \">= 0.10\""
+          },
+          {
+            "line": 305,
+            "type": "added",
+            "content": "      }"
+          },
+          {
+            "line": 306,
+            "type": "added",
+            "content": "    },"
+          },
+          {
+            "line": 1116,
+            "type": "added",
+            "content": "    \"node_modules/object-assign\": {"
+          },
+          {
+            "line": 1117,
+            "type": "added",
+            "content": "      \"version\": \"4.1.1\","
+          },
+          {
+            "line": 1118,
+            "type": "added",
+            "content": "      \"resolved\": \"https://registry.npmjs.org/object-assign/-/object-assign-4.1.1.tgz\","
+          },
+          {
+            "line": 1119,
+            "type": "added",
+            "content": "      \"integrity\": \"sha512-rJgTQnkUnH1sFw8yT6VSU3zD3sWmu6sZhIseY8VX+GRu3P6F7Fu+JNDoXfklElbLJSnc3FUQHVe4cU5hj+BcUg==\","
+          },
+          {
+            "line": 1120,
+            "type": "added",
+            "content": "      \"license\": \"MIT\","
+          },
+          {
+            "line": 1121,
+            "type": "added",
+            "content": "      \"engines\": {"
+          },
+          {
+            "line": 1122,
+            "type": "added",
+            "content": "        \"node\": \">=0.10.0\""
+          },
+          {
+            "line": 1123,
+            "type": "added",
+            "content": "      }"
+          },
+          {
+            "line": 1124,
+            "type": "added",
+            "content": "    },"
+          }
+        ],
+        "diff": []
+      },
+      {
+        "filename": "package.json",
+        "status": "modified",
+        "additions": 1,
+        "deletions": 0,
+        "changes": 1,
+        "raw_url": "https://github.com/fournest85/projet_1_back/raw/8c6a3e89ba841a030e75d4c15ec55cdc8d981932/package.json",
+        "modifiedLines": [
+          {
+            "line": 13,
+            "type": "added",
+            "content": "    \"cors\": \"^2.8.5\","
+          }
+        ],
+        "diff": []
+      },
+      {
+        "filename": "public/index.html",
+        "status": "removed",
+        "additions": 0,
+        "deletions": 244,
+        "changes": 244,
+        "raw_url": "https://github.com/fournest85/projet_1_back/raw/fabed2911671071b82be70cccbcabe731f1146c4/public%2Findex.html",
+        "modifiedLines": [
+          {
+            "line": null,
+            "type": "removed",
+            "content": "<!DOCTYPE html>"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "<html lang=\"fr\">"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "<head>"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "    <meta charset=\"UTF-8\">"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "    <title>Gestion des utilisateurs et PRs</title>"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "    <link rel=\"stylesheet\" href=\"style.css\">"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "    <script src=\"http://cdn.jsdelivr.net/npm/axios/dist/axios.min.js\"></script>"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "</head>"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "<body>"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "    <div class=\"container\">"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "        <h1>Formulaire CRUD</h1>"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "        <form id=\"userForm\">"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            <input type=\"text\" id=\"userId\" placeholder=\"ID (pour modifier ou supprimer)\">"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            <input type=\"text\" id=\"name\" placeholder=\"Nom\">"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            <input type=\"email\" id=\"email\" placeholder=\"Email\">"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            <input type=\"text\" id=\"phone\" placeholder=\"Téléphone\">"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            <div class=\"buttons\">"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                <button type=\"submit\">Créer / Modifier</button>"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                <button type=\"button\" onclick=\"deleteUser()\">Supprimer</button>"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            </div>"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "        </form>"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "        <div class=\"lists-container\">"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            <div class=\"list-block\">"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                <h2><a href=\"http://localhost:3000/api/users\" target=\"_blank\">Liste des utilisateurs</a></h2>"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                <ul id=\"userList\"></ul>"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                <div id=\"userPagination\"></div>"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            </div>"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            <div class=\"list-block\">"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                <label for=\"prDateFilter\">Filtrer les PRs par date :</label>"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                <input type=\"date\" id=\"prDateFilter\">"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                <button onclick=\"loadPRsByDate()\">Filtrer</button>"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                <h2><a href=\"http://localhost:3000/api/github/prs/list\" target=\"_blank\">Liste des Pull Requests"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                        GitHub</a></h2>"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                <ul id=\"prList\"></ul>"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                <div id=\"prPagination\"></div>"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            </div>"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "        </div>"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "    </div>"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "    <script>"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "        const API_URL = 'http://localhost:3000/api/users';"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "        const USERS_PER_PAGE = 10;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "        const PRS_PER_PAGE = 10;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "        let currentUserPage = 1;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "        let currentPRPage = 1;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "        let allUsers = [];"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "        let allPRs = [];"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "        document.getElementById('userForm').addEventListener('submit', async (e) => {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            e.preventDefault();"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            const id = document.getElementById('userId').value;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            const name = document.getElementById('name').value;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            const email = document.getElementById('email').value;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            const phone = document.getElementById('phone').value;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            const user = { name, email, phone };"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            try {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                if (id) {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                    await axios.put(`${API_URL}/${id}`, user);"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                    alert('Utilisateur modifié');"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                } else {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                    await axios.post(API_URL, user);"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                    alert('Utilisateur créé');"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                }"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                loadUsers();"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            } catch (err) {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                alert('Erreur : ' + (err.response?.data?.error || err.message));"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            }"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "        });"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "        async function deleteUser() {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            const id = document.getElementById('userId').value;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            if (!id) return alert('Veuillez entrer un ID à supprimer');"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            try {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                await axios.delete(`${API_URL}/${id}`);"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                alert('Utilisateur supprimé');"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                loadUsers();"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            } catch (err) {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                alert('Erreur : ' + (err.response?.data?.error || err.message));"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            }"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "        }"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "        async function loadUsers() {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            try {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                const res = await axios.get(`${API_URL}?page=${currentUserPage}&limit=${USERS_PER_PAGE}`);"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                allUsers = res.data.users;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                console.log('Données reçues du backend :', allUsers);"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                displayUsers(currentUserPage);"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                renderUserPagination(res.data.totalPages);"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            } catch (err) {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                console.error('Erreur chargement utilisateurs', err);"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            }"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "        }"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "        function displayUsers(page) {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            const list = document.getElementById('userList');"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            list.innerHTML = '';"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            allUsers.forEach(user => {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                const li = document.createElement('li');"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                if (user.login) {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                    // Utilisateur GitHub"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                    li.innerHTML = `<a>${user.html_url}</a> <strong>${user.login}</strong> <span style=\"color: #0366d6;\">[GitHub]</span> - ID GitHub: ${user.githubId}`;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                } else {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                    // Utilisateur local"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                    li.innerHTML = `<strong>${user.name}</strong> [${user.email}] (${user.phone}) - ID: ${user._id}`;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                }"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                list.appendChild(li);"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            });"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "        }"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "        function renderUserPagination(totalPages) {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            const container = document.getElementById('userPagination');"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            container.innerHTML = '';"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            for (let i = 1; i <= totalPages; i++) {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                const btn = document.createElement('button');"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                btn.textContent = i;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                btn.onclick = () => {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                    currentUserPage = i;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                    loadUsers();"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                };"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                container.appendChild(btn);"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            }"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "        }"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "        function getYesterdayDateString() {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            const yesterday = new Date();"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            yesterday.setDate(yesterday.getDate() - 1);"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            const day = String(yesterday.getDate()).padStart(2, '0');"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            const month = String(yesterday.getMonth() + 1).padStart(2, '0');"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            const year = yesterday.getFullYear();"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            return `${year}-${month}-${day}`;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "        }"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "        document.addEventListener('DOMContentLoaded', () => {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            document.getElementById('prDateFilter').value = getYesterdayDateString();"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            loadUsers();"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            loadPRs();"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "        });"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "        async function loadPRs() {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            const yesterday = getYesterdayDateString();"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            try {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                const res = await axios.get(`http://localhost:3000/api/github/prs/list?date=${yesterday}&sort=titleAndDate&page=${currentPRPage}&limit=${PRS_PER_PAGE}`);"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                allPRs = res.data.prs;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                displayPRs(currentPRPage);"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                renderPRPagination(res.data.totalPages);"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            } catch (err) {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                console.error('Erreur chargement des PR :', err);"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            }"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "        }"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "        async function loadPRsByDate() {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            const selectedDate = document.getElementById('prDateFilter').value;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            if (!selectedDate) return;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            try {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                const res = await axios.get(`http://localhost:3000/api/github/prs/list?date=${selectedDate}&page=${currentPRPage}&limit=${PRS_PER_PAGE}`);"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                allPRs = res.data.prs;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                displayPRs(currentPRPage);"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                renderPRPagination(res.data.totalPages);"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            } catch (err) {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                console.error('Erreur chargement des PR filtrées :', err);"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            }"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "        }"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "        function displayPRs(page) {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            const list = document.getElementById('prList');"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            list.innerHTML = '';"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            // Regrouper les PRs par titre"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            const groupedPRs = {};"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            allPRs.forEach(pr => {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                if (!groupedPRs[pr.title]) {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                    groupedPRs[pr.title] = [];"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                }"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                groupedPRs[pr.title].push(pr);"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            });"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            // Trier les titres alphabétiquement"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            const sortedTitles = Object.keys(groupedPRs).sort();"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            sortedTitles.forEach(title => {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                const group = groupedPRs[title].sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at)); // tri par date décroissante"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                const li = document.createElement('li');"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                li.innerHTML = `<strong>${title}</strong> (${group.length} PR${group.length > 1 ? 's' : ''})`;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                const subList = document.createElement('ul');"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                group.forEach(pr => {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                    const dateText = pr.updated_at ? new Date(pr.updated_at).toLocaleDateString('fr-FR', {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                        weekday: 'long',"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                        year: 'numeric',"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                        month: 'long',"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                        day: 'numeric'"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                    }) : 'Date inconnue';"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                    const subLi = document.createElement('li');"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                    subLi.innerHTML = `#${pr.number} - ${pr.user?.login || 'Utilisateur inconnu'} (${pr.state})<br><em>Enregistrée le : ${dateText}</em>`;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                    subLi.style.cursor = 'pointer';"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                    subLi.onclick = () => {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                        window.location.href = `/prs-details?number=${pr.number}`;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                    };"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                    subList.appendChild(subLi);"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                });"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                li.appendChild(subList);"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                list.appendChild(li);"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            });"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "        }"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "        function renderPRPagination(totalPages) {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            const container = document.getElementById('prPagination');"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            container.innerHTML = '';"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            // const totalPages = Math.ceil(allPRs.length / PRS_PER_PAGE);"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            for (let i = 1; i <= totalPages; i++) {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                const btn = document.createElement('button');"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                btn.textContent = i;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                btn.onclick = () => {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                    currentPRPage = i;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                    loadPRs();"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                };"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                container.appendChild(btn);"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            }"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "        }"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "    </script>"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "</body>"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "</html>"
+          }
+        ]
+      },
+      {
+        "filename": "public/pr-details.html",
+        "status": "removed",
+        "additions": 0,
+        "deletions": 97,
+        "changes": 97,
+        "raw_url": "https://github.com/fournest85/projet_1_back/raw/fabed2911671071b82be70cccbcabe731f1146c4/public%2Fpr-details.html",
+        "modifiedLines": [
+          {
+            "line": null,
+            "type": "removed",
+            "content": "<!-- public/pr-details.html -->"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "<!DOCTYPE html>"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "<html lang=\"fr\">"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "<head>"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "    <meta charset=\"UTF-8\">"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "    <title>Détails des Pull Requests</title>"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "    <link rel=\"stylesheet\" href=\"style.css\">"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "    <script src=\"http://cdn.jsdelivr.net/npm/axios/dist/axios.min.js\"></script>"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "</head>"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "<body>"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "    <div class=\"container\">"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "        <h1>Détails des Pull Requests GitHub</h1>"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "        <ul id=\"prDetailsList\"></ul>"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "        <button onclick=\"goBackToList()\">← Retour à la liste des PRs</button>"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "    </div>"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "    <script>"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "        function goBackToList() {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            window.location.href = '/index.html';"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "        }"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "        function getPRNumberFromURL() {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            const params = new URLSearchParams(window.location.search);"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            return params.get('number');"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "        }"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "        async function loadPRDetails() {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            try {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                const prNumber = getPRNumberFromURL();"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                if (!prNumber) return;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                const res = await axios.get(`http://localhost:3000/api/github/prs/${prNumber}`);"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                const pr = res.data;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                // const pr = prs.find(p => p.number == prNumber);"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                const list = document.getElementById('prDetailsList');"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                list.innerHTML = '';"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                if (!pr || !pr.number) {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                    list.innerHTML = '<li>PR non trouvée.</li>';"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                    return;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                }"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                const li = document.createElement('li');"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                li.style.cursor = 'pointer';"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                const title = document.createElement('h3');"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                title.textContent = `PR #${pr.number} - ${pr.title}`;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                li.appendChild(title);"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                const user = document.createElement('p');"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                user.textContent = `Auteur : ${pr.user.login} | État : ${pr.state}`;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                li.appendChild(user);"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                const date = document.createElement('p');"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                date.textContent = `Créée le : ${new Date(pr.created_at).toLocaleString()}`;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "               "
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                li.appendChild(date);"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                const toggleBtn = document.createElement('button');"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                toggleBtn.textContent = 'Voir les fichiers modifiés';"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                toggleBtn.onclick = () => {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                    let fileList = li.querySelector('ul');"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                    if (fileList) {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                        fileList.style.display = fileList.style.display === 'none' ? 'block' : 'none';"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                    } else {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                        fileList = document.createElement('ul');"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                        (pr.files || []).forEach(file => {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                            const fileItem = document.createElement('li');"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                            const link = document.createElement('a');"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                            link.href = `https://github.com/${pr.user.login}/${pr.repo}/pull/${pr.number}/files`;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                            link.textContent = `${file.filename} (${file.status}) [+${file.additions} / -${file.deletions}]`;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                            link.target = '_blank';"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                            fileItem.appendChild(link);"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                            fileList.appendChild(fileItem)"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                        });"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                        li.appendChild(fileList);"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                    }"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                };"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                li.appendChild(toggleBtn);"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                list.appendChild(li);"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            } catch (error) {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                console.error('Erreur lors du chargement des détails des PRs :', error);"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            }"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "        }"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "        loadPRDetails();"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "    </script>"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "</body>"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "</html>"
+          }
+        ]
+      },
+      {
+        "filename": "public/style.css",
+        "status": "removed",
+        "additions": 0,
+        "deletions": 70,
+        "changes": 70,
+        "raw_url": "https://github.com/fournest85/projet_1_back/raw/fabed2911671071b82be70cccbcabe731f1146c4/public%2Fstyle.css",
+        "modifiedLines": [
+          {
+            "line": null,
+            "type": "removed",
+            "content": "body {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "    font-family: Arial, sans-serif;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "    background-color: #f4f4f4;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "    padding: 20px;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "}"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ".container {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "    max-width: 1000px; /* élargi pour accueillir les deux colonnes */"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "    margin: auto;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "    background: white;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "    padding: 20px;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "    border-radius: 8px;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "    box-shadow: 0 0 10px rgba(0,0,0,0.1);"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "}"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "h1, h2 {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "    text-align: center;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "}"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "form {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "    display: flex;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "    flex-direction: column;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "    gap: 10px;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "    margin-bottom: 20px;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "}"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "input {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "    padding: 10px;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "    font-size: 16px;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "}"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ".buttons {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "    display: flex;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "    justify-content: space-between;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "}"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "button {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "    padding: 10px;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "    font-size: 16px;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "    cursor: pointer;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "}"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ".lists-container {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "    display: flex;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "    gap: 40px;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "    justify-content: space-between;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "    align-items: flex-start;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "    flex-wrap: wrap; /* pour que ça reste responsive */"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "}"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ".list-block {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "    flex: 1;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "    min-width: 300px;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "}"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "ul {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "    list-style: none;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "    padding: 0;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "}"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "ul li {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "    background: #eee;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "    margin: 5px 0;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "    padding: 10px;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "    border-radius: 4px;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "}"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "ul li:nth-child(odd) {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "    background-color: #f9f9f9;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "}"
+          }
+        ]
+      },
+      {
+        "filename": "scripts/export-prs.js",
+        "status": "modified",
+        "additions": 4,
+        "deletions": 1,
+        "changes": 5,
+        "raw_url": "https://github.com/fournest85/projet_1_back/raw/8c6a3e89ba841a030e75d4c15ec55cdc8d981932/scripts%2Fexport-prs.js",
+        "modifiedLines": [
+          {
+            "line": 10,
+            "type": "added",
+            "content": "const dayjs = require('dayjs');"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "        const filePath = getExportFilePath();"
+          },
+          {
+            "line": 37,
+            "type": "added",
+            "content": "        const dateStr = dayjs().subtract(1, 'day').format('YYYY-MM-DD');"
+          },
+          {
+            "line": 38,
+            "type": "added",
+            "content": "        const filePath = getExportFilePath('export_prs', dateStr);"
+          },
+          {
+            "line": 48,
+            "type": "added",
+            "content": "        console.log(`📁 Écriture du fichier JSON à : ${filePath}`);"
+          }
+        ],
+        "diff": []
+      },
+      {
+        "filename": "scripts/exports/export_prs_2025-10-07.json",
+        "status": "added",
+        "additions": 31589,
+        "deletions": 0,
+        "changes": 31589,
+        "raw_url": "https://github.com/fournest85/projet_1_back/raw/8c6a3e89ba841a030e75d4c15ec55cdc8d981932/scripts%2Fexports%2Fexport_prs_2025-10-07.json",
+        "modifiedLines": []
+      },
+      {
+        "filename": "scripts/exports/rapport_2025-10-07.md",
+        "status": "added",
+        "additions": 234,
+        "deletions": 0,
+        "changes": 234,
+        "raw_url": "https://github.com/fournest85/projet_1_back/raw/8c6a3e89ba841a030e75d4c15ec55cdc8d981932/scripts%2Fexports%2Frapport_2025-10-07.md",
+        "modifiedLines": [
+          {
+            "line": 1,
+            "type": "added",
+            "content": "# Rapport des PRs - 2025-10-07"
+          },
+          {
+            "line": 2,
+            "type": "added",
+            "content": ""
+          },
+          {
+            "line": 3,
+            "type": "added",
+            "content": "Nombre total de PRs : 32"
+          },
+          {
+            "line": 4,
+            "type": "added",
+            "content": ""
+          },
+          {
+            "line": 5,
+            "type": "added",
+            "content": "## 📊 Résumé global"
+          },
+          {
+            "line": 6,
+            "type": "added",
+            "content": "- 👥 Contributeurs uniques : 2"
+          },
+          {
+            "line": 7,
+            "type": "added",
+            "content": "- 📂 Fichiers modifiés (total) : 0"
+          },
+          {
+            "line": 8,
+            "type": "added",
+            "content": "- ➕ Lignes ajoutées (total) : 0"
+          },
+          {
+            "line": 9,
+            "type": "added",
+            "content": "- ➖ Lignes supprimées (total) : 0"
+          },
+          {
+            "line": 10,
+            "type": "added",
+            "content": ""
+          },
+          {
+            "line": 11,
+            "type": "added",
+            "content": "## ✅ Points forts"
+          },
+          {
+            "line": 12,
+            "type": "added",
+            "content": "- Bonne répartition des contributions."
+          },
+          {
+            "line": 13,
+            "type": "added",
+            "content": "- Plusieurs PRs fusionnées avec succès."
+          },
+          {
+            "line": 14,
+            "type": "added",
+            "content": ""
+          },
+          {
+            "line": 15,
+            "type": "added",
+            "content": "## 👥 Analyse par utilisateur"
+          },
+          {
+            "line": 16,
+            "type": "added",
+            "content": "### 🔹 fournest"
+          },
+          {
+            "line": 17,
+            "type": "added",
+            "content": "- 👤 Profil GitHub : fournest"
+          },
+          {
+            "line": 18,
+            "type": "added",
+            "content": "- 🖼️ Avatar : !"
+          },
+          {
+            "line": 19,
+            "type": "added",
+            "content": "- 🧬 Type : User"
+          },
+          {
+            "line": 20,
+            "type": "added",
+            "content": "- 🔐 Admin GitHub : Non"
+          },
+          {
+            "line": 21,
+            "type": "added",
+            "content": "- Nombre de PRs : 16"
+          },
+          {
+            "line": 22,
+            "type": "added",
+            "content": "- Fichiers modifiés : 0"
+          },
+          {
+            "line": 23,
+            "type": "added",
+            "content": "- Lignes ajoutées : 0"
+          },
+          {
+            "line": 24,
+            "type": "added",
+            "content": "- Lignes supprimées : 0"
+          },
+          {
+            "line": 25,
+            "type": "added",
+            "content": ""
+          },
+          {
+            "line": 26,
+            "type": "added",
+            "content": "#### PR #84 - Feature/user"
+          },
+          {
+            "line": 27,
+            "type": "added",
+            "content": "- 🔗 [Lien vers la PR](https://github.com/Elodie-Gateau/Mini-Twitter-Symfony/pull/84)  - 🕒 Créée le: 2025-08-18 10:33 "
+          },
+          {
+            "line": 28,
+            "type": "added",
+            "content": "- 📂 Fichiers modifiés: undefined "
+          },
+          {
+            "line": 29,
+            "type": "added",
+            "content": "- ➕ Additions: undefined, ➖ Deletions: undefined "
+          },
+          {
+            "line": 30,
+            "type": "added",
+            "content": "- 📌 Statut: closed "
+          },
+          {
+            "line": 31,
+            "type": "added",
+            "content": ""
+          },
+          {
+            "line": 32,
+            "type": "added",
+            "content": "#### PR #83 - Feature/user"
+          },
+          {
+            "line": 33,
+            "type": "added",
+            "content": "- 🔗 [Lien vers la PR](https://github.com/Elodie-Gateau/Mini-Twitter-Symfony/pull/83)  - 🕒 Créée le: 2025-08-18 09:12 "
+          },
+          {
+            "line": 34,
+            "type": "added",
+            "content": "- 📂 Fichiers modifiés: undefined "
+          },
+          {
+            "line": 35,
+            "type": "added",
+            "content": "- ➕ Additions: undefined, ➖ Deletions: undefined "
+          },
+          {
+            "line": 36,
+            "type": "added",
+            "content": "- 📌 Statut: closed "
+          },
+          {
+            "line": 37,
+            "type": "added",
+            "content": ""
+          },
+          {
+            "line": 38,
+            "type": "added",
+            "content": "#### PR #75 - Feature/user"
+          },
+          {
+            "line": 39,
+            "type": "added",
+            "content": "- 🔗 [Lien vers la PR](https://github.com/Elodie-Gateau/Mini-Twitter-Symfony/pull/75)  - 🕒 Créée le: 2025-08-01 15:58 "
+          },
+          {
+            "line": 40,
+            "type": "added",
+            "content": "- 📂 Fichiers modifiés: undefined "
+          },
+          {
+            "line": 41,
+            "type": "added",
+            "content": "- ➕ Additions: undefined, ➖ Deletions: undefined "
+          },
+          {
+            "line": 42,
+            "type": "added",
+            "content": "- 📌 Statut: closed "
+          },
+          {
+            "line": 43,
+            "type": "added",
+            "content": ""
+          },
+          {
+            "line": 44,
+            "type": "added",
+            "content": "#### PR #70 - Feature/user"
+          },
+          {
+            "line": 45,
+            "type": "added",
+            "content": "- 🔗 [Lien vers la PR](https://github.com/Elodie-Gateau/Mini-Twitter-Symfony/pull/70)  - 🕒 Créée le: 2025-08-01 12:17 "
+          },
+          {
+            "line": 46,
+            "type": "added",
+            "content": "- 📂 Fichiers modifiés: undefined "
+          },
+          {
+            "line": 47,
+            "type": "added",
+            "content": "- ➕ Additions: undefined, ➖ Deletions: undefined "
+          },
+          {
+            "line": 48,
+            "type": "added",
+            "content": "- 📌 Statut: closed "
+          },
+          {
+            "line": 49,
+            "type": "added",
+            "content": ""
+          },
+          {
+            "line": 50,
+            "type": "added",
+            "content": "#### PR #67 - Feature/user"
+          },
+          {
+            "line": 51,
+            "type": "added",
+            "content": "- 🔗 [Lien vers la PR](https://github.com/Elodie-Gateau/Mini-Twitter-Symfony/pull/67)  - 🕒 Créée le: 2025-07-31 14:46 "
+          },
+          {
+            "line": 52,
+            "type": "added",
+            "content": "- 📂 Fichiers modifiés: undefined "
+          },
+          {
+            "line": 53,
+            "type": "added",
+            "content": "- ➕ Additions: undefined, ➖ Deletions: undefined "
+          },
+          {
+            "line": 54,
+            "type": "added",
+            "content": "- 📌 Statut: closed "
+          },
+          {
+            "line": 55,
+            "type": "added",
+            "content": ""
+          },
+          {
+            "line": 56,
+            "type": "added",
+            "content": "#### PR #66 - Feature/user"
+          },
+          {
+            "line": 57,
+            "type": "added",
+            "content": "- 🔗 [Lien vers la PR](https://github.com/Elodie-Gateau/Mini-Twitter-Symfony/pull/66)  - 🕒 Créée le: 2025-07-31 14:31 "
+          },
+          {
+            "line": 58,
+            "type": "added",
+            "content": "- 📂 Fichiers modifiés: undefined "
+          },
+          {
+            "line": 59,
+            "type": "added",
+            "content": "- ➕ Additions: undefined, ➖ Deletions: undefined "
+          },
+          {
+            "line": 60,
+            "type": "added",
+            "content": "- 📌 Statut: closed "
+          },
+          {
+            "line": 61,
+            "type": "added",
+            "content": ""
+          },
+          {
+            "line": 62,
+            "type": "added",
+            "content": "#### PR #61 - Feature/user"
+          },
+          {
+            "line": 63,
+            "type": "added",
+            "content": "- 🔗 [Lien vers la PR](https://github.com/Elodie-Gateau/Mini-Twitter-Symfony/pull/61)  - 🕒 Créée le: 2025-07-31 10:22 "
+          },
+          {
+            "line": 64,
+            "type": "added",
+            "content": "- 📂 Fichiers modifiés: undefined "
+          },
+          {
+            "line": 65,
+            "type": "added",
+            "content": "- ➕ Additions: undefined, ➖ Deletions: undefined "
+          },
+          {
+            "line": 66,
+            "type": "added",
+            "content": "- 📌 Statut: closed "
+          },
+          {
+            "line": 67,
+            "type": "added",
+            "content": ""
+          },
+          {
+            "line": 68,
+            "type": "added",
+            "content": "#### PR #59 - Feature/user"
+          },
+          {
+            "line": 69,
+            "type": "added",
+            "content": "- 🔗 [Lien vers la PR](https://github.com/Elodie-Gateau/Mini-Twitter-Symfony/pull/59)  - 🕒 Créée le: 2025-07-30 16:43 "
+          },
+          {
+            "line": 70,
+            "type": "added",
+            "content": "- 📂 Fichiers modifiés: undefined "
+          },
+          {
+            "line": 71,
+            "type": "added",
+            "content": "- ➕ Additions: undefined, ➖ Deletions: undefined "
+          },
+          {
+            "line": 72,
+            "type": "added",
+            "content": "- 📌 Statut: closed "
+          },
+          {
+            "line": 73,
+            "type": "added",
+            "content": ""
+          },
+          {
+            "line": 74,
+            "type": "added",
+            "content": "#### PR #57 - Feature/user"
+          },
+          {
+            "line": 75,
+            "type": "added",
+            "content": "- 🔗 [Lien vers la PR](https://github.com/Elodie-Gateau/Mini-Twitter-Symfony/pull/57)  - 🕒 Créée le: 2025-07-30 12:21 "
+          },
+          {
+            "line": 76,
+            "type": "added",
+            "content": "- 📂 Fichiers modifiés: undefined "
+          },
+          {
+            "line": 77,
+            "type": "added",
+            "content": "- ➕ Additions: undefined, ➖ Deletions: undefined "
+          },
+          {
+            "line": 78,
+            "type": "added",
+            "content": "- 📌 Statut: closed "
+          },
+          {
+            "line": 79,
+            "type": "added",
+            "content": ""
+          },
+          {
+            "line": 80,
+            "type": "added",
+            "content": "#### PR #56 - retweet en cours"
+          },
+          {
+            "line": 81,
+            "type": "added",
+            "content": "- 🔗 [Lien vers la PR](https://github.com/Elodie-Gateau/Mini-Twitter-Symfony/pull/56)  - 🕒 Créée le: 2025-07-30 12:08 "
+          },
+          {
+            "line": 82,
+            "type": "added",
+            "content": "- 📂 Fichiers modifiés: undefined "
+          },
+          {
+            "line": 83,
+            "type": "added",
+            "content": "- ➕ Additions: undefined, ➖ Deletions: undefined "
+          },
+          {
+            "line": 84,
+            "type": "added",
+            "content": "- 📌 Statut: closed "
+          },
+          {
+            "line": 85,
+            "type": "added",
+            "content": ""
+          },
+          {
+            "line": 86,
+            "type": "added",
+            "content": "#### PR #53 - Feature/user"
+          },
+          {
+            "line": 87,
+            "type": "added",
+            "content": "- 🔗 [Lien vers la PR](https://github.com/Elodie-Gateau/Mini-Twitter-Symfony/pull/53)  - 🕒 Créée le: 2025-07-30 09:43 "
+          },
+          {
+            "line": 88,
+            "type": "added",
+            "content": "- 📂 Fichiers modifiés: undefined "
+          },
+          {
+            "line": 89,
+            "type": "added",
+            "content": "- ➕ Additions: undefined, ➖ Deletions: undefined "
+          },
+          {
+            "line": 90,
+            "type": "added",
+            "content": "- 📌 Statut: closed "
+          },
+          {
+            "line": 91,
+            "type": "added",
+            "content": ""
+          },
+          {
+            "line": 92,
+            "type": "added",
+            "content": "#### PR #48 - Feature/user"
+          },
+          {
+            "line": 93,
+            "type": "added",
+            "content": "- 🔗 [Lien vers la PR](https://github.com/Elodie-Gateau/Mini-Twitter-Symfony/pull/48)  - 🕒 Créée le: 2025-07-29 15:55 "
+          },
+          {
+            "line": 94,
+            "type": "added",
+            "content": "- 📂 Fichiers modifiés: undefined "
+          },
+          {
+            "line": 95,
+            "type": "added",
+            "content": "- ➕ Additions: undefined, ➖ Deletions: undefined "
+          },
+          {
+            "line": 96,
+            "type": "added",
+            "content": "- 📌 Statut: closed "
+          },
+          {
+            "line": 97,
+            "type": "added",
+            "content": ""
+          },
+          {
+            "line": 98,
+            "type": "added",
+            "content": "#### PR #44 - Feature/user"
+          },
+          {
+            "line": 99,
+            "type": "added",
+            "content": "- 🔗 [Lien vers la PR](https://github.com/Elodie-Gateau/Mini-Twitter-Symfony/pull/44)  - 🕒 Créée le: 2025-07-29 11:43 "
+          },
+          {
+            "line": 100,
+            "type": "added",
+            "content": "- 📂 Fichiers modifiés: undefined "
+          },
+          {
+            "line": 101,
+            "type": "added",
+            "content": "- ➕ Additions: undefined, ➖ Deletions: undefined "
+          },
+          {
+            "line": 102,
+            "type": "added",
+            "content": "- 📌 Statut: closed "
+          },
+          {
+            "line": 103,
+            "type": "added",
+            "content": ""
+          },
+          {
+            "line": 104,
+            "type": "added",
+            "content": "#### PR #29 - Feature/user"
+          },
+          {
+            "line": 105,
+            "type": "added",
+            "content": "- 🔗 [Lien vers la PR](https://github.com/Elodie-Gateau/Mini-Twitter-Symfony/pull/29)  - 🕒 Créée le: 2025-07-28 10:20 "
+          },
+          {
+            "line": 106,
+            "type": "added",
+            "content": "- 📂 Fichiers modifiés: undefined "
+          },
+          {
+            "line": 107,
+            "type": "added",
+            "content": "- ➕ Additions: undefined, ➖ Deletions: undefined "
+          },
+          {
+            "line": 108,
+            "type": "added",
+            "content": "- 📌 Statut: closed "
+          },
+          {
+            "line": 109,
+            "type": "added",
+            "content": ""
+          },
+          {
+            "line": 110,
+            "type": "added",
+            "content": "#### PR #25 - Feature/user"
+          },
+          {
+            "line": 111,
+            "type": "added",
+            "content": "- 🔗 [Lien vers la PR](https://github.com/Elodie-Gateau/Mini-Twitter-Symfony/pull/25)  - 🕒 Créée le: 2025-07-25 15:58 "
+          },
+          {
+            "line": 112,
+            "type": "added",
+            "content": "- 📂 Fichiers modifiés: undefined "
+          },
+          {
+            "line": 113,
+            "type": "added",
+            "content": "- ➕ Additions: undefined, ➖ Deletions: undefined "
+          },
+          {
+            "line": 114,
+            "type": "added",
+            "content": "- 📌 Statut: closed "
+          },
+          {
+            "line": 115,
+            "type": "added",
+            "content": ""
+          },
+          {
+            "line": 116,
+            "type": "added",
+            "content": "#### PR #20 - Feature/user"
+          },
+          {
+            "line": 117,
+            "type": "added",
+            "content": "- 🔗 [Lien vers la PR](https://github.com/Elodie-Gateau/Mini-Twitter-Symfony/pull/20)  - 🕒 Créée le: 2025-07-25 12:05 "
+          },
+          {
+            "line": 118,
+            "type": "added",
+            "content": "- 📂 Fichiers modifiés: undefined "
+          },
+          {
+            "line": 119,
+            "type": "added",
+            "content": "- ➕ Additions: undefined, ➖ Deletions: undefined "
+          },
+          {
+            "line": 120,
+            "type": "added",
+            "content": "- 📌 Statut: closed "
+          },
+          {
+            "line": 121,
+            "type": "added",
+            "content": ""
+          },
+          {
+            "line": 122,
+            "type": "added",
+            "content": "### 🔹 fournest85"
+          },
+          {
+            "line": 123,
+            "type": "added",
+            "content": "- 👤 Profil GitHub : fournest85"
+          },
+          {
+            "line": 124,
+            "type": "added",
+            "content": "- 🖼️ Avatar : !"
+          },
+          {
+            "line": 125,
+            "type": "added",
+            "content": "- 🧬 Type : User"
+          },
+          {
+            "line": 126,
+            "type": "added",
+            "content": "- 🔐 Admin GitHub : Non"
+          },
+          {
+            "line": 127,
+            "type": "added",
+            "content": "- Nombre de PRs : 16"
+          },
+          {
+            "line": 128,
+            "type": "added",
+            "content": "- Fichiers modifiés : 0"
+          },
+          {
+            "line": 129,
+            "type": "added",
+            "content": "- Lignes ajoutées : 0"
+          },
+          {
+            "line": 130,
+            "type": "added",
+            "content": "- Lignes supprimées : 0"
+          },
+          {
+            "line": 131,
+            "type": "added",
+            "content": ""
+          },
+          {
+            "line": 132,
+            "type": "added",
+            "content": "#### PR #10 - mise en place du githubCron"
+          },
+          {
+            "line": 133,
+            "type": "added",
+            "content": "- 🔗 [Lien vers la PR](undefined)  - 🕒 Créée le: 2025-09-30 16:10 "
+          },
+          {
+            "line": 134,
+            "type": "added",
+            "content": "- 📂 Fichiers modifiés: undefined "
+          },
+          {
+            "line": 135,
+            "type": "added",
+            "content": "- ➕ Additions: undefined, ➖ Deletions: undefined "
+          },
+          {
+            "line": 136,
+            "type": "added",
+            "content": "- 📌 Statut: closed "
+          },
+          {
+            "line": 137,
+            "type": "added",
+            "content": ""
+          },
+          {
+            "line": 138,
+            "type": "added",
+            "content": "#### PR #9 - mise à jour de la branche master"
+          },
+          {
+            "line": 139,
+            "type": "added",
+            "content": "- 🔗 [Lien vers la PR](undefined)  - 🕒 Créée le: 2025-09-30 15:18 "
+          },
+          {
+            "line": 140,
+            "type": "added",
+            "content": "- 📂 Fichiers modifiés: undefined "
+          },
+          {
+            "line": 141,
+            "type": "added",
+            "content": "- ➕ Additions: undefined, ➖ Deletions: undefined "
+          },
+          {
+            "line": 142,
+            "type": "added",
+            "content": "- 📌 Statut: closed "
+          },
+          {
+            "line": 143,
+            "type": "added",
+            "content": ""
+          },
+          {
+            "line": 144,
+            "type": "added",
+            "content": "#### PR #8 - Test branche"
+          },
+          {
+            "line": 145,
+            "type": "added",
+            "content": "- 🔗 [Lien vers la PR](undefined)  - 🕒 Créée le: 2025-09-29 16:12 "
+          },
+          {
+            "line": 146,
+            "type": "added",
+            "content": "- 📂 Fichiers modifiés: undefined "
+          },
+          {
+            "line": 147,
+            "type": "added",
+            "content": "- ➕ Additions: undefined, ➖ Deletions: undefined "
+          },
+          {
+            "line": 148,
+            "type": "added",
+            "content": "- 📌 Statut: closed "
+          },
+          {
+            "line": 149,
+            "type": "added",
+            "content": ""
+          },
+          {
+            "line": 150,
+            "type": "added",
+            "content": "#### PR #7 - mettre à jour la version master"
+          },
+          {
+            "line": 151,
+            "type": "added",
+            "content": "- 🔗 [Lien vers la PR](undefined)  - 🕒 Créée le: 2025-09-29 16:06 "
+          },
+          {
+            "line": 152,
+            "type": "added",
+            "content": "- 📂 Fichiers modifiés: undefined "
+          },
+          {
+            "line": 153,
+            "type": "added",
+            "content": "- ➕ Additions: undefined, ➖ Deletions: undefined "
+          },
+          {
+            "line": 154,
+            "type": "added",
+            "content": "- 📌 Statut: closed "
+          },
+          {
+            "line": 155,
+            "type": "added",
+            "content": ""
+          },
+          {
+            "line": 156,
+            "type": "added",
+            "content": "#### PR #6 - essai de lien pour afficher les pr"
+          },
+          {
+            "line": 157,
+            "type": "added",
+            "content": "- 🔗 [Lien vers la PR](undefined)  - 🕒 Créée le: 2025-09-26 13:40 "
+          },
+          {
+            "line": 158,
+            "type": "added",
+            "content": "- 📂 Fichiers modifiés: undefined "
+          },
+          {
+            "line": 159,
+            "type": "added",
+            "content": "- ➕ Additions: undefined, ➖ Deletions: undefined "
+          },
+          {
+            "line": 160,
+            "type": "added",
+            "content": "- 📌 Statut: closed "
+          },
+          {
+            "line": 161,
+            "type": "added",
+            "content": ""
+          },
+          {
+            "line": 162,
+            "type": "added",
+            "content": "#### PR #5 - Test branche"
+          },
+          {
+            "line": 163,
+            "type": "added",
+            "content": "- 🔗 [Lien vers la PR](undefined)  - 🕒 Créée le: 2025-09-26 11:42 "
+          },
+          {
+            "line": 164,
+            "type": "added",
+            "content": "- 📂 Fichiers modifiés: undefined "
+          },
+          {
+            "line": 165,
+            "type": "added",
+            "content": "- ➕ Additions: undefined, ➖ Deletions: undefined "
+          },
+          {
+            "line": 166,
+            "type": "added",
+            "content": "- 📌 Statut: closed "
+          },
+          {
+            "line": 167,
+            "type": "added",
+            "content": ""
+          },
+          {
+            "line": 168,
+            "type": "added",
+            "content": "#### PR #4 - Merge pull request #3 from fournest85/master"
+          },
+          {
+            "line": 169,
+            "type": "added",
+            "content": "- 🔗 [Lien vers la PR](undefined)  - 🕒 Créée le: 2025-09-26 10:53 "
+          },
+          {
+            "line": 170,
+            "type": "added",
+            "content": "- 📂 Fichiers modifiés: undefined "
+          },
+          {
+            "line": 171,
+            "type": "added",
+            "content": "- ➕ Additions: undefined, ➖ Deletions: undefined "
+          },
+          {
+            "line": 172,
+            "type": "added",
+            "content": "- 📌 Statut: closed "
+          },
+          {
+            "line": 173,
+            "type": "added",
+            "content": ""
+          },
+          {
+            "line": 174,
+            "type": "added",
+            "content": "#### PR #3 - essai pr"
+          },
+          {
+            "line": 175,
+            "type": "added",
+            "content": "- 🔗 [Lien vers la PR](undefined)  - 🕒 Créée le: 2025-09-26 10:18 "
+          },
+          {
+            "line": 176,
+            "type": "added",
+            "content": "- 📂 Fichiers modifiés: undefined "
+          },
+          {
+            "line": 177,
+            "type": "added",
+            "content": "- ➕ Additions: undefined, ➖ Deletions: undefined "
+          },
+          {
+            "line": 178,
+            "type": "added",
+            "content": "- 📌 Statut: closed "
+          },
+          {
+            "line": 179,
+            "type": "added",
+            "content": ""
+          },
+          {
+            "line": 180,
+            "type": "added",
+            "content": "#### PR #2 - essai de recuparation de pr, probleme de connection"
+          },
+          {
+            "line": 181,
+            "type": "added",
+            "content": "- 🔗 [Lien vers la PR](undefined)  - 🕒 Créée le: 2025-09-26 09:40 "
+          },
+          {
+            "line": 182,
+            "type": "added",
+            "content": "- 📂 Fichiers modifiés: undefined "
+          },
+          {
+            "line": 183,
+            "type": "added",
+            "content": "- ➕ Additions: undefined, ➖ Deletions: undefined "
+          },
+          {
+            "line": 184,
+            "type": "added",
+            "content": "- 📌 Statut: closed "
+          },
+          {
+            "line": 185,
+            "type": "added",
+            "content": ""
+          },
+          {
+            "line": 186,
+            "type": "added",
+            "content": "#### PR #1 - creation du formulaire et creation du champ phone"
+          },
+          {
+            "line": 187,
+            "type": "added",
+            "content": "- 🔗 [Lien vers la PR](undefined)  - 🕒 Créée le: 2025-09-25 11:18 "
+          },
+          {
+            "line": 188,
+            "type": "added",
+            "content": "- 📂 Fichiers modifiés: undefined "
+          },
+          {
+            "line": 189,
+            "type": "added",
+            "content": "- ➕ Additions: undefined, ➖ Deletions: undefined "
+          },
+          {
+            "line": 190,
+            "type": "added",
+            "content": "- 📌 Statut: closed "
+          },
+          {
+            "line": 191,
+            "type": "added",
+            "content": ""
+          },
+          {
+            "line": 192,
+            "type": "added",
+            "content": "#### PR #13 - modification des users github et des collections dans mongodb."
+          },
+          {
+            "line": 193,
+            "type": "added",
+            "content": "- 🔗 [Lien vers la PR](undefined)  - 🕒 Créée le: 2025-10-03 15:46 "
+          },
+          {
+            "line": 194,
+            "type": "added",
+            "content": "- 📂 Fichiers modifiés: undefined "
+          },
+          {
+            "line": 195,
+            "type": "added",
+            "content": "- ➕ Additions: undefined, ➖ Deletions: undefined "
+          },
+          {
+            "line": 196,
+            "type": "added",
+            "content": "- 📌 Statut: closed "
+          },
+          {
+            "line": 197,
+            "type": "added",
+            "content": ""
+          },
+          {
+            "line": 198,
+            "type": "added",
+            "content": "#### PR #14 - mise à jour pour affichage correct et correction de certains bugs."
+          },
+          {
+            "line": 199,
+            "type": "added",
+            "content": "- 🔗 [Lien vers la PR](undefined)  - 🕒 Créée le: 2025-10-03 17:29 "
+          },
+          {
+            "line": 200,
+            "type": "added",
+            "content": "- 📂 Fichiers modifiés: undefined "
+          },
+          {
+            "line": 201,
+            "type": "added",
+            "content": "- ➕ Additions: undefined, ➖ Deletions: undefined "
+          },
+          {
+            "line": 202,
+            "type": "added",
+            "content": "- 📌 Statut: closed "
+          },
+          {
+            "line": 203,
+            "type": "added",
+            "content": ""
+          },
+          {
+            "line": 204,
+            "type": "added",
+            "content": "#### PR #15 - mise à jour du programme pour un code plus clair"
+          },
+          {
+            "line": 205,
+            "type": "added",
+            "content": "- 🔗 [Lien vers la PR](undefined)  - 🕒 Créée le: 2025-10-06 17:57 "
+          },
+          {
+            "line": 206,
+            "type": "added",
+            "content": "- 📂 Fichiers modifiés: undefined "
+          },
+          {
+            "line": 207,
+            "type": "added",
+            "content": "- ➕ Additions: undefined, ➖ Deletions: undefined "
+          },
+          {
+            "line": 208,
+            "type": "added",
+            "content": "- 📌 Statut: closed "
+          },
+          {
+            "line": 209,
+            "type": "added",
+            "content": ""
+          },
+          {
+            "line": 210,
+            "type": "added",
+            "content": "#### PR #12 - creation de export json et affichage dans le terminal des pr faites la veille."
+          },
+          {
+            "line": 211,
+            "type": "added",
+            "content": "- 🔗 [Lien vers la PR](undefined)  - 🕒 Créée le: 2025-10-02 16:55 "
+          },
+          {
+            "line": 212,
+            "type": "added",
+            "content": "- 📂 Fichiers modifiés: undefined "
+          },
+          {
+            "line": 213,
+            "type": "added",
+            "content": "- ➕ Additions: undefined, ➖ Deletions: undefined "
+          },
+          {
+            "line": 214,
+            "type": "added",
+            "content": "- 📌 Statut: closed "
+          },
+          {
+            "line": 215,
+            "type": "added",
+            "content": ""
+          },
+          {
+            "line": 216,
+            "type": "added",
+            "content": "#### PR #11 - recupération du retard."
+          },
+          {
+            "line": 217,
+            "type": "added",
+            "content": "- 🔗 [Lien vers la PR](undefined)  - 🕒 Créée le: 2025-09-30 16:14 "
+          },
+          {
+            "line": 218,
+            "type": "added",
+            "content": "- 📂 Fichiers modifiés: undefined "
+          },
+          {
+            "line": 219,
+            "type": "added",
+            "content": "- ➕ Additions: undefined, ➖ Deletions: undefined "
+          },
+          {
+            "line": 220,
+            "type": "added",
+            "content": "- 📌 Statut: closed "
+          },
+          {
+            "line": 221,
+            "type": "added",
+            "content": ""
+          },
+          {
+            "line": 222,
+            "type": "added",
+            "content": "#### PR #16 - mise en place du rapport markdown "
+          },
+          {
+            "line": 223,
+            "type": "added",
+            "content": "- 🔗 [Lien vers la PR](undefined)  - 🕒 Créée le: 2025-10-07 17:36 "
+          },
+          {
+            "line": 224,
+            "type": "added",
+            "content": "- 📂 Fichiers modifiés: undefined "
+          },
+          {
+            "line": 225,
+            "type": "added",
+            "content": "- ➕ Additions: undefined, ➖ Deletions: undefined "
+          },
+          {
+            "line": 226,
+            "type": "added",
+            "content": "- 📌 Statut: closed "
+          },
+          {
+            "line": 227,
+            "type": "added",
+            "content": ""
+          },
+          {
+            "line": 228,
+            "type": "added",
+            "content": "## 🛠️ Améliorations recommandées"
+          },
+          {
+            "line": 229,
+            "type": "added",
+            "content": "- Vérifier les PRs avec peu ou pas de description."
+          },
+          {
+            "line": 230,
+            "type": "added",
+            "content": "- Encourager des commits plus atomiques."
+          },
+          {
+            "line": 231,
+            "type": "added",
+            "content": "- Ajouter des reviewers pour les PRs critiques."
+          },
+          {
+            "line": 232,
+            "type": "added",
+            "content": "## 🧹 Nettoyage de code"
+          },
+          {
+            "line": 233,
+            "type": "added",
+            "content": "- Suppression de variables inutilisées : `today`, `dateStr`"
+          },
+          {
+            "line": 234,
+            "type": "added",
+            "content": "- Suppression d’un import non utilisé : `const os = require('os')`"
+          }
+        ]
+      },
+      {
+        "filename": "scripts/generateRapport.js",
+        "status": "modified",
+        "additions": 56,
+        "deletions": 37,
+        "changes": 93,
+        "raw_url": "https://github.com/fournest85/projet_1_back/raw/8c6a3e89ba841a030e75d4c15ec55cdc8d981932/scripts%2FgenerateRapport.js",
+        "modifiedLines": [
+          {
+            "line": null,
+            "type": "removed",
+            "content": "function generateRapportMarkdown(dateStr) {"
+          },
+          {
+            "line": 6,
+            "type": "added",
+            "content": "async function generateRapportMarkdown(dateStr) {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "    const prsByUser = {};"
+          },
+          {
+            "line": 25,
+            "type": "added",
+            "content": "    const prsByUserId = {};"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "        const login = pr.user?.login || 'inconnu';"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "        if (!prsByUser[login]) {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            prsByUser[login] = [];"
+          },
+          {
+            "line": 27,
+            "type": "added",
+            "content": "        const githubId = pr.user?.githubId || 'inconnu';"
+          },
+          {
+            "line": 28,
+            "type": "added",
+            "content": "        if (!prsByUserId[githubId]) {"
+          },
+          {
+            "line": 29,
+            "type": "added",
+            "content": "            prsByUserId[githubId] = [];"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "        prsByUser[login].push(pr);"
+          },
+          {
+            "line": 31,
+            "type": "added",
+            "content": "        prsByUserId[githubId].push(pr);"
+          },
+          {
+            "line": 35,
+            "type": "added",
+            "content": "    const totalAdditions = prs.reduce((sum, pr) => sum + (pr.additions || 0), 0);"
+          },
+          {
+            "line": 36,
+            "type": "added",
+            "content": "    const totalDeletions = prs.reduce((sum, pr) => sum + (pr.deletions || 0), 0);"
+          },
+          {
+            "line": 37,
+            "type": "added",
+            "content": "    const totalFilesChanged = prs.reduce((sum, pr) => sum + (pr.changed_files || 0), 0);"
+          },
+          {
+            "line": 38,
+            "type": "added",
+            "content": "    const contributors = [...new Set(prs.map(pr => pr.user?.login || 'inconnu'))];"
+          },
+          {
+            "line": 39,
+            "type": "added",
+            "content": ""
+          },
+          {
+            "line": 43,
+            "type": "added",
+            "content": ""
+          },
+          {
+            "line": 44,
+            "type": "added",
+            "content": "    markdown += `## 📊 Résumé global\\n`;"
+          },
+          {
+            "line": 45,
+            "type": "added",
+            "content": "    markdown += `- 👥 Contributeurs uniques : ${contributors.length}\\n`;"
+          },
+          {
+            "line": 46,
+            "type": "added",
+            "content": "    markdown += `- 📂 Fichiers modifiés (total) : ${totalFilesChanged}\\n`;"
+          },
+          {
+            "line": 47,
+            "type": "added",
+            "content": "    markdown += `- ➕ Lignes ajoutées (total) : ${totalAdditions}\\n`;"
+          },
+          {
+            "line": 48,
+            "type": "added",
+            "content": "    markdown += `- ➖ Lignes supprimées (total) : ${totalDeletions}\\n\\n`;"
+          },
+          {
+            "line": 49,
+            "type": "added",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "    for (const [user, userPRs] of Object.entries(prsByUser)) {"
+          },
+          {
+            "line": 58,
+            "type": "added",
+            "content": "    for (const [githubId, userPRs] of Object.entries(prsByUserId)) {"
+          },
+          {
+            "line": 59,
+            "type": "added",
+            "content": "        const userMeta = userPRs[0]?.user || {};"
+          },
+          {
+            "line": 60,
+            "type": "added",
+            "content": "        const { login, html_url: userUrl, avatar_url, type, site_admin } = userMeta; "
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "        const totalFiles = userPRs.reduce((sum, pr) => sum + (pr.changed_files || 0), 0);"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "        const totalAdditions = userPRs.reduce((sum, pr) => sum + (pr.additions || 0), 0);"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "        const totalDeletions = userPRs.reduce((sum, pr) => sum + (pr.deletions || 0), 0);"
+          },
+          {
+            "line": 62,
+            "type": "added",
+            "content": "            const totalFiles = userPRs.reduce((sum, pr) => sum + (pr.changed_files || 0), 0);"
+          },
+          {
+            "line": 63,
+            "type": "added",
+            "content": "            const totalAdditions = userPRs.reduce((sum, pr) => sum + (pr.additions || 0), 0);"
+          },
+          {
+            "line": 64,
+            "type": "added",
+            "content": "            const totalDeletions = userPRs.reduce((sum, pr) => sum + (pr.deletions || 0), 0);"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "        markdown += `### 🔹 ${user}\\n`;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "        markdown += `- Nombre de PRs : ${userPRs.length}\\n`;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "        markdown += `- Fichiers modifiés : ${totalFiles}\\n`;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "        markdown += `- Lignes ajoutées : ${totalAdditions}\\n`;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "        markdown += `- Lignes supprimées : ${totalDeletions}\\n\\n`;"
+          },
+          {
+            "line": 66,
+            "type": "added",
+            "content": "            markdown += `### 🔹 ${login || 'inconnu'}\\n`;"
+          },
+          {
+            "line": 67,
+            "type": "added",
+            "content": "            if (userUrl) markdown += `- 👤 Profil GitHub : ${login}\\n`;"
+          },
+          {
+            "line": 68,
+            "type": "added",
+            "content": "            if (avatar_url) markdown += `- 🖼️ Avatar : !\\n`;"
+          },
+          {
+            "line": 69,
+            "type": "added",
+            "content": "            if (type) markdown += `- 🧬 Type : ${type}\\n`;"
+          },
+          {
+            "line": 70,
+            "type": "added",
+            "content": "            if (site_admin !== undefined) markdown += `- 🔐 Admin GitHub : ${site_admin ? 'Oui' : 'Non'}\\n`;"
+          },
+          {
+            "line": 72,
+            "type": "added",
+            "content": "            markdown += `- Nombre de PRs : ${userPRs.length}\\n`;"
+          },
+          {
+            "line": 73,
+            "type": "added",
+            "content": "            markdown += `- Fichiers modifiés : ${totalFiles}\\n`;"
+          },
+          {
+            "line": 74,
+            "type": "added",
+            "content": "            markdown += `- Lignes ajoutées : ${totalAdditions}\\n`;"
+          },
+          {
+            "line": 75,
+            "type": "added",
+            "content": "            markdown += `- Lignes supprimées : ${totalDeletions}\\n\\n`;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "        userPRs.forEach(pr => {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            markdown += `#### PR #${pr.number} - ${pr.title}\\n`;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            markdown += `- 🔗 [Lien vers la PR](${pr.html_url})  - 🕒 Créée le: ${dayjs(pr.created_at).format('YYYY-MM-DD HH:mm')} \\n`;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            markdown += `- 📂 Fichiers modifiés: ${pr.changed_files} \\n`;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            markdown += `- ➕ Additions: ${pr.additions}, ➖ Deletions: ${pr.deletions} \\n`;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            markdown += `- 📌 Statut: ${pr.state} \\n\\n`;"
+          },
+          {
+            "line": 78,
+            "type": "added",
+            "content": "            userPRs.forEach(pr => {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "        });"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "    }"
+          },
+          {
+            "line": 80,
+            "type": "added",
+            "content": "                markdown += `#### PR #${pr.number} - ${pr.title}\\n`;"
+          },
+          {
+            "line": 81,
+            "type": "added",
+            "content": "                markdown += `- 🔗 [Lien vers la PR](${pr.html_url})  - 🕒 Créée le: ${dayjs(pr.created_at).format('YYYY-MM-DD HH:mm')} \\n`;"
+          },
+          {
+            "line": 82,
+            "type": "added",
+            "content": "                markdown += `- 📂 Fichiers modifiés: ${pr.changed_files} \\n`;"
+          },
+          {
+            "line": 83,
+            "type": "added",
+            "content": "                markdown += `- ➕ Additions: ${pr.additions}, ➖ Deletions: ${pr.deletions} \\n`;"
+          },
+          {
+            "line": 84,
+            "type": "added",
+            "content": "                markdown += `- 📌 Statut: ${pr.state} \\n\\n`;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "    // Suggestions d'amélioration"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "    markdown += `## 🛠️ Améliorations recommandées\\n`;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "    markdown += `- Vérifier les PRs avec peu ou pas de description.\\n`;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "    markdown += `- Encourager des commits plus atomiques.\\n`;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "    markdown += `- Ajouter des reviewers pour les PRs critiques.\\n`;"
+          },
+          {
+            "line": 86,
+            "type": "added",
+            "content": "            });"
+          },
+          {
+            "line": 87,
+            "type": "added",
+            "content": "        }"
+          },
+          {
+            "line": 88,
+            "type": "added",
+            "content": ""
+          },
+          {
+            "line": 89,
+            "type": "added",
+            "content": "        // Suggestions d'amélioration"
+          },
+          {
+            "line": 90,
+            "type": "added",
+            "content": "        markdown += `## 🛠️ Améliorations recommandées\\n`;"
+          },
+          {
+            "line": 91,
+            "type": "added",
+            "content": "        markdown += `- Vérifier les PRs avec peu ou pas de description.\\n`;"
+          },
+          {
+            "line": 92,
+            "type": "added",
+            "content": "        markdown += `- Encourager des commits plus atomiques.\\n`;"
+          },
+          {
+            "line": 93,
+            "type": "added",
+            "content": "        markdown += `- Ajouter des reviewers pour les PRs critiques.\\n`;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "    // Nettoyage de code"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "    markdown += `## 🧹 Nettoyage de code\\n`;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "    markdown += `- Suppression de variables inutilisées : \\`today\\`, \\`dateStr\\`\\n`;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "    markdown += `- Suppression d’un import non utilisé : \\`const os = require('os')\\`\\n`;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "    "
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "    fs.writeFileSync(rapportPath, markdown, 'utf-8');"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "    console.log(`Rapport généré: ${rapportPath} `);"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "}"
+          },
+          {
+            "line": 96,
+            "type": "added",
+            "content": "        // Nettoyage de code"
+          },
+          {
+            "line": 97,
+            "type": "added",
+            "content": "        markdown += `## 🧹 Nettoyage de code\\n`;"
+          },
+          {
+            "line": 98,
+            "type": "added",
+            "content": "        markdown += `- Suppression de variables inutilisées : \\`today\\`, \\`dateStr\\`\\n`;"
+          },
+          {
+            "line": 99,
+            "type": "added",
+            "content": "        markdown += `- Suppression d’un import non utilisé : \\`const os = require('os')\\`\\n`;"
+          },
+          {
+            "line": 100,
+            "type": "added",
+            "content": ""
+          },
+          {
+            "line": 101,
+            "type": "added",
+            "content": "        fs.writeFileSync(rapportPath, markdown, 'utf-8');"
+          },
+          {
+            "line": 102,
+            "type": "added",
+            "content": "        console.log(`Rapport généré: ${rapportPath} `);"
+          },
+          {
+            "line": 103,
+            "type": "added",
+            "content": "    }"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "module.exports = { generateRapportMarkdown };"
+          },
+          {
+            "line": 106,
+            "type": "added",
+            "content": "    module.exports = { generateRapportMarkdown };"
+          }
+        ],
+        "diff": []
+      },
+      {
+        "filename": "scripts/githubService.js",
+        "status": "modified",
+        "additions": 28,
+        "deletions": 5,
+        "changes": 33,
+        "raw_url": "https://github.com/fournest85/projet_1_back/raw/8c6a3e89ba841a030e75d4c15ec55cdc8d981932/scripts%2FgithubService.js",
+        "modifiedLines": [
+          {
+            "line": null,
+            "type": "removed",
+            "content": "        const user = usersByGithubId[pr.user?.id];"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "        return {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            ...pr,"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            user: user ? user : pr.user"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "        };"
+          },
+          {
+            "line": 137,
+            "type": "added",
+            "content": "        const githubId = pr.user?.githubId;"
+          },
+          {
+            "line": 138,
+            "type": "added",
+            "content": "        const userMeta = githubId ? usersByGithubId[githubId] : null;"
+          },
+          {
+            "line": 139,
+            "type": "added",
+            "content": ""
+          },
+          {
+            "line": 140,
+            "type": "added",
+            "content": "        if (userMeta) {"
+          },
+          {
+            "line": 141,
+            "type": "added",
+            "content": "            const {"
+          },
+          {
+            "line": 142,
+            "type": "added",
+            "content": "                githubId,"
+          },
+          {
+            "line": 143,
+            "type": "added",
+            "content": "                login,"
+          },
+          {
+            "line": 144,
+            "type": "added",
+            "content": "                html_url,"
+          },
+          {
+            "line": 145,
+            "type": "added",
+            "content": "                avatar_url,"
+          },
+          {
+            "line": 146,
+            "type": "added",
+            "content": "                type,"
+          },
+          {
+            "line": 147,
+            "type": "added",
+            "content": "                site_admin"
+          },
+          {
+            "line": 148,
+            "type": "added",
+            "content": "            } = userMeta;"
+          },
+          {
+            "line": 149,
+            "type": "added",
+            "content": ""
+          },
+          {
+            "line": 150,
+            "type": "added",
+            "content": "            return {"
+          },
+          {
+            "line": 151,
+            "type": "added",
+            "content": "                ...pr,"
+          },
+          {
+            "line": 152,
+            "type": "added",
+            "content": "                user: {"
+          },
+          {
+            "line": 153,
+            "type": "added",
+            "content": "                    githubId,"
+          },
+          {
+            "line": 154,
+            "type": "added",
+            "content": "                    login,"
+          },
+          {
+            "line": 155,
+            "type": "added",
+            "content": "                    html_url,"
+          },
+          {
+            "line": 156,
+            "type": "added",
+            "content": "                    avatar_url,"
+          },
+          {
+            "line": 157,
+            "type": "added",
+            "content": "                    type,"
+          },
+          {
+            "line": 158,
+            "type": "added",
+            "content": "                    site_admin"
+          },
+          {
+            "line": 159,
+            "type": "added",
+            "content": "                }"
+          },
+          {
+            "line": 160,
+            "type": "added",
+            "content": "            };"
+          },
+          {
+            "line": 161,
+            "type": "added",
+            "content": "        }"
+          },
+          {
+            "line": 162,
+            "type": "added",
+            "content": ""
+          },
+          {
+            "line": 163,
+            "type": "added",
+            "content": "        return pr;"
+          },
+          {
+            "line": 167,
+            "type": "added",
+            "content": ""
+          }
+        ],
+        "diff": []
+      },
+      {
+        "filename": "scripts/startupTasks.js",
+        "status": "modified",
+        "additions": 4,
+        "deletions": 1,
+        "changes": 5,
+        "raw_url": "https://github.com/fournest85/projet_1_back/raw/8c6a3e89ba841a030e75d4c15ec55cdc8d981932/scripts%2FstartupTasks.js",
+        "modifiedLines": [
+          {
+            "line": 13,
+            "type": "added",
+            "content": "const { exportPRsToJson } = require(\"./export-prs\");"
+          },
+          {
+            "line": 78,
+            "type": "added",
+            "content": "        await exportPRsToJson({ enrichWithUsers: true, date: inputDate });"
+          },
+          {
+            "line": 79,
+            "type": "added",
+            "content": "        console.log(`✅ exportPRsToJson terminé avec enrichWithUsers=true`);"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "        generateRapportMarkdown(inputDate);"
+          },
+          {
+            "line": 83,
+            "type": "added",
+            "content": "        await generateRapportMarkdown(inputDate);"
+          }
+        ],
+        "diff": []
+      },
+      {
+        "filename": "scripts/utils/update.js",
+        "status": "modified",
+        "additions": 42,
+        "deletions": 39,
+        "changes": 81,
+        "raw_url": "https://github.com/fournest85/projet_1_back/raw/8c6a3e89ba841a030e75d4c15ec55cdc8d981932/scripts%2Futils%2Fupdate.js",
+        "modifiedLines": [
+          {
+            "line": 3,
+            "type": "added",
+            "content": "const { MongoClient } = require('mongodb');"
+          },
+          {
+            "line": 4,
+            "type": "added",
+            "content": ""
+          },
+          {
+            "line": 5,
+            "type": "added",
+            "content": ""
+          },
+          {
+            "line": 6,
+            "type": "added",
+            "content": "const MONGO_URI = process.env.MONGODB_URI;"
+          },
+          {
+            "line": 7,
+            "type": "added",
+            "content": "const DB_NAME = process.env.DB_NAME;"
+          },
+          {
+            "line": 8,
+            "type": "added",
+            "content": ""
+          },
+          {
+            "line": 11,
+            "type": "added",
+            "content": ""
+          },
+          {
+            "line": 12,
+            "type": "added",
+            "content": "    const client = new MongoClient(MONGO_URI);"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "        const prCollection = dbUser.bd().collection('pr_merge');"
+          },
+          {
+            "line": 14,
+            "type": "added",
+            "content": "        await client.connect();"
+          },
+          {
+            "line": 15,
+            "type": "added",
+            "content": "        const db = client.db(DB_NAME);"
+          },
+          {
+            "line": 16,
+            "type": "added",
+            "content": "        const prCollection = db.collection('pr_merge');"
+          },
+          {
+            "line": 17,
+            "type": "added",
+            "content": "        const userCollection = db.collection('users');"
+          },
+          {
+            "line": 18,
+            "type": "added",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            const existingUser = pr.user;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            // Ignore si déjà enrichi avec login et html_url"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            if (existingUser && existingUser.login && existingUser.html_url) {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                // console.log(`ℹ️ PR #${pr.number} déjà enrichie avec ${existingUser.login}, ignorée.`);"
+          },
+          {
+            "line": 23,
+            "type": "added",
+            "content": "            let login = pr.user?.login;"
+          },
+          {
+            "line": 24,
+            "type": "added",
+            "content": "            if (!login && pr.user?.githubUrl) {"
+          },
+          {
+            "line": 25,
+            "type": "added",
+            "content": "                login = pr.user.githubUrl.split('/').pop();"
+          },
+          {
+            "line": 26,
+            "type": "added",
+            "content": "                // console.log(`🔍 Login extrait depuis githubUrl : ${login}`);"
+          },
+          {
+            "line": 27,
+            "type": "added",
+            "content": "            }"
+          },
+          {
+            "line": 28,
+            "type": "added",
+            "content": "            if (!login) {"
+          },
+          {
+            "line": 29,
+            "type": "added",
+            "content": "                console.warn(`⚠️ PR #${pr.number} ignorée : login utilisateur manquant`);"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            // Utilise les données existantes si githubId et githubUrl sont présents"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            if (existingUser && existingUser.githubId && existingUser.githubUrl) {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                const enrichedUser = {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                    id: existingUser.githubId,"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                    login: existingUser.githubUrl.split('/').pop(), // extrait le login depuis l'URL"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                    html_url: existingUser.githubUrl,"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                    avatar_url: existingUser.avatar_url, "
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                    gravatar_id: existingUser.gravatar_id, "
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                    url: existingUser.githubUrl,"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                    followers_url: existingUser.followers_url,"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                    following_url: existingUser.following_url,"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                    gists_url: existingUser.gists_url,"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                    starred_url: existingUser.starred_url,"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                    subscriptions_url:existingUser.subscriptions_url,"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                    organizations_url: existingUser.organizations_url,"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                    repos_url: existingUser.repos_url,  "
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                    repos_url: existingUser.repos_url,"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                    events_url: existingUser.events_url,"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                    received_events_url: existingUser.received_events_url,"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                    type: 'User',"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                    site_admin: false"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                };"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                    "
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                await prCollection.updateOne("
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                    { _id: pr._id },"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                    { $set: { user: enrichedUser } }"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                );"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": ""
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                updatedCount++;"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                // console.log(`🔄 PR #${pr.number} mise à jour avec l'utilisateur ${enrichedUser.login}`);"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "            } else {"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "                console.warn(`⚠️ PR #${pr.number} ignorée : utilisateur GitHub introuvable`);"
+          },
+          {
+            "line": 33,
+            "type": "added",
+            "content": "            const userMeta = await userCollection.findOne({ login });"
+          },
+          {
+            "line": 34,
+            "type": "added",
+            "content": "            if (!userMeta || !userMeta.html_url) {"
+          },
+          {
+            "line": 35,
+            "type": "added",
+            "content": "                console.warn(`⚠️ Métadonnées incomplètes pour l'utilisateur : ${login}`);"
+          },
+          {
+            "line": 36,
+            "type": "added",
+            "content": "                continue;"
+          },
+          {
+            "line": 38,
+            "type": "added",
+            "content": ""
+          },
+          {
+            "line": 39,
+            "type": "added",
+            "content": "            const filteredUser = {"
+          },
+          {
+            "line": 40,
+            "type": "added",
+            "content": "                githubId: userMeta.githubId,"
+          },
+          {
+            "line": 41,
+            "type": "added",
+            "content": "                githubUrl: userMeta.html_url"
+          },
+          {
+            "line": 42,
+            "type": "added",
+            "content": "            };"
+          },
+          {
+            "line": 43,
+            "type": "added",
+            "content": "            // console.log(`👤 Utilisateur trouvé : ${login} → githubId: ${userMeta.githubId}`)"
+          },
+          {
+            "line": 44,
+            "type": "added",
+            "content": "            await prCollection.updateOne("
+          },
+          {
+            "line": 45,
+            "type": "added",
+            "content": "                { _id: pr._id },"
+          },
+          {
+            "line": 46,
+            "type": "added",
+            "content": "                { $set: { user: filteredUser } }"
+          },
+          {
+            "line": 47,
+            "type": "added",
+            "content": "            );"
+          },
+          {
+            "line": 48,
+            "type": "added",
+            "content": ""
+          },
+          {
+            "line": 49,
+            "type": "added",
+            "content": "            updatedCount++;"
+          },
+          {
+            "line": 50,
+            "type": "added",
+            "content": "            // console.log(`🔄 PR #${pr.number} mise à jour avec githubId et githubUrl`);"
+          },
+          {
+            "line": null,
+            "type": "removed",
+            "content": "        // console.log(`✅ ${updatedCount} PR(s) mises à jour avec les données utilisateur.`);"
+          },
+          {
+            "line": 53,
+            "type": "added",
+            "content": "        console.log(`✅ ${updatedCount} PR(s) mises à jour.`);"
+          },
+          {
+            "line": 58,
+            "type": "added",
+            "content": "    } finally {"
+          },
+          {
+            "line": 59,
+            "type": "added",
+            "content": "        await client.close();"
+          },
+          {
+            "line": 63,
+            "type": "added",
+            "content": ""
+          },
+          {
+            "line": 64,
+            "type": "added",
+            "content": ""
+          }
+        ],
+        "diff": []
+      },
+      {
+        "filename": "server.js",
+        "status": "modified",
+        "additions": 2,
+        "deletions": 0,
+        "changes": 2,
+        "raw_url": "https://github.com/fournest85/projet_1_back/raw/8c6a3e89ba841a030e75d4c15ec55cdc8d981932/server.js",
+        "modifiedLines": [
+          {
+            "line": 12,
+            "type": "added",
+            "content": "const cors = require('cors');"
+          },
+          {
+            "line": 23,
+            "type": "added",
+            "content": "app.use(cors());"
+          }
+        ],
+        "diff": []
+      }
+    ],
+    "id": 2897882365,
+    "repo": "projet_1_back",
+    "state": "closed",
+    "title": "split en 2 projets (front et back)",
+    "updated_at": "2025-10-08T15:25:06.000Z",
+    "user": {
+      "githubId": 233725179,
+      "login": "fournest85",
+      "html_url": "https://github.com/fournest85",
+      "avatar_url": "https://avatars.githubusercontent.com/u/233725179?v=4",
+      "type": "User",
+      "site_admin": false
+    }
+  }
+]

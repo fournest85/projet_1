@@ -176,19 +176,29 @@ const migrateUsersFromPRsInternal = async () => {
         for (const pr of prs) {
 
             const githubUser = pr.user;
-            if (!githubUser || !githubUser.login) {
+
+            let login = githubUser?.login;
+
+            // 🔄 Reconstruire le login à partir de githubUrl si absent
+            if (!login && githubUser?.githubUrl) {
+                const match = githubUser.githubUrl.match(/github\\.com\/([^\/]+)/);
+                if (match) {
+                    login = match[1];
+                }
+            }
+
+            if (!login) {
                 console.log(`⚠️ PR #${pr.number} ignorée : utilisateur GitHub invalide`);
                 skippedCount++;
                 continue;
             }
-            const login = githubUser.login;
 
             if (fetchedUsersCache.has(login)) {
                 skippedCount++;
                 continue;
             }
-            
-            
+
+
             let fullUserData;
             try {
                 const response = await axios.get(`https://api.github.com/users/${login}`);

@@ -16,14 +16,25 @@ if (!fs.existsSync(exportFolder)) {
 
 
 
-async function exportPRsToJson({ enrichWithUsers = false } = {}) {
+async function exportPRsToJson({ enrichWithUsers = false, dateToUse } = {}) {
     const client = new MongoClient(uri);
 
     try {
         await client.connect();
         const db = client.db(dbName);
         const collection = db.collection(collectionName);
-        const prs = await collection.find({}).toArray();
+
+        const selectedDate = dateToUse
+            ? new Date(dateToUse)
+            : dayjs().subtract(1, 'day').startOf('day').toDate();
+
+        const nextDay = dayjs(selectedDate).add(1, 'day').startOf('day').toDate();
+
+
+        const prs = await collection.find({
+            created_at: { $gte: selectedDate, $lt: nextDay }
+        }).toArray();
+
 
         let finalPRs = prs;
 
@@ -34,7 +45,7 @@ async function exportPRsToJson({ enrichWithUsers = false } = {}) {
             finalPRs = enrichPRsWithUsers(prs, usersByGithubId);
         }
 
-        const dateStr = dayjs().subtract(1, 'day').format('YYYY-MM-DD');
+        const dateStr = dayjs(selectedDate).format('YYYY-MM-DD');
         const filePath = getExportFilePath('export_prs', dateStr);
         console.log(`🔍 Vérification de l'existence du fichier : ${filePath}`);
         if (fs.existsSync(filePath)) {
