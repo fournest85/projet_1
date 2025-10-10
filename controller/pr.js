@@ -24,12 +24,17 @@ const getPRs = async (req, res) => {
             startDate.setHours(0, 0, 0, 0);
             const endDate = new Date(date);
             endDate.setHours(23, 59, 59, 999);
-            query = { updated_at: { $gte: startDate, $lte: endDate } };
+            console.log('🔍 Filtrage entre', startDate, 'et', endDate);
+            query = {
+                $or: [
+                    { updated_at: { $gte: startDate, $lte: endDate } },
+                    { created_at: { $gte: startDate, $lte: endDate } }
+                ]
+            };
+            console.log('🧪 Requête MongoDB :', query);
         }
         const total = await collection.countDocuments(query);
         const prs = await collection.find(query).sort({ updated_at: -1 }).skip(skip).limit(parseInt(limit)).toArray();
-
-        // console.log(` 📥 getPRs appelé avec date=${date}, page=${page}, limit=${limit}`);
 
         res.status(200).json({
             prs,

@@ -176,18 +176,19 @@ const migrateUsersFromPRsInternal = async () => {
         for (const pr of prs) {
 
             const githubUser = pr.user;
-
             let login = githubUser?.login;
 
             // 🔄 Reconstruire le login à partir de githubUrl si absent
             if (!login && githubUser?.githubUrl) {
-                const match = githubUser.githubUrl.match(/github\\.com\/([^\/]+)/);
+                console.log(`🔧 Tentative reconstruction login depuis githubUrl : ${githubUser.githubUrl}`);
+                const match = githubUser.githubUrl.match(/github\.com\/([^\/]+)/);
+                console.log(`🔍 Résultat regex :`, match);
                 if (match) {
                     login = match[1];
                 }
             }
-
             if (!login) {
+                console.log(`🔍 PR sans login détectée :`, pr);
                 console.log(`⚠️ PR #${pr.number} ignorée : utilisateur GitHub invalide`);
                 skippedCount++;
                 continue;

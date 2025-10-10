@@ -65,6 +65,57 @@ async function exportPRsToJson({ enrichWithUsers = false, dateToUse } = {}) {
 
 }
 
+// 📅 Obtenir les dates de début et fin de la semaine précédente
+function getPreviousWeekRange() {
+    const today = new Date();
+    const dayOfWeek = today.getDay(); // 0 = dimanche, 1 = lundi, ...
+    const lastMonday = new Date(today);
+    lastMonday.setDate(today.getDate() - dayOfWeek - 6);
+    lastMonday.setHours(0, 0, 0, 0);
+
+    const lastSunday = new Date(lastMonday);
+    lastSunday.setDate(lastMonday.getDate() + 6);
+    lastSunday.setHours(23, 59, 59, 999);
+
+    return { start: lastMonday, end: lastSunday };
+}
+
+// 📁 Lire tous les fichiers export_prs de la semaine
+function getWeeklyExportFiles(startDate, endDate) {
+    const files = fs.readdirSync(exportFolder);
+    return files.filter(file => {
+        if (!file.startsWith('export_prs_') || !file.endsWith('.json')) return false;
+        const dateStr = file.slice(11, -5); // "YYYY-MM-DD"
+        const fileDate = new Date(dateStr);
+        return fileDate >= startDate && fileDate <= endDate;
+    });
+}
+
+// 🔄 Fusionner les PRs sans doublons
+function mergePRs(files) {
+    const merged = {};
+    files.forEach(file => {
+        const content = JSON.parse(fs.readFileSync(file, 'utf-8'));
+        content.forEach(pr => {
+            if (pr.number) merged[pr.number] = pr;
+        });
+    });
+    return Object.values(merged);
+}
+
+// 📝 Générer le rapport hebdomadaire
+function generateWeeklyReport() {
+    const { start, end } = getPreviousWeekRange();
+    const files = getWeeklyExportFiles(start, end);
+    const mergedPRs = mergePRs(files);
 
 
-module.exports = { exportPRsToJson };
+    const startStr = start.toISOString().slice(0, 10);
+    const endStr = end.toISOString().slice(0, 10);
+    const outputName = `export_prs_hebdo_${startStr}_au_${endStr}.json`;
+    const outputPath = path.join(exportFolder, outputName);
+    fs.writeFileSync(outputPath, JSON.stringify(mergedPRs, null, 2), 'utf-8');
+    console.log(`✅ Rapport hebdomadaire généré : ${outputName}`);
+}
+
+module.exports = { exportPRsToJson, generateWeeklyReport };
