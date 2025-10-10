@@ -27,9 +27,22 @@ app.use(cors());
 app.use('/api', routesUser);
 app.use('/api/github/prs', prRoutes);
 
+app.get('/api/config', (req, res) => {
+  console.log('✅ Route /api/config appelée');
+  const backendPort = process.env.PORT || 3000;
+
+  res.json({
+    apiUrl: `http://localhost:${backendPort}/api/users`,
+    backendPort,
+    dbName: process.env.DB_NAME,
+    githubRepo: process.env.GITHUB_REPO,
+    githubOwner: process.env.GITHUB_OWNER
+  });
+});
 app.get('/api/generate/:date', async (req, res) => {
   const dateStr = req.params.date; // format YYYY-MM-DD
   const force = req.query.force === 'true';
+
 
   try {
     const exportPath = getExportFilePath('export_prs', dateStr);
@@ -49,39 +62,40 @@ app.get('/api/generate/:date', async (req, res) => {
 
 
 function demanderDate(callback) {
-    const rl = readline.createInterface({
-        input: process.stdin,
-        output: process.stdout
-    });
+  const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+  });
 
-    rl.question('📅 Entrez une date (YYYY-MM-DD) ou appuyez sur Entrée pour utiliser la date d’hier : ', (input) => {
-        rl.close();
-        callback(input.trim());
-    });
+  rl.question('📅 Entrez une date (YYYY-MM-DD) ou appuyez sur Entrée pour utiliser la date d’hier : ', (input) => {
+    rl.close();
+    callback(input.trim());
+  });
 }
 
 
 connecter(uri, async (err) => {
-    if (err) {
-        console.error('❌ Failed to connect to the database');
-        process.exit(-1);
-    } else {
-        console.log('✅ Connected to the database');
+  if (err) {
+    console.error('❌ Failed to connect to the database');
+    process.exit(-1);
+  } else {
+    console.log('✅ Connected to the database');
+    // Démarrage du serveur
+    server = app.listen(port, async () => {
+      const backendPort = port;
+      console.log(`✅ Server is running on http://localhost:${backendPort}`);
 
+      // Ouvre le navigateur sur le frontend (live-server)
+      if (process.env.FROM_CONCURRENTLY === 'true') {
+        await open('http://localhost:8080');
+      }
 
-
-        // Démarrage du serveur
-        app.listen(port, async () => {
-            console.log(`Server is running on http://localhost:${port}`);
-            open(`http://localhost:5000`);
-
-            demanderDate(async (inputDate) => {
-                const dateToUse = inputDate || new Date(Date.now() - 86400000).toISOString().split('T')[0];
-                await runStartupTasks(dateToUse, API_URL);
-
-                // Lancement du cron
-                initGithubCron();
-            });
-        });
-    }
+      // Lancement des tâches
+      demanderDate(async (inputDate) => {
+        const dateToUse = inputDate || new Date(Date.now() - 86400000).toISOString().split('T')[0];
+        await runStartupTasks(dateToUse, API_URL);
+        initGithubCron();
+      });
+    });
+  }
 });
