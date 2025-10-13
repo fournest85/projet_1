@@ -13,6 +13,7 @@ const { generateRapportMarkdown } = require('./scripts/generateRapport');
 const { getExportFilePath } = require('./scripts/githubService');
 const fs = require('fs');
 const cors = require('cors');
+const dayjs = require('dayjs');
 
 const app = express();
 
@@ -69,7 +70,13 @@ function demanderDate(callback) {
 
   rl.question('📅 Entrez une date (YYYY-MM-DD) ou appuyez sur Entrée pour utiliser la date d’hier : ', (input) => {
     rl.close();
-    callback(input.trim());
+    
+const rawDate = input.trim();
+    const dateToUse = rawDate
+      ? dayjs(rawDate).format('YYYY-MM-DD')
+      : dayjs().subtract(1, 'day').format('YYYY-MM-DD');
+    callback(dateToUse);
+
   });
 }
 
