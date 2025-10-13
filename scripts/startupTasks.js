@@ -9,13 +9,15 @@ const {
 } = require('./prService');
 const { fetchModifiedPRsFromYesterday } = require('./githubService');
 const { migrateUsersFromPRsInternal } = require('../controller/user');
-const { generateRapportMarkdown } = require("./generateRapport");
-const { exportPRsToJson } = require("./export-prs");
+const { generateRapportMarkdown, generateWeeklyMarkdownReport } = require("./generateRapport");
+const { exportPRsToJson, generateWeeklyReport } = require("./export-prs");
 const limit = 100; // Nombre de PRs par page
 const axios = require('axios');
 
 async function runStartupTasks(inputDate, API_URL) {
     try {
+        const dayjs = require('dayjs');
+        inputDate = dayjs(inputDate).format('YYYY-MM-DD');
         console.log(`🗓️ Démarrage des tâches pour la date : ${inputDate}`);
         console.log('--- [Fetch PRs] ---');
         const message = await fetchAndStorePRsRaw(inputDate);
@@ -82,9 +84,26 @@ async function runStartupTasks(inputDate, API_URL) {
         // Log déplacé à la fin
         console.log(`📥 Traitement terminé pour la date d'analyse : ${inputDate}`);
         await generateRapportMarkdown(inputDate);
+        const startOfWeek = dayjs(inputDate).subtract(dayjs(inputDate).day() - 1, 'day').format('YYYY-MM-DD');
+        const endOfWeek = dayjs(startOfWeek).add(6, 'day').format('YYYY-MM-DD');
+
+        const hebdoJsonPath = path.join(__dirname, `../exports/export_prs_hebdo_${startOfWeek}_au_${endOfWeek}.json`);
+        const hebdoMdPath = path.join(__dirname, `../exports/rapport_hebdo_${startOfWeek}_au_${endOfWeek}.md`);
+
+        if (!fs.existsSync(hebdoJsonPath) || !fs.existsSync(hebdoMdPath)) {
+            console.log('📅 Lundi détecté ou fichiers manquants: génération des rapports hebdomadaires...');
+            await generateWeeklyReport({ enrichWithUsers: true});
+            await generateWeeklyMarkdownReport();
+            console.log('✅ Rapports hebdomadaires générés.');
+        } else {
+            console.log('📁 Rapports hebdomadaires déjà présents. Génération ignorée.');
+        }
     } catch (err) {
         console.error('❌ Erreur dans les tâches de démarrage :', err.stack || err.message || err);
     }
+
+
+
 
 }
 

@@ -1,4 +1,3 @@
-require('dotenv').config();
 const fs = require('fs');
 const path = require('path');
 const { MongoClient } = require('mongodb');
@@ -68,54 +67,99 @@ async function exportPRsToJson({ enrichWithUsers = false, dateToUse } = {}) {
 // 📅 Obtenir les dates de début et fin de la semaine précédente
 function getPreviousWeekRange() {
     const today = new Date();
-    const dayOfWeek = today.getDay(); // 0 = dimanche, 1 = lundi, ...
+    const dayOfWeek = today.getDay(); // 0 = dimanche, 1 = lundi, ..., 6 = samedi
+
+    // Trouver le lundi de la semaine précédente
+    const daysSinceMonday = (dayOfWeek + 6) % 7; // transforme dimanche (0) en 6, lundi (1) en 0, etc.
     const lastMonday = new Date(today);
-    lastMonday.setDate(today.getDate() - dayOfWeek - 6);
+    lastMonday.setDate(today.getDate() - daysSinceMonday - 7); // lundi précédent
     lastMonday.setHours(0, 0, 0, 0);
 
     const lastSunday = new Date(lastMonday);
-    lastSunday.setDate(lastMonday.getDate() + 6);
+    lastSunday.setDate(lastMonday.getDate() + 6); // dimanche suivant
     lastSunday.setHours(23, 59, 59, 999);
 
     return { start: lastMonday, end: lastSunday };
 }
 
+
 // 📁 Lire tous les fichiers export_prs de la semaine
 function getWeeklyExportFiles(startDate, endDate) {
     const files = fs.readdirSync(exportFolder);
-    return files.filter(file => {
+    const filtered = files.filter(file => {
         if (!file.startsWith('export_prs_') || !file.endsWith('.json')) return false;
         const dateStr = file.slice(11, -5); // "YYYY-MM-DD"
-        const fileDate = new Date(dateStr);
+        const [year, month, day] = dateStr.split('-');
+        const fileDate = new Date(`${dateStr}T00:00:00`);
         return fileDate >= startDate && fileDate <= endDate;
     });
+
+    if (filtered.length === 0) {
+        console.warn('⚠️ Aucun fichier export trouvé pour la semaine précédente. Rapport hebdo ignoré.');
+    }
+
+    return filtered;
 }
 
 // 🔄 Fusionner les PRs sans doublons
-function mergePRs(files) {
+function mergePRs(files, startDate, endDate) {
     const merged = {};
+
     files.forEach(file => {
-        const content = JSON.parse(fs.readFileSync(file, 'utf-8'));
-        content.forEach(pr => {
+        const fullPath = path.join(exportFolder, file);
+        if (!fs.existsSync(fullPath)) return;
+        
+        const content = JSON.parse(fs.readFileSync(fullPath, 'utf-8'));
+        
+        const filteredPRs = content.filter(pr => {
+            const createdAt = new Date(pr.created_at);
+            return createdAt >= startDate && createdAt <= endDate;
+        });
+        
+        console.log(`📦 PRs filtrées dans ${file}: ${filteredPRs.length}`);
+
+        filteredPRs.forEach(pr => {
             if (pr.number) merged[pr.number] = pr;
         });
     });
+
     return Object.values(merged);
 }
 
 // 📝 Générer le rapport hebdomadaire
-function generateWeeklyReport() {
-    const { start, end } = getPreviousWeekRange();
-    const files = getWeeklyExportFiles(start, end);
-    const mergedPRs = mergePRs(files);
+async function generateWeeklyReport({ enrichWithUsers = false } = {}) {
+    const client = new MongoClient(uri);
+    try {
+        await client.connect();
+        const db = client.db(dbName);
+        const userCollection = db.collection('users');
 
+        const { start, end } = getPreviousWeekRange();
+        const files = getWeeklyExportFiles(start, end);
+        const mergedPRs = mergePRs(files, start, end);
 
-    const startStr = start.toISOString().slice(0, 10);
-    const endStr = end.toISOString().slice(0, 10);
-    const outputName = `export_prs_hebdo_${startStr}_au_${endStr}.json`;
-    const outputPath = path.join(exportFolder, outputName);
-    fs.writeFileSync(outputPath, JSON.stringify(mergedPRs, null, 2), 'utf-8');
-    console.log(`✅ Rapport hebdomadaire généré : ${outputName}`);
+        let finalPRs = mergedPRs;
+        console.log(`📅 Plage hebdo : ${start.toISOString()} → ${end.toISOString()}`);
+        console.log(`📦 PRs finales dans le rapport : ${finalPRs.length}`);
+
+        if (enrichWithUsers) {
+            const users = await userCollection.find({}).toArray();
+            const usersByGithubId = mapUsersByGithubId(users);
+            finalPRs = enrichPRsWithUsers(mergedPRs, usersByGithubId);
+        }
+
+        const startStr = start.toISOString().slice(0, 10);
+        const endStr = end.toISOString().slice(0, 10);
+        const outputName = `export_prs_hebdo_${startStr}_au_${endStr}.json`;
+        const outputPath = path.join(exportFolder, outputName);
+
+        fs.writeFileSync(outputPath, JSON.stringify(finalPRs, null, 2), 'utf-8');
+        console.log(`✅ Export hebdomadaire ${enrichWithUsers ? 'enrichi ' : ''}généré : ${outputName}`);
+    } catch (err) {
+        console.error('❌ Erreur lors de l’export hebdo :', err.message);
+    } finally {
+        await client.close();
+    }
 }
 
 module.exports = { exportPRsToJson, generateWeeklyReport };

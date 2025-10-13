@@ -1,4 +1,3 @@
-require('dotenv').config();
 const dbUser = require('../bd/connect');
 const { fetchAndStorePRsRaw, updatePRs } = require('../scripts/prService');
 

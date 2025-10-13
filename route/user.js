@@ -1,4 +1,3 @@
-require('dotenv').config();
 
 const express = require("express");
 const { createUser, getAllUsers, getUser, updateUser, deleteUser, migrateUsersFromPRs } = require('../controller/user');
